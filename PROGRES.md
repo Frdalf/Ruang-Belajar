@@ -7,11 +7,41 @@
 ## Status Rubrik
 | Poin rubrik | Anggota 1 (Admin) | Anggota 2 (Mahasiswa) | Anggota 3 (Dosen) |
 |---|---|---|---|
-| Custom function & loop | [x] | [ ] | [ ] |
-| Type & array of objects | [x] | [ ] | [ ] |
-| Inline & external style | [x] | [ ] | [ ] |
+| Custom function & loop | [x] | [x] | [ ] |
+| Type & array of objects | [x] | [x] | [ ] |
+| Inline & external style | [x] | [x] | [ ] |
 
 ---
+
+## [2026-10-03] Anggota 2 (Dilla) – Memasang MahasiswaSection dan Dokumentasi Akhir
+- Dikerjakan: Menambahkan pemanggilan komponen `<MahasiswaSection />` ke dalam `app/index.tsx` menggantikan komentar TODO. Memperbarui status MahasiswaSection di `README.md` dan mencentang semua poin rubrik Anggota 2 di `PROGRES.md`.
+- File diubah: app/index.tsx, README.md, PROGRES.md
+- Poin rubrik yang terpenuhi: semua poin Anggota 2 sudah tercentang.
+- Saran pesan commit: `docs: pasang MahasiswaSection di index dan rapikan dokumentasi Dilla`
+- Belum selesai / langkah berikutnya: PR fitur/mahasiswa ke main (Dilla); Anggota 3 (Dosen) mulai dari branch baru.
+
+---
+
+## [2026-10-03] Anggota 2 (Dilla) – Melengkapi MahasiswaSection dengan Daftar Tugas
+- Dikerjakan: Menambahkan render tugas dengan custom function `renderTugasCard`. Memanfaatkan array `tugasList` dan merendernya dengan `.map()`. Warna status tugas disesuaikan secara dinamis menggunakan `getStatusColor` (menggunakan *switch*). Nilai akan ditampilkan dengan memanfaatkan *ternary operator* jika tugas sudah dinilai.
+- File diubah: components/MahasiswaSection.tsx, PROGRES.md
+- Poin rubrik yang terpenuhi: Custom function & loop (penuh), Type & array of objects (penuh), Inline & external style (penuh)
+- Saran pesan commit: `feat: lengkapi MahasiswaSection dengan daftar tugas mahasiswa`
+- Belum selesai / langkah berikutnya: memasang MahasiswaSection di halaman utama (index.tsx) dan merapikan README
+
+## [2026-10-03] Anggota 2 (Dilla) – Membuat MahasiswaSection (Daftar Kelas)
+- Dikerjakan: Membuat `components/MahasiswaSection.tsx` yang me-return UI statis daftar kelas. Menggunakan custom function `renderKelasCard` yang merender data array `kelasList` melalui metode iterasi `.map()`. Styling menggunakan atribut yang diizinkan (internal/external/inline) tanpa melanggar larangan Modul 1.
+- File diubah: components/MahasiswaSection.tsx, PROGRES.md
+- Poin rubrik yang terpenuhi: Inline & external style (sebagian)
+- Saran pesan commit: `feat: tambah MahasiswaSection dengan daftar kelas`
+- Belum selesai / langkah berikutnya: melengkapi MahasiswaSection dengan daftar tugas
+
+## [2026-10-03] Anggota 2 (Dilla) – Isi data dummy kelas dan tugas
+- Dikerjakan: checkout ke branch `fitur/mahasiswa` dan mengisi array `kelasList` (3 data) dan `tugasList` (3 data) di `constants/data.ts`. Semua nama dosen mematuhi aturan "Dosen Contoh ...".
+- File diubah: constants/data.ts, PROGRES.md
+- Poin rubrik yang terpenuhi: Type & array of objects (sebagian)
+- Saran pesan commit: `feat: tambah data dummy kelas dan tugas di data.ts`
+- Belum selesai / langkah berikutnya: membuat `components/MahasiswaSection.tsx`
 
 ## [2026-10-03] Anggota 1 – Rapikan README (bagian Anggota 1 selesai)
 - Dikerjakan: menghapus tanda "sedang dikerjakan" pada baris AdminSection di README dan menggantinya dengan ringkasan isinya. Penjelasan AdminSection + 5 contoh pertanyaan demo diberikan agent di chat (bahan belajar Farid, tidak di-commit).

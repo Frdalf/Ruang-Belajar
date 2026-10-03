@@ -12,8 +12,56 @@ export const users: User[] = [
   { id: "u7", nama: "Admin Contoh", email: "admin.contoh@example.com", role: "admin" },
 ];
 
-// TODO: diisi Anggota 2
-export const kelasList: Kelas[] = [];
+// Diisi oleh Anggota 2 (Dilla)
+export const kelasList: Kelas[] = [
+  {
+    id: "k1",
+    kode: "TIF101",
+    nama: "Pemrograman Web",
+    dosen: "Dosen Contoh Satu",
+    jumlahMahasiswa: 35,
+    sampul: "https://picsum.photos/seed/web/200/100",
+  },
+  {
+    id: "k2",
+    kode: "TIF102",
+    nama: "Pemrograman Mobile",
+    dosen: "Dosen Contoh Dua",
+    jumlahMahasiswa: 40,
+    sampul: "https://picsum.photos/seed/mobile/200/100",
+  },
+  {
+    id: "k3",
+    kode: "TIF103",
+    nama: "Kecerdasan Buatan",
+    dosen: "Dosen Contoh Tiga",
+    jumlahMahasiswa: 30,
+    sampul: "https://picsum.photos/seed/ai/200/100",
+  },
+];
 
-// TODO: diisi Anggota 2
-export const tugasList: Tugas[] = [];
+// Diisi oleh Anggota 2 (Dilla)
+export const tugasList: Tugas[] = [
+  {
+    id: "t1",
+    kelasId: "k1",
+    judul: "Tugas 1: HTML Dasar",
+    deadline: "2026-10-10",
+    status: "dinilai",
+    nilai: 85,
+  },
+  {
+    id: "t2",
+    kelasId: "k2",
+    judul: "Tugas 1: React Native UI",
+    deadline: "2026-10-15",
+    status: "dikumpulkan",
+  },
+  {
+    id: "t3",
+    kelasId: "k3",
+    judul: "Tugas 1: Search Algorithm",
+    deadline: "2026-10-20",
+    status: "belum",
+  },
+];
