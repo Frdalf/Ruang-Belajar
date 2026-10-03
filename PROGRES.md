@@ -13,10 +13,19 @@
 
 ---
 
+## [2026-10-03] Anggota 2 (Dilla) – Fix: Penyesuaian Ternary Sesuai Modul 1
+- Dikerjakan: Mengubah struktur ternary pada nilai tugas dan gambar kelas agar murni me-return *value* (teks / URL), bukan me-return komponen. Menambahkan custom function `hitungTugas` dengan loop `for` untuk menghitung tugas berstatus "belum" sebagai bahan demo ke asisten lab, serta menghapus style `placeholderImage` yang sudah tidak dipakai.
+- File diubah: components/MahasiswaSection.tsx, PROGRES.md
+- Poin rubrik yang terpenuhi: tetap.
+- Catatan keamanan: tidak ada perubahan dependensi atau data.
+- Saran pesan commit: `fix: ternary MahasiswaSection hanya untuk nilai sesuai Modul 1`
+- Belum selesai / langkah berikutnya: PR fix/mahasiswa-ternary ke main.
+
 ## [2026-10-03] Anggota 2 (Dilla) – Memasang MahasiswaSection dan Dokumentasi Akhir
 - Dikerjakan: Menambahkan pemanggilan komponen `<MahasiswaSection />` ke dalam `app/index.tsx` menggantikan komentar TODO. Memperbarui status MahasiswaSection di `README.md` dan mencentang semua poin rubrik Anggota 2 di `PROGRES.md`.
 - File diubah: app/index.tsx, README.md, PROGRES.md
 - Poin rubrik yang terpenuhi: semua poin Anggota 2 sudah tercentang.
+- Catatan keamanan: tidak ada perubahan pada dependensi atau data, hanya merakit komponen.
 - Saran pesan commit: `docs: pasang MahasiswaSection di index dan rapikan dokumentasi Dilla`
 - Belum selesai / langkah berikutnya: PR fitur/mahasiswa ke main (Dilla); Anggota 3 (Dosen) mulai dari branch baru.
 
@@ -26,6 +35,7 @@
 - Dikerjakan: Menambahkan render tugas dengan custom function `renderTugasCard`. Memanfaatkan array `tugasList` dan merendernya dengan `.map()`. Warna status tugas disesuaikan secara dinamis menggunakan `getStatusColor` (menggunakan *switch*). Nilai akan ditampilkan dengan memanfaatkan *ternary operator* jika tugas sudah dinilai.
 - File diubah: components/MahasiswaSection.tsx, PROGRES.md
 - Poin rubrik yang terpenuhi: Custom function & loop (penuh), Type & array of objects (penuh), Inline & external style (penuh)
+- Catatan keamanan: tidak menambahkan package baru, komponen murni statis.
 - Saran pesan commit: `feat: lengkapi MahasiswaSection dengan daftar tugas mahasiswa`
 - Belum selesai / langkah berikutnya: memasang MahasiswaSection di halaman utama (index.tsx) dan merapikan README
 
@@ -33,6 +43,7 @@
 - Dikerjakan: Membuat `components/MahasiswaSection.tsx` yang me-return UI statis daftar kelas. Menggunakan custom function `renderKelasCard` yang merender data array `kelasList` melalui metode iterasi `.map()`. Styling menggunakan atribut yang diizinkan (internal/external/inline) tanpa melanggar larangan Modul 1.
 - File diubah: components/MahasiswaSection.tsx, PROGRES.md
 - Poin rubrik yang terpenuhi: Inline & external style (sebagian)
+- Catatan keamanan: murni UI statis, tidak ada fungsi berbahaya.
 - Saran pesan commit: `feat: tambah MahasiswaSection dengan daftar kelas`
 - Belum selesai / langkah berikutnya: melengkapi MahasiswaSection dengan daftar tugas
 
@@ -40,6 +51,7 @@
 - Dikerjakan: checkout ke branch `fitur/mahasiswa` dan mengisi array `kelasList` (3 data) dan `tugasList` (3 data) di `constants/data.ts`. Semua nama dosen mematuhi aturan "Dosen Contoh ...".
 - File diubah: constants/data.ts, PROGRES.md
 - Poin rubrik yang terpenuhi: Type & array of objects (sebagian)
+- Catatan keamanan: nama dosen dan URL gambar memakai data fiktif yang aman, tidak memakai package baru.
 - Saran pesan commit: `feat: tambah data dummy kelas dan tugas di data.ts`
 - Belum selesai / langkah berikutnya: membuat `components/MahasiswaSection.tsx`
 
