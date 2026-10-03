@@ -3,7 +3,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { colors, styles } from "../constants/styles"; // external style
 import AdminSection from "../components/AdminSection";
 import MahasiswaSection from "../components/MahasiswaSection";
-// TODO Anggota 3: import DosenSection from "../components/DosenSection";
+import DosenSection from "../components/DosenSection";
 
 export default function Index() {
   return (
@@ -18,7 +18,7 @@ export default function Index() {
 
       <MahasiswaSection />
 
-      {/* TODO Anggota 3: pasang <DosenSection /> di sini */}
+      <DosenSection />
 
       <AdminSection />
     </ScrollView>
