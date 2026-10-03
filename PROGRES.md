@@ -11,11 +11,19 @@
 
 ---
 
+## [2026-10-03] Anggota 1 – README.md versi awal (fondasi)
+- Dikerjakan: README berisi deskripsi, cara menjalankan, langkah pertama anggota lain setelah merge, struktur folder, kepemilikan file, ringkasan types/styles/data, aturan data dummy, batas materi, aturan keamanan, konvensi Git. AdminSection & index.tsx ditandai "sedang dikerjakan Anggota 1". Koreksi: kelasList & tugasList diisi Anggota 2 (Anggota 3 hanya memakai).
+- File diubah: README.md, PROGRES.md
+- Poin rubrik yang terpenuhi: – (dokumentasi)
+- Catatan keamanan: README mencatat aturan data fiktif, larangan secret, dan `npm install` tanpa flag.
+- Saran pesan commit: `docs: tambah README fondasi project`
+- Belum selesai / langkah berikutnya: push + PR fondasi ke main (Farid), lalu components/AdminSection.tsx
+
 ## [2026-10-03] Anggota 1 – Data dummy constants/data.ts
 - Dikerjakan: array `users: User[]` berisi 7 user fiktif (4 mahasiswa dengan NIM, 2 dosen, 1 admin tanpa NIM). `kelasList: Kelas[]` dan `tugasList: Tugas[]` dibuat kosong dengan komentar `// TODO: diisi Anggota 2`. `tsc --noEmit` lolos.
 - File diubah: constants/data.ts, PROGRES.md
 - Poin rubrik yang terpenuhi: Type & array of objects (users)
-- Catatan keamanan: semua nama/NIM/email fiktif (NIM 2099000000000xx, angkatan 2099 yang tidak mungkin ada, email @example.com). Dosen & admin memakai nama yang jelas dummy ("Dosen Contoh Satu", "Dosen Contoh Dua", "Admin Contoh", email dosen.satu@ / dosen.dua@ / admin.contoh@example.com) agar tidak mungkin sama dengan dosen UMM atau penulis modul. ATURAN: nama dosen ke depan (termasuk kelasList) wajib pola "Dosen Contoh ..." (akan dicatat di README).
+- Catatan keamanan: semua nama/NIM/email fiktif (NIM 2099000000000xx, angkatan 2099 yang tidak mungkin ada, email @example.com). Dosen & admin memakai nama yang jelas dummy ("Dosen Contoh Satu", "Dosen Contoh Dua", "Admin Contoh", email dosen.satu@ / dosen.dua@ / admin.contoh@example.com) agar tidak mungkin sama dengan dosen UMM atau penulis modul. ATURAN: semua nama dosen di data dummy memakai pola "Dosen Contoh ...", siapa pun yang mengisinya (termasuk kelasList yang diisi Anggota 2 dan dipakai Anggota 3 di DosenSection).
 - Saran pesan commit: `feat: tambah data dummy users di constants/data.ts`
 - Belum selesai / langkah berikutnya: README.md versi awal (fondasi)
 
