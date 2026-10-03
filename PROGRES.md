@@ -13,6 +13,14 @@
 
 ---
 
+## [2026-10-03] Anggota 1 – Halaman utama app/index.tsx
+- Dikerjakan: ScrollView sebagai root (`styles.container`), header berisi ikon Ionicons "school", judul "UMM Class", dan subjudul (internal style `indexStyles`), memasang `<AdminSection />`, serta komentar TODO tempat import & pemasangan MahasiswaSection (Anggota 2) dan DosenSection (Anggota 3) — file mereka tidak di-import supaya aplikasi tetap jalan. README: aturan atribut style diubah menjadi "ada di Tabel 3.1.1 ATAU muncul di contoh kode modul" (label "pengecualian sementara" dihapus) dan baris index.tsx diperbarui. README juga mencatat: "Project memakai app/ di root (template blank-typescript), bukan src/app." (tidak dipindah ke src/app; constants/ & components/ tetap di root). `tsc --noEmit` lolos.
+- File diubah: app/index.tsx, README.md, PROGRES.md
+- Poin rubrik yang terpenuhi: Inline & external style (external `styles.container` + internal `indexStyles`)
+- Catatan keamanan: tidak ada data/package baru.
+- Saran pesan commit: `feat: tambah halaman utama index.tsx dengan header dan AdminSection`
+- Belum selesai / langkah berikutnya: tes tampilan di HP (Farid, `npx expo start --go`), lalu penjelasan AdminSection + 5 contoh pertanyaan demo
+
 ## [2026-10-03] Anggota 1 – Sesuaikan sintaks dengan Modul 1 (hasil audit)
 - Dikerjakan: `getRoleColor` memakai pola switch hlm. 30 (`let warna` + `break`, `return` di akhir); return type `: string`/`: number` dipertahankan (hlm. 44, `getGrade(score: number): string`); `handleKelolaUser` tanpa `: void` (hlm. 32); NIM ditampilkan `{user.nim ? user.nim : "-"}`; atribut style di luar tabel modul dihapus (flexDirection, flexWrap, gap, alignSelf, paddingVertical/Horizontal, marginVertical, marginRight) — badge dibatasi `width: 90`, kartu statistik bertumpuk ke bawah, nama & badge bertumpuk, ikon tombol di atas teks. styles.ts (`badge`, `button`) ikut disesuaikan. README mencatat daftar atribut style yang boleh. `tsc --noEmit` lolos.
 - File diubah: components/AdminSection.tsx, constants/styles.ts, README.md, PROGRES.md
