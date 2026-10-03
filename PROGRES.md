@@ -13,6 +13,13 @@
 
 ---
 
+## [2026-10-03] Anggota 2 (Dilla) – Membuat MahasiswaSection (Daftar Kelas)
+- Dikerjakan: Membuat `components/MahasiswaSection.tsx` yang me-return UI statis daftar kelas. Menggunakan custom function `renderKelasCard` yang merender data array `kelasList` melalui metode iterasi `.map()`. Styling menggunakan atribut yang diizinkan (internal/external/inline) tanpa melanggar larangan Modul 1.
+- File diubah: components/MahasiswaSection.tsx, PROGRES.md
+- Poin rubrik yang terpenuhi: Inline & external style (sebagian)
+- Saran pesan commit: `feat: tambah MahasiswaSection dengan daftar kelas`
+- Belum selesai / langkah berikutnya: melengkapi MahasiswaSection dengan daftar tugas
+
 ## [2026-10-03] Anggota 2 (Dilla) – Isi data dummy kelas dan tugas
 - Dikerjakan: checkout ke branch `fitur/mahasiswa` dan mengisi array `kelasList` (3 data) dan `tugasList` (3 data) di `constants/data.ts`. Semua nama dosen mematuhi aturan "Dosen Contoh ...".
 - File diubah: constants/data.ts, PROGRES.md
