@@ -28,10 +28,12 @@ git checkout -b fitur/dosen     # Anggota 3
 ```
 
 ## Struktur folder
+Project memakai app/ di root (template blank-typescript), bukan src/app.
+
 | File | Fungsi |
 |---|---|
-| `app/index.tsx` | Halaman utama: ScrollView, header, memasang ketiga section *(sedang dikerjakan Anggota 1)* |
-| `components/AdminSection.tsx` | Section admin: statistik & daftar user *(sedang dikerjakan Anggota 1)* |
+| `app/index.tsx` | Halaman utama: ScrollView root, header (ikon + judul), memasang AdminSection; ada komentar TODO tempat MahasiswaSection & DosenSection |
+| `components/AdminSection.tsx` | Section admin: kartu statistik per role (loop `for`) & daftar user (`.map()`), badge role (switch + inline style), tombol Kelola User (Alert) |
 | `components/MahasiswaSection.tsx` | Section mahasiswa (Anggota 2, belum dibuat) |
 | `components/DosenSection.tsx` | Section dosen (Anggota 3, belum dibuat) |
 | `constants/types.ts` | Kontrak data (type & interface) |
@@ -77,6 +79,9 @@ Aturan data dummy (wajib, siapa pun yang mengisi):
 - Gambar: asset lokal di `assets/` atau URL `https://picsum.photos/...` saja
 
 ## Batas materi Modul 1
+> **ATURAN KETAT:** hanya gunakan sintaks yang ADA CONTOHNYA di Modul 1. Jika tidak ada di modul, jangan dipakai walaupun benar secara React Native (contoh: style array `style={[a, b]}`, `.map(namaFungsi)` → tulis `.map((item) => namaFungsi(item))`).
+> **Atribut style** boleh dipakai jika ada di Tabel 3.1.1 modul (hlm. 14–15: backgroundColor, color, fontSize, fontWeight, padding, margin, marginTop, paddingTop, borderRadius, width, height, alignItems, justifyContent, flex, textAlign, elevation, shadowColor) ATAU muncul di contoh kode modul (mis. marginBottom, borderWidth, borderColor di hlm. 14, 16, 18, 19–20). Tidak boleh: flexDirection, flexWrap, gap, alignSelf, paddingVertical/Horizontal, marginVertical/Horizontal, marginRight/Left.
+
 **Boleh:** View, Text, Image, TextInput, Button, Pressable, ScrollView, FlatList,
 `Alert.alert()`, ikon `@expo/vector-icons` (Ionicons / MaterialCommunityIcons);
 style internal/external/inline (termasuk inline dinamis dengan ternary); const/let
