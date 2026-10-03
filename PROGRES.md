@@ -13,6 +13,13 @@
 
 ---
 
+## [2026-10-03] Anggota 2 (Dilla) – Isi data dummy kelas dan tugas
+- Dikerjakan: checkout ke branch `fitur/mahasiswa` dan mengisi array `kelasList` (3 data) dan `tugasList` (3 data) di `constants/data.ts`. Semua nama dosen mematuhi aturan "Dosen Contoh ...".
+- File diubah: constants/data.ts, PROGRES.md
+- Poin rubrik yang terpenuhi: Type & array of objects (sebagian)
+- Saran pesan commit: `feat: tambah data dummy kelas dan tugas di data.ts`
+- Belum selesai / langkah berikutnya: membuat `components/MahasiswaSection.tsx`
+
 ## [2026-10-03] Anggota 1 – Rapikan README (bagian Anggota 1 selesai)
 - Dikerjakan: menghapus tanda "sedang dikerjakan" pada baris AdminSection di README dan menggantinya dengan ringkasan isinya. Penjelasan AdminSection + 5 contoh pertanyaan demo diberikan agent di chat (bahan belajar Farid, tidak di-commit).
 - File diubah: README.md, PROGRES.md
