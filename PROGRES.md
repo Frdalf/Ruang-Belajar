@@ -11,6 +11,14 @@
 
 ---
 
+## [2026-10-03] Anggota 1 – Kontrak data constants/types.ts
+- Dikerjakan: membuat type `Role`, `StatusTugas` (union type) dan interface `User`, `Kelas`, `Tugas` (readonly id, properti opsional `?`) sebagai kontrak untuk Anggota 2 & 3. `npx tsc --noEmit` lolos.
+- File diubah: constants/types.ts, PROGRES.md
+- Poin rubrik yang terpenuhi: Type (sebagian; array of objects menyusul di data.ts)
+- Catatan keamanan: tidak ada data/secret. Keputusan ikon: opsi B (tanpa ikon dulu; tempat ikon disiapkan di header saat membuat index.tsx). package.json tidak diubah.
+- Saran pesan commit: `feat: tambah kontrak data di constants/types.ts`
+- Belum selesai / langkah berikutnya: constants/styles.ts
+
 ## [2026-10-03] Anggota 1 – Lengkapi .gitignore
 - Dikerjakan: menambahkan pola `.env*` dan `*.keystore` ke .gitignore; ke-12 pola wajib (node_modules/, .expo/, dist/, web-build/, .env*, *.keystore, *.jks, *.p8, *.p12, *.key, *.mobileprovision, .DS_Store) sudah dicek ada.
 - File diubah: .gitignore, PROGRES.md
