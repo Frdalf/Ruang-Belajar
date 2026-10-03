@@ -7,11 +7,19 @@
 ## Status Rubrik
 | Poin rubrik | Anggota 1 (Admin) | Anggota 2 (Mahasiswa) | Anggota 3 (Dosen) |
 |---|---|---|---|
-| Custom function & loop | [x] | [x] | [ ] |
-| Type & array of objects | [x] | [x] | [ ] |
-| Inline & external style | [x] | [x] | [ ] |
+| Custom function & loop | [x] | [x] | [x] |
+| Type & array of objects | [x] | [x] | [x] |
+| Inline & external style | [x] | [x] | [x] |
 
 ---
+
+## [2026-10-03] Anggota 3 – Selesaikan DosenSection
+- Dikerjakan: Membuat `components/DosenSection.tsx` yang menampilkan ringkasan kelas (menghitung total mahasiswa dengan `for` loop di dalam fungsi `hitungTotalMahasiswa`) dan merender daftar kelas menggunakan `.map()` dengan fungsi custom `renderKelasCard()`. Styling memadukan external styles (`styles.card`, `colors`), internal styles (`dosenStyles`), dan inline styles. Memanggil `Alert.alert` saat tombol ditekan. Mengimpor dan memasang `DosenSection` di `app/index.tsx`.
+- File diubah: `app/index.tsx`, `components/DosenSection.tsx`, `PROGRES.md`
+- Poin rubrik yang terpenuhi: Custom function & loop, Type & array of objects, Inline & external style (Semua poin Anggota 3 selesai).
+- Catatan keamanan: Tidak menggunakan hooks, array methods yang dilarang (hanya `map`), dan gaya CSS yang dilarang. Semua sesuai batasan Modul 1.
+- Saran pesan commit: `feat: selesaikan DosenSection dan gabungkan ke halaman utama`
+- Belum selesai / langkah berikutnya: Menunggu Anggota 2 (Mahasiswa) melengkapi data dummy di `kelasList` dan `tugasList` agar data kelas muncul di layar Dosen.
 
 ## [2026-10-03] Anggota 2 (Dilla) – Fix: Penyesuaian Ternary Sesuai Modul 1
 - Dikerjakan: Mengubah struktur ternary pada nilai tugas dan gambar kelas agar murni me-return *value* (teks / URL), bukan me-return komponen. Menambahkan custom function `hitungTugas` dengan loop `for` untuk menghitung tugas berstatus "belum" sebagai bahan demo ke asisten lab, serta menghapus style `placeholderImage` yang sudah tidak dipakai.
