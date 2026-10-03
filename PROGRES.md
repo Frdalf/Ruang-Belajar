@@ -11,6 +11,14 @@
 
 ---
 
+## [2026-10-03] Anggota 1 – Tambah react-dom & @expo/vector-icons
+- Dikerjakan: Farid menjalankan `npx expo install react-dom @expo/vector-icons` (react-dom dipasang langsung agar versinya cocok dengan react, menghilangkan bentrok ERESOLVE). Verifikasi: react-dom 19.2.3 (satu versi, sama dengan react 19.2.3), @expo/vector-icons ^15.0.2, `expo install --check` up to date, `tsc --noEmit` lolos.
+- File diubah: package.json, package-lock.json, PROGRES.md
+- Poin rubrik yang terpenuhi: – (dependensi ikon siap dipakai)
+- Catatan keamanan: `npm audit` tetap 29 temuan (10 moderate, 19 high), paket akar sama seperti sebelumnya (braces, decode-uri-component, node-forge, uuid); tidak ada temuan baru. Audit fix TIDAK dijalankan. Anggota lain cukup `npm install` biasa setelah pull, tanpa flag tambahan.
+- Saran pesan commit: `chore: tambah react-dom dan @expo/vector-icons`
+- Belum selesai / langkah berikutnya: constants/styles.ts
+
 ## [2026-10-03] Anggota 1 – Kontrak data constants/types.ts
 - Dikerjakan: membuat type `Role`, `StatusTugas` (union type) dan interface `User`, `Kelas`, `Tugas` (readonly id, properti opsional `?`) sebagai kontrak untuk Anggota 2 & 3. `npx tsc --noEmit` lolos.
 - File diubah: constants/types.ts, PROGRES.md
