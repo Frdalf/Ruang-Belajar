@@ -1,8 +1,53 @@
 import { Alert, Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { colors, styles } from "../constants/styles";
-import { kelasList } from "../constants/data";
-import { Kelas } from "../constants/types";
+import { kelasList, tugasList } from "../constants/data";
+import { Kelas, Tugas, StatusTugas } from "../constants/types";
+
+// Custom function: menentukan warna status tugas menggunakan switch
+function getStatusColor(status: StatusTugas): string {
+  let warna: string = colors.textMuted;
+  switch (status) {
+    case "belum":
+      warna = colors.admin; // merah
+      break;
+    case "dikumpulkan":
+      warna = colors.accent; // kuning/oranye
+      break;
+    case "dinilai":
+      warna = colors.dosen; // hijau
+      break;
+    default:
+      warna = colors.textMuted;
+  }
+  return warna;
+}
+
+// Custom function yang me-return komponen: satu kartu tugas
+const renderTugasCard = (tugas: Tugas) => (
+  <View key={tugas.id} style={styles.card}>
+    <Text style={mhsStyles.tugasJudul}>{tugas.judul}</Text>
+    <Text style={mhsStyles.tugasDeadline}>Deadline: {tugas.deadline}</Text>
+    
+    <View
+      style={{
+        backgroundColor: getStatusColor(tugas.status),
+        padding: 4,
+        borderRadius: 12,
+        width: 100,
+        alignItems: "center",
+        marginTop: 8,
+      }}
+    >
+      <Text style={styles.badgeText}>{tugas.status}</Text>
+    </View>
+
+    {/* Ternary: tampilkan nilai jika tugas sudah dinilai dan memiliki nilai */}
+    {tugas.nilai ? (
+      <Text style={mhsStyles.tugasNilai}>Nilai: {tugas.nilai}/100</Text>
+    ) : null}
+  </View>
+);
 
 // Custom function yang me-return komponen: satu kartu kelas
 const renderKelasCard = (kelas: Kelas) => (
@@ -40,7 +85,6 @@ export default function MahasiswaSection() {
       <Text style={styles.subtitle}>Kelas yang sedang Anda ikuti</Text>
 
       <Text style={mhsStyles.listTitle}>Daftar Kelas</Text>
-      
       {/* .map(): iterasi daftar kelas menjadi kartu kelas */}
       {kelasList.map((kelas) => renderKelasCard(kelas))}
 
@@ -48,6 +92,10 @@ export default function MahasiswaSection() {
         <Ionicons name="add-circle" size={18} color={colors.primary} />
         <Text style={styles.buttonText}>Daftar Kelas Baru</Text>
       </Pressable>
+
+      <Text style={mhsStyles.listTitle}>Tugas Mendatang</Text>
+      {/* .map(): iterasi daftar tugas menjadi kartu tugas */}
+      {tugasList.map((tugas) => renderTugasCard(tugas))}
     </View>
   );
 }
@@ -58,7 +106,7 @@ const mhsStyles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     color: colors.text,
-    marginTop: 8,
+    marginTop: 16,
     marginBottom: 8,
   },
   imageKelas: {
@@ -99,5 +147,21 @@ const mhsStyles = StyleSheet.create({
   kelasPeserta: {
     fontSize: 13,
     color: colors.textMuted,
+  },
+  tugasJudul: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: colors.primary,
+    marginBottom: 4,
+  },
+  tugasDeadline: {
+    fontSize: 13,
+    color: colors.text,
+  },
+  tugasNilai: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: colors.primary,
+    marginTop: 8,
   },
 });

@@ -13,6 +13,13 @@
 
 ---
 
+## [2026-10-03] Anggota 2 (Dilla) – Melengkapi MahasiswaSection dengan Daftar Tugas
+- Dikerjakan: Menambahkan render tugas dengan custom function `renderTugasCard`. Memanfaatkan array `tugasList` dan merendernya dengan `.map()`. Warna status tugas disesuaikan secara dinamis menggunakan `getStatusColor` (menggunakan *switch*). Nilai akan ditampilkan dengan memanfaatkan *ternary operator* jika tugas sudah dinilai.
+- File diubah: components/MahasiswaSection.tsx, PROGRES.md
+- Poin rubrik yang terpenuhi: Custom function & loop (penuh), Type & array of objects (penuh), Inline & external style (penuh)
+- Saran pesan commit: `feat: lengkapi MahasiswaSection dengan daftar tugas mahasiswa`
+- Belum selesai / langkah berikutnya: memasang MahasiswaSection di halaman utama (index.tsx) dan merapikan README
+
 ## [2026-10-03] Anggota 2 (Dilla) – Membuat MahasiswaSection (Daftar Kelas)
 - Dikerjakan: Membuat `components/MahasiswaSection.tsx` yang me-return UI statis daftar kelas. Menggunakan custom function `renderKelasCard` yang merender data array `kelasList` melalui metode iterasi `.map()`. Styling menggunakan atribut yang diizinkan (internal/external/inline) tanpa melanggar larangan Modul 1.
 - File diubah: components/MahasiswaSection.tsx, PROGRES.md
