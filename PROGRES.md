@@ -7,9 +7,18 @@
 ## Status Rubrik
 | Poin rubrik | Anggota 1 (Admin) | Anggota 2 (Mahasiswa) | Anggota 3 (Dosen) |
 |---|---|---|---|
-| Custom function & loop | [x] | [ ] | [ ] |
-| Type & array of objects | [x] | [ ] | [ ] |
-| Inline & external style | [x] | [ ] | [ ] |
+| Custom function & loop | [x] | [x] | [ ] |
+| Type & array of objects | [x] | [x] | [ ] |
+| Inline & external style | [x] | [x] | [ ] |
+
+---
+
+## [2026-10-03] Anggota 2 (Dilla) – Memasang MahasiswaSection dan Dokumentasi Akhir
+- Dikerjakan: Menambahkan pemanggilan komponen `<MahasiswaSection />` ke dalam `app/index.tsx` menggantikan komentar TODO. Memperbarui status MahasiswaSection di `README.md` dan mencentang semua poin rubrik Anggota 2 di `PROGRES.md`.
+- File diubah: app/index.tsx, README.md, PROGRES.md
+- Poin rubrik yang terpenuhi: semua poin Anggota 2 sudah tercentang.
+- Saran pesan commit: `docs: pasang MahasiswaSection di index dan rapikan dokumentasi Dilla`
+- Belum selesai / langkah berikutnya: PR fitur/mahasiswa ke main (Dilla); Anggota 3 (Dosen) mulai dari branch baru.
 
 ---
 

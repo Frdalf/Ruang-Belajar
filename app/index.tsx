@@ -2,7 +2,7 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { colors, styles } from "../constants/styles"; // external style
 import AdminSection from "../components/AdminSection";
-// TODO Anggota 2: import MahasiswaSection from "../components/MahasiswaSection";
+import MahasiswaSection from "../components/MahasiswaSection";
 // TODO Anggota 3: import DosenSection from "../components/DosenSection";
 
 export default function Index() {
@@ -16,7 +16,7 @@ export default function Index() {
         <Text style={indexStyles.headerSubtitle}>Ruang kelas online mahasiswa UMM</Text>
       </View>
 
-      {/* TODO Anggota 2: pasang <MahasiswaSection /> di sini */}
+      <MahasiswaSection />
 
       {/* TODO Anggota 3: pasang <DosenSection /> di sini */}
 

@@ -32,9 +32,9 @@ Project memakai app/ di root (template blank-typescript), bukan src/app.
 
 | File | Fungsi |
 |---|---|
-| `app/index.tsx` | Halaman utama: ScrollView root, header (ikon + judul), memasang AdminSection; ada komentar TODO tempat MahasiswaSection & DosenSection |
+| `app/index.tsx` | Halaman utama: ScrollView root, header (ikon + judul), memasang MahasiswaSection dan AdminSection; ada komentar TODO tempat DosenSection |
 | `components/AdminSection.tsx` | Section admin: kartu statistik per role (loop `for`) & daftar user (`.map()`), badge role (switch + inline style), tombol Kelola User (Alert) |
-| `components/MahasiswaSection.tsx` | Section mahasiswa (Anggota 2, belum dibuat) |
+| `components/MahasiswaSection.tsx` | Section mahasiswa: daftar kelas dan tugas mendatang, memakai custom function, loop `.map()`, dan ternary operator |
 | `components/DosenSection.tsx` | Section dosen (Anggota 3, belum dibuat) |
 | `constants/types.ts` | Kontrak data (type & interface) |
 | `constants/styles.ts` | External style bersama + objek `colors` |
