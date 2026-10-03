@@ -15,7 +15,7 @@
 - Dikerjakan: array `users: User[]` berisi 7 user fiktif (4 mahasiswa dengan NIM, 2 dosen, 1 admin tanpa NIM). `kelasList: Kelas[]` dan `tugasList: Tugas[]` dibuat kosong dengan komentar `// TODO: diisi Anggota 2`. `tsc --noEmit` lolos.
 - File diubah: constants/data.ts, PROGRES.md
 - Poin rubrik yang terpenuhi: Type & array of objects (users)
-- Catatan keamanan: semua nama/NIM/email fiktif (NIM 2099000000000xx, angkatan 2099 yang tidak mungkin ada, email @example.com); tidak ada nama dosen/mahasiswa UMM asli.
+- Catatan keamanan: semua nama/NIM/email fiktif (NIM 2099000000000xx, angkatan 2099 yang tidak mungkin ada, email @example.com). Dosen & admin memakai nama yang jelas dummy ("Dosen Contoh Satu", "Dosen Contoh Dua", "Admin Contoh", email dosen.satu@ / dosen.dua@ / admin.contoh@example.com) agar tidak mungkin sama dengan dosen UMM atau penulis modul. ATURAN: nama dosen ke depan (termasuk kelasList) wajib pola "Dosen Contoh ..." (akan dicatat di README).
 - Saran pesan commit: `feat: tambah data dummy users di constants/data.ts`
 - Belum selesai / langkah berikutnya: README.md versi awal (fondasi)
 
