@@ -11,6 +11,14 @@
 
 ---
 
+## [2026-10-03] Anggota 1 – Lengkapi .gitignore
+- Dikerjakan: menambahkan pola `.env*` dan `*.keystore` ke .gitignore; ke-12 pola wajib (node_modules/, .expo/, dist/, web-build/, .env*, *.keystore, *.jks, *.p8, *.p12, *.key, *.mobileprovision, .DS_Store) sudah dicek ada.
+- File diubah: .gitignore, PROGRES.md
+- Poin rubrik yang terpenuhi: – (keamanan repo)
+- Catatan keamanan: 29 temuan `npm audit` (10 moderate, 19 high) SUDAH ADA DARI TEMPLATE Expo, bukan karena perubahan kita. `npm audit fix` / `--force` TIDAK dijalankan. Install `@expo/vector-icons` gagal (ERESOLVE, bentrok peer react-dom@19.3.0 vs react@19.2.3); package.json & package-lock.json tidak berubah. `npx expo install --check`: semua dependensi sudah sesuai SDK.
+- Saran pesan commit: `chore: lengkapi .gitignore untuk file sensitif`
+- Belum selesai / langkah berikutnya: keputusan soal ikon, lalu constants/types.ts
+
 ## [2026-10-03] Anggota 1 – Setup project Expo + Expo Router
 - Dikerjakan: membuat project dari template `blank-typescript` (Expo SDK 57), memasang expo-router dan dependensinya lewat `npx expo install`, lalu mengubah `main` di package.json menjadi `expo-router/entry` dan menambahkan `scheme` di app.json.
 - File diubah: package.json, package-lock.json, app.json, tsconfig.json, .gitignore (bawaan template), assets/
