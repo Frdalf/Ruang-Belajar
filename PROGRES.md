@@ -11,6 +11,14 @@
 
 ---
 
+## [2026-10-03] Anggota 1 – External style bersama constants/styles.ts
+- Dikerjakan: membuat objek `colors` (primary biru tua, accent oranye/kuning, background, card, text, textMuted, border, white, mahasiswa, dosen, admin) dan `styles` (container, card, sectionTitle, subtitle, button, buttonText, badge, badgeText) dengan StyleSheet.create. Tidak ada style khusus admin. `tsc --noEmit` lolos.
+- File diubah: constants/styles.ts, PROGRES.md
+- Poin rubrik yang terpenuhi: External style (disiapkan; dipakai di AdminSection)
+- Catatan keamanan: tidak ada data/secret, tidak ada package baru.
+- Saran pesan commit: `style: tambah external style dan warna tema di constants/styles.ts`
+- Belum selesai / langkah berikutnya: constants/data.ts (array users)
+
 ## [2026-10-03] Anggota 1 – Tambah react-dom & @expo/vector-icons
 - Dikerjakan: Farid menjalankan `npx expo install react-dom @expo/vector-icons` (react-dom dipasang langsung agar versinya cocok dengan react, menghilangkan bentrok ERESOLVE). Verifikasi: react-dom 19.2.3 (satu versi, sama dengan react 19.2.3), @expo/vector-icons ^15.0.2, `expo install --check` up to date, `tsc --noEmit` lolos.
 - File diubah: package.json, package-lock.json, PROGRES.md
