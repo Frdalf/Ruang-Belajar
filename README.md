@@ -33,7 +33,7 @@ Project memakai app/ di root (template blank-typescript), bukan src/app.
 | File | Fungsi |
 |---|---|
 | `app/index.tsx` | Halaman utama: ScrollView root, header (ikon + judul), memasang AdminSection; ada komentar TODO tempat MahasiswaSection & DosenSection |
-| `components/AdminSection.tsx` | Section admin: statistik & daftar user *(sedang dikerjakan Anggota 1)* |
+| `components/AdminSection.tsx` | Section admin: kartu statistik per role (loop `for`) & daftar user (`.map()`), badge role (switch + inline style), tombol Kelola User (Alert) |
 | `components/MahasiswaSection.tsx` | Section mahasiswa (Anggota 2, belum dibuat) |
 | `components/DosenSection.tsx` | Section dosen (Anggota 3, belum dibuat) |
 | `constants/types.ts` | Kontrak data (type & interface) |

@@ -13,6 +13,14 @@
 
 ---
 
+## [2026-10-03] Anggota 1 – Rapikan README (bagian Anggota 1 selesai)
+- Dikerjakan: menghapus tanda "sedang dikerjakan" pada baris AdminSection di README dan menggantinya dengan ringkasan isinya. Penjelasan AdminSection + 5 contoh pertanyaan demo diberikan agent di chat (bahan belajar Farid, tidak di-commit).
+- File diubah: README.md, PROGRES.md
+- Poin rubrik yang terpenuhi: semua poin Anggota 1 sudah tercentang
+- Catatan keamanan: tidak ada perubahan kode/data/package.
+- Saran pesan commit: `docs: rapikan README setelah AdminSection selesai`
+- Belum selesai / langkah berikutnya: PR fitur/admin ke main (Farid); Anggota 2 & 3 mulai dari README
+
 ## [2026-10-03] Anggota 1 – Halaman utama app/index.tsx
 - Dikerjakan: ScrollView sebagai root (`styles.container`), header berisi ikon Ionicons "school", judul "UMM Class", dan subjudul (internal style `indexStyles`), memasang `<AdminSection />`, serta komentar TODO tempat import & pemasangan MahasiswaSection (Anggota 2) dan DosenSection (Anggota 3) — file mereka tidak di-import supaya aplikasi tetap jalan. README: aturan atribut style diubah menjadi "ada di Tabel 3.1.1 ATAU muncul di contoh kode modul" (label "pengecualian sementara" dihapus) dan baris index.tsx diperbarui. README juga mencatat: "Project memakai app/ di root (template blank-typescript), bukan src/app." (tidak dipindah ke src/app; constants/ & components/ tetap di root). `tsc --noEmit` lolos.
 - File diubah: app/index.tsx, README.md, PROGRES.md
