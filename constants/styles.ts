@@ -49,8 +49,7 @@ export const styles = StyleSheet.create({
   // Tombol utama (dipakai dengan Pressable)
   button: {
     backgroundColor: colors.accent,
-    paddingVertical: 12,
-    paddingHorizontal: 16,
+    padding: 12,
     borderRadius: 8,
     alignItems: "center",
   },
@@ -61,10 +60,10 @@ export const styles = StyleSheet.create({
   },
   // Label kecil (misalnya role/status). Warna latar diatur lewat inline style
   badge: {
-    alignSelf: "flex-start",
-    paddingVertical: 4,
-    paddingHorizontal: 10,
-    borderRadius: 999,
+    padding: 4,
+    borderRadius: 12,
+    width: 90,
+    alignItems: "center",
     backgroundColor: colors.primary,
   },
   badgeText: {

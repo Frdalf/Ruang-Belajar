@@ -13,6 +13,14 @@
 
 ---
 
+## [2026-10-03] Anggota 1 – Sesuaikan sintaks dengan Modul 1 (hasil audit)
+- Dikerjakan: `getRoleColor` memakai pola switch hlm. 30 (`let warna` + `break`, `return` di akhir); return type `: string`/`: number` dipertahankan (hlm. 44, `getGrade(score: number): string`); `handleKelolaUser` tanpa `: void` (hlm. 32); NIM ditampilkan `{user.nim ? user.nim : "-"}`; atribut style di luar tabel modul dihapus (flexDirection, flexWrap, gap, alignSelf, paddingVertical/Horizontal, marginVertical, marginRight) — badge dibatasi `width: 90`, kartu statistik bertumpuk ke bawah, nama & badge bertumpuk, ikon tombol di atas teks. styles.ts (`badge`, `button`) ikut disesuaikan. README mencatat daftar atribut style yang boleh. `tsc --noEmit` lolos.
+- File diubah: components/AdminSection.tsx, constants/styles.ts, README.md, PROGRES.md
+- Poin rubrik yang terpenuhi: tetap (custom function & loop, type & array of objects, inline & external style)
+- Catatan keamanan: tidak ada perubahan data/package.
+- Saran pesan commit: `refactor: sesuaikan sintaks dengan Modul 1`
+- Belum selesai / langkah berikutnya: keputusan atas marginBottom/borderWidth/borderColor (ada di contoh kode modul, bukan di tabel), lalu app/index.tsx
+
 ## [2026-10-03] Anggota 1 – Refactor AdminSection sesuai sintaks Modul 1
 - Dikerjakan: menghapus semua style array `[ ]`; badge role kini inline style penuh (`backgroundColor: getRoleColor(user.role)`, padding, borderRadius) dengan teks tetap `styles.badgeText`; angka statistik memakai inline style penuh; kartu statistik memakai internal style `statCard` sendiri; `.map(fn)` diganti `.map((item) => fn(item))` sesuai contoh hlm. 35. Audit sintaks seluruh file Anggota 1 terhadap Modul 1 (hasil di laporan agent; temuan yang belum ada di modul menunggu persetujuan). `tsc --noEmit` lolos. Aturan "hanya sintaks yang ada di modul" ditambahkan ke README & PROGRES.
 - File diubah: components/AdminSection.tsx, README.md, PROGRES.md

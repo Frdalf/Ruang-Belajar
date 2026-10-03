@@ -78,6 +78,7 @@ Aturan data dummy (wajib, siapa pun yang mengisi):
 
 ## Batas materi Modul 1
 > **ATURAN KETAT:** hanya gunakan sintaks yang ADA CONTOHNYA di Modul 1. Jika tidak ada di modul, jangan dipakai walaupun benar secara React Native (contoh: style array `style={[a, b]}`, `.map(namaFungsi)` → tulis `.map((item) => namaFungsi(item))`).
+> **Atribut style** yang boleh dipakai hanya yang ada di Tabel 3.1.1 modul (hlm. 14–15): backgroundColor, color, fontSize, fontWeight, padding, margin, marginTop, paddingTop, borderRadius, width, height, alignItems, justifyContent, flex, textAlign, elevation, shadowColor. Pengecualian sementara (muncul di contoh kode modul hlm. 14 & 16, belum diputuskan): marginBottom, borderWidth, borderColor. Tidak boleh: flexDirection, flexWrap, gap, alignSelf, paddingVertical/Horizontal, marginVertical/Horizontal, marginRight/Left.
 
 **Boleh:** View, Text, Image, TextInput, Button, Pressable, ScrollView, FlatList,
 `Alert.alert()`, ikon `@expo/vector-icons` (Ionicons / MaterialCommunityIcons);

@@ -26,16 +26,22 @@ function hitungUserPerRole(role: Role): number {
 
 // Custom function: menentukan warna badge berdasarkan role memakai switch
 function getRoleColor(role: Role): string {
+  let warna: string = colors.primary;
+  // switch: pilih warna sesuai role, break agar tidak lanjut ke case berikutnya
   switch (role) {
     case "mahasiswa":
-      return colors.mahasiswa;
+      warna = colors.mahasiswa;
+      break;
     case "dosen":
-      return colors.dosen;
+      warna = colors.dosen;
+      break;
     case "admin":
-      return colors.admin;
+      warna = colors.admin;
+      break;
     default:
-      return colors.primary;
+      warna = colors.primary;
   }
+  return warna;
 }
 
 // Array of objects: data untuk kartu statistik
@@ -65,22 +71,23 @@ const renderUserCard = (user: User) => (
       <View
         style={{
           backgroundColor: getRoleColor(user.role),
-          paddingHorizontal: 10,
-          paddingVertical: 4,
-          borderRadius: 999,
+          padding: 4,
+          borderRadius: 12,
+          width: 90,
+          alignItems: "center",
         }}
       >
         <Text style={styles.badgeText}>{user.role}</Text>
       </View>
     </View>
-    {/* Ternary: NIM hanya ditampilkan jika user punya NIM */}
-    {user.nim ? <Text style={adminStyles.userInfo}>NIM: {user.nim}</Text> : null}
+    {/* Ternary: tampilkan NIM jika ada, jika tidak tampilkan "-" */}
+    <Text style={adminStyles.userInfo}>NIM: {user.nim ? user.nim : "-"}</Text>
     <Text style={adminStyles.userInfo}>{user.email}</Text>
   </View>
 );
 
 // Callback untuk tombol "Kelola User"
-const handleKelolaUser = (): void => {
+const handleKelolaUser = () => {
   Alert.alert("Kelola User", "Fitur kelola user akan tersedia di modul berikutnya.");
 };
 
@@ -91,17 +98,15 @@ export default function AdminSection() {
       <Text style={styles.subtitle}>Ringkasan dan daftar pengguna UMM Class</Text>
 
       {/* .map(): ubah setiap objek statistik menjadi satu kartu */}
-      <View style={adminStyles.statGrid}>{statistikList.map((stat) => renderStatCard(stat))}</View>
+      <View>{statistikList.map((stat) => renderStatCard(stat))}</View>
 
       <Text style={adminStyles.listTitle}>Daftar User</Text>
       {/* .map(): ubah setiap user menjadi satu kartu, key={user.id} */}
       {users.map((user) => renderUserCard(user))}
 
       <Pressable style={styles.button} onPress={handleKelolaUser}>
-        <View style={adminStyles.buttonRow}>
-          <Ionicons name="people" size={18} color={colors.primary} />
-          <Text style={styles.buttonText}>Kelola User</Text>
-        </View>
+        <Ionicons name="people" size={18} color={colors.primary} />
+        <Text style={styles.buttonText}>Kelola User</Text>
       </Pressable>
     </View>
   );
@@ -109,11 +114,6 @@ export default function AdminSection() {
 
 // INTERNAL STYLE: style khusus AdminSection
 const adminStyles = StyleSheet.create({
-  statGrid: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "space-between",
-  },
   statCard: {
     backgroundColor: colors.card,
     borderRadius: 12,
@@ -121,7 +121,7 @@ const adminStyles = StyleSheet.create({
     marginBottom: 12,
     borderWidth: 1,
     borderColor: colors.border,
-    width: "48%",
+    width: "100%",
     alignItems: "center",
   },
   statLabel: {
@@ -132,28 +132,20 @@ const adminStyles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     color: colors.text,
-    marginVertical: 8,
+    marginTop: 8,
+    marginBottom: 8,
   },
   userHeader: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
     marginBottom: 6,
   },
   userName: {
     fontSize: 16,
     fontWeight: "bold",
     color: colors.text,
-    flex: 1,
-    marginRight: 8,
+    marginBottom: 4,
   },
   userInfo: {
     fontSize: 13,
     color: colors.textMuted,
-  },
-  buttonRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
   },
 });
