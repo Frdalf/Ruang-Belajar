@@ -77,6 +77,8 @@ Aturan data dummy (wajib, siapa pun yang mengisi):
 - Gambar: asset lokal di `assets/` atau URL `https://picsum.photos/...` saja
 
 ## Batas materi Modul 1
+> **ATURAN KETAT:** hanya gunakan sintaks yang ADA CONTOHNYA di Modul 1. Jika tidak ada di modul, jangan dipakai walaupun benar secara React Native (contoh: style array `style={[a, b]}`, `.map(namaFungsi)` → tulis `.map((item) => namaFungsi(item))`).
+
 **Boleh:** View, Text, Image, TextInput, Button, Pressable, ScrollView, FlatList,
 `Alert.alert()`, ikon `@expo/vector-icons` (Ionicons / MaterialCommunityIcons);
 style internal/external/inline (termasuk inline dinamis dengan ternary); const/let

@@ -2,14 +2,32 @@
 
 > Agent/anggota: baca README.md dan file ini SEBELUM membuka file lain.
 
+> **ATURAN KETAT (berlaku semua anggota):** hanya gunakan sintaks yang ada contohnya di Modul 1. Jika tidak ada di modul, jangan dipakai walaupun benar secara React Native.
+
 ## Status Rubrik
 | Poin rubrik | Anggota 1 (Admin) | Anggota 2 (Mahasiswa) | Anggota 3 (Dosen) |
 |---|---|---|---|
-| Custom function & loop | [ ] | [ ] | [ ] |
-| Type & array of objects | [ ] | [ ] | [ ] |
-| Inline & external style | [ ] | [ ] | [ ] |
+| Custom function & loop | [x] | [ ] | [ ] |
+| Type & array of objects | [x] | [ ] | [ ] |
+| Inline & external style | [x] | [ ] | [ ] |
 
 ---
+
+## [2026-10-03] Anggota 1 – Refactor AdminSection sesuai sintaks Modul 1
+- Dikerjakan: menghapus semua style array `[ ]`; badge role kini inline style penuh (`backgroundColor: getRoleColor(user.role)`, padding, borderRadius) dengan teks tetap `styles.badgeText`; angka statistik memakai inline style penuh; kartu statistik memakai internal style `statCard` sendiri; `.map(fn)` diganti `.map((item) => fn(item))` sesuai contoh hlm. 35. Audit sintaks seluruh file Anggota 1 terhadap Modul 1 (hasil di laporan agent; temuan yang belum ada di modul menunggu persetujuan). `tsc --noEmit` lolos. Aturan "hanya sintaks yang ada di modul" ditambahkan ke README & PROGRES.
+- File diubah: components/AdminSection.tsx, README.md, PROGRES.md
+- Poin rubrik yang terpenuhi: tetap (custom function & loop, type & array of objects, inline & external style)
+- Catatan keamanan: tidak ada perubahan data/package.
+- Saran pesan commit: `refactor: sesuaikan AdminSection dengan sintaks Modul 1`
+- Belum selesai / langkah berikutnya: keputusan Farid atas temuan audit, lalu app/index.tsx
+
+## [2026-10-03] Anggota 1 – components/AdminSection.tsx
+- Dikerjakan: `hitungUserPerRole()` (loop for), `getRoleColor()` (switch), array of objects `statistikList: Statistik[]` dirender dengan `.map(renderStatCard)`, daftar user dengan `users.map(renderUserCard)` + key={user.id}, NIM ditampilkan via ternary, Pressable "Kelola User" → Alert.alert() dengan ikon Ionicons. `tsc --noEmit` lolos; tidak ada hook/.filter/any.
+- File diubah: components/AdminSection.tsx, PROGRES.md
+- Poin rubrik yang terpenuhi: Custom function & loop; Type & array of objects (interface Statistik + statistikList, users); Inline & external style (styles.ts + internal `adminStyles` + inline dinamis warna badge/angka)
+- Catatan keamanan: hanya memakai data dummy dari data.ts; tidak ada package baru.
+- Saran pesan commit: `feat: tambah AdminSection dengan statistik dan daftar user`
+- Belum selesai / langkah berikutnya: app/index.tsx (memasang AdminSection — sebelum itu AdminSection belum tampil di aplikasi)
 
 ## [2026-10-03] Anggota 1 – README.md versi awal (fondasi)
 - Dikerjakan: README berisi deskripsi, cara menjalankan, langkah pertama anggota lain setelah merge, struktur folder, kepemilikan file, ringkasan types/styles/data, aturan data dummy, batas materi, aturan keamanan, konvensi Git. AdminSection & index.tsx ditandai "sedang dikerjakan Anggota 1". Koreksi: kelasList & tugasList diisi Anggota 2 (Anggota 3 hanya memakai).
