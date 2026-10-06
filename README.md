@@ -47,7 +47,7 @@ Project memakai app/ di root (template blank-typescript), bukan src/app.
 |---|---|
 | Anggota 1 (Farid) | `.gitignore`, `README.md`, `PROGRES.md`, `constants/types.ts`, `constants/styles.ts`, `constants/data.ts` (array `users`), `app/index.tsx`, `components/AdminSection.tsx` |
 | Anggota 2 (Dilla) | `components/MahasiswaSection.tsx`, `constants/data.ts` (array `kelasList` & `tugasList`) |
-| Anggota 3 | `components/DosenSection.tsx` (memakai `kelasList` & `tugasList`, tidak mengisinya) |
+| Anggota 3 (Ismail)| `components/DosenSection.tsx` (memakai `kelasList` & `tugasList`, tidak mengisinya) |
 
 Jangan mengubah file milik anggota lain. Pemasangan section di `app/index.tsx`
 dilakukan sesuai komentar penanda yang sudah disediakan.
