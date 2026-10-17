@@ -1,11 +1,14 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { colors, styles } from "../constants/styles"; // external style
-import AdminSection from "../components/AdminSection";
 import MahasiswaSection from "../components/MahasiswaSection";
 import DosenSection from "../components/DosenSection";
 
 export default function Index() {
+  // useRouter: mengambil object router untuk berpindah halaman
+  const router = useRouter();
+
   return (
     // ScrollView sebagai root agar seluruh halaman bisa digulir
     <ScrollView style={styles.container}>
@@ -16,11 +19,21 @@ export default function Index() {
         <Text style={indexStyles.headerSubtitle}>Ruang kelas online mahasiswa UMM</Text>
       </View>
 
+      {/* TODO Anggota 2 (Dilla): tombol Mahasiswa → router.push("/mahasiswa") */}
+      {/* TODO Anggota 3 (Ismail): tombol Dosen → router.push("/dosen") */}
+      {/* push(): buka halaman admin di atas Home, Home tetap ada di stack */}
+      <View style={{ marginBottom: 16 }}>
+        <Pressable style={styles.button} onPress={() => router.push("/admin")}>
+          <Ionicons name="shield-checkmark" size={18} color={colors.primary} />
+          <Text style={styles.buttonText}>Panel Admin</Text>
+        </Pressable>
+      </View>
+
+      {/* Akan dipindah ke app/mahasiswa.tsx oleh Anggota 2 */}
       <MahasiswaSection />
 
+      {/* Akan dipindah ke app/dosen.tsx oleh Anggota 3 */}
       <DosenSection />
-
-      <AdminSection />
     </ScrollView>
   );
 }
