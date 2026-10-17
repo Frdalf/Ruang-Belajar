@@ -7,7 +7,7 @@ export default function RootLayout() {
       <Stack.Screen name="index" options={{ title: "UMM Class" }} />
       <Stack.Screen name="admin" options={{ title: "Panel Admin" }} />
       {/* TODO Anggota 2 (Dilla): Stack.Screen mahasiswa */}
-      {/* TODO Anggota 3 (Ismail): Stack.Screen dosen */}
+      <Stack.Screen name="dosen" options={{ title: "Panel Dosen" }} />
     </Stack>
   );
 }

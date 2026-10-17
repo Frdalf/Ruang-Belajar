@@ -7,9 +7,9 @@
 ## Status Rubrik Modul 2
 | Poin rubrik | Anggota 1 (Admin) | Anggota 2 (Mahasiswa) | Anggota 3 (Dosen) |
 |---|---|---|---|
-| `useState` & `useEffect` | [x] | [ ] | [ ] |
-| `push()`, `back()` + 1 fungsi router lain | [x] (`replace`) | [ ] (`canGoBack`) | [ ] (`setParams`) |
-| `_layout.tsx` & `<Stack.Screen>` | [x] | [ ] | [ ] |
+| `useState` & `useEffect` | [x] | [ ] | [x] |
+| `push()`, `back()` + 1 fungsi router lain | [x] (`replace`) | [ ] (`canGoBack`) | [x] (`setParams`) |
+| `_layout.tsx` & `<Stack.Screen>` | [x] | [ ] | [x] |
 
 ## Status Rubrik Modul 1
 | Poin rubrik | Anggota 1 (Admin) | Anggota 2 (Mahasiswa) | Anggota 3 (Dosen) |
@@ -19,6 +19,14 @@
 | Inline & external style | [x] | [x] | [x] |
 
 ---
+
+## [2026-10-17] Anggota 3 (Ismail) – Modul 2: Halaman Dosen, hooks, & setParams
+- Dikerjakan: Menambahkan `<Stack.Screen name="dosen" options={{ title: "Panel Dosen" }} />` di `app/_layout.tsx`; mengganti TODO di `app/index.tsx` dengan tombol "Panel Dosen" menggunakan `router.push({ pathname: "/dosen", params: { kelasDipilih: "-" } })`, serta menghapus pemanggilan dan import DosenSection di index; membuat halaman `app/dosen.tsx` yang me-render `<DosenSection />` dan tombol "Kembali" (`router.back()`); memperbarui `components/DosenSection.tsx` dengan membaca `useLocalSearchParams` (`kelasDipilih`), `useState<boolean>(true)` untuk toggle ringkasan total mahasiswa, `useEffect` untuk mencatat perubahan parameter kelas, dan `router.setParams({ kelasDipilih: kelas.kode })` saat kartu kelas ditekan (fungsi render diletakkan di dalam komponen agar langsung mengakses router); memperbarui `README.md` dan `PROGRES.md`.
+- File diubah: app/_layout.tsx, app/index.tsx, app/dosen.tsx, components/DosenSection.tsx, README.md, PROGRES.md
+- Poin rubrik yang terpenuhi: useState & useEffect; push(), back(), setParams(); _layout.tsx & Stack.Screen (Semua poin Modul 2 Anggota 3 selesai).
+- Catatan keamanan: tidak ada package baru, tidak ada secret, tidak menggunakan AsyncStorage/fetch/axios.
+- Saran pesan commit: `feat: selesaikan Halaman Dosen dengan hooks dan setParams untuk Modul 2`
+- Belum selesai / langkah berikutnya: tes interaksi di aplikasi dengan `npx expo start --go`, lalu PR `fitur/dosen-modul2` ke main.
 
 ## [2026-10-17] Anggota 1 – Modul 2: Panel Admin + fondasi navigasi
 - Dikerjakan: `app/_layout.tsx` (Stack + Stack.Screen index & admin, TODO mahasiswa/dosen); `app/index.tsx` jadi Home dengan `useRouter` + tombol "Panel Admin" → `router.push("/admin")` (AdminSection dipindah, Mahasiswa/DosenSection diberi komentar "akan dipindah", TODO tombol Dilla/Ismail); `app/admin.tsx` berisi AdminSection + tombol Kembali `router.back()` dan Keluar `router.replace("/")`; AdminSection: `useState<boolean>(true)` + tombol toggle daftar user + `useEffect` console.log. Daftar user disembunyikan dengan ternary pada nilai (`tampilkanUser ? users : []`), bukan ternary JSX, karena Modul 2 hanya mencontohkan ternary nilai. README & PROGRES diperbarui untuk Modul 1 + 2. `tsc --noEmit` lolos.
