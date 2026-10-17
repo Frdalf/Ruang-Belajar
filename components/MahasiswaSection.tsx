@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Alert, Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { colors, styles } from "../constants/styles";
@@ -58,34 +59,60 @@ const renderTugasCard = (tugas: Tugas) => (
   </View>
 );
 
-// Custom function yang me-return komponen: satu kartu kelas
-const renderKelasCard = (kelas: Kelas) => (
-  // key wajib unik agar React bisa membedakan tiap item hasil .map()
-  <View key={kelas.id} style={styles.card}>
-    {/* Ternary: pilih URL gambar sesuai Modul 1 */}
-    <Image
-      source={{ uri: kelas.sampul ? kelas.sampul : "https://picsum.photos/200/100" }}
-      style={mhsStyles.imageKelas}
-    />
-    
-    <View style={mhsStyles.kelasInfo}>
-      <Text style={mhsStyles.kelasNama}>{kelas.nama}</Text>
-      <Text style={mhsStyles.kelasKode}>{kelas.kode}</Text>
-      <Text style={mhsStyles.kelasDosen}>Dosen: {kelas.dosen}</Text>
-      <Text style={mhsStyles.kelasPeserta}>{kelas.jumlahMahasiswa} Mahasiswa</Text>
-    </View>
-  </View>
-);
-
 const handleDaftarKelas = () => {
   Alert.alert("Daftar Kelas", "Fitur daftar kelas baru akan tersedia di modul berikutnya.");
 };
 
 export default function MahasiswaSection() {
+  // useState: menyimpan jumlah berapa kali kartu kelas ditekan/dibuka
+  const [jumlahDibuka, setJumlahDibuka] = useState<number>(0);
+
+  // useEffect dengan dependency array kosong [] -> hanya jalan sekali saat render pertama
+  useEffect(() => {
+    console.log("Halaman mahasiswa dibuka");
+  }, []);
+
+  // useEffect dengan dependency [jumlahDibuka] -> jalan setiap kali state jumlahDibuka berubah
+  useEffect(() => {
+    console.log("Jumlah kelas dibuka:", jumlahDibuka);
+  }, [jumlahDibuka]);
+
+  // renderKelasCard dipindahkan ke dalam komponen agar paling sederhana:
+  // langsung mengakses state jumlahDibuka dan fungsi setJumlahDibuka tanpa perlu passing callback
+  const renderKelasCard = (kelas: Kelas) => (
+    // key wajib unik agar React bisa membedakan tiap item hasil .map()
+    // Kartu kelas dibungkus Pressable untuk menambah counter jumlahDibuka saat ditekan
+    <Pressable
+      key={kelas.id}
+      style={styles.card}
+      onPress={() => setJumlahDibuka(jumlahDibuka + 1)}
+    >
+      {/* Ternary: pilih URL gambar sesuai Modul 1 */}
+      <Image
+        source={{ uri: kelas.sampul ? kelas.sampul : "https://picsum.photos/200/100" }}
+        style={mhsStyles.imageKelas}
+      />
+      
+      <View style={mhsStyles.kelasInfo}>
+        <Text style={mhsStyles.kelasNama}>{kelas.nama}</Text>
+        <Text style={mhsStyles.kelasKode}>{kelas.kode}</Text>
+        <Text style={mhsStyles.kelasDosen}>Dosen: {kelas.dosen}</Text>
+        <Text style={mhsStyles.kelasPeserta}>{kelas.jumlahMahasiswa} Mahasiswa</Text>
+      </View>
+    </Pressable>
+  );
+
   return (
     <View style={{ marginBottom: 24 }}>
       <Text style={styles.sectionTitle}>Dashboard Mahasiswa</Text>
       <Text style={styles.subtitle}>Kelas yang sedang Anda ikuti</Text>
+
+      {/* Menampilkan jumlah kelas yang telah dibuka */}
+      <View style={mhsStyles.counterBox}>
+        <Text style={mhsStyles.counterText}>
+          Kelas dibuka: {jumlahDibuka} kali
+        </Text>
+      </View>
 
       <Text style={mhsStyles.listTitle}>Daftar Kelas</Text>
       {/* .map(): iterasi daftar kelas menjadi kartu kelas */}
@@ -108,6 +135,20 @@ export default function MahasiswaSection() {
 
 // INTERNAL STYLE: style khusus MahasiswaSection
 const mhsStyles = StyleSheet.create({
+  counterBox: {
+    backgroundColor: colors.card,
+    padding: 12,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: colors.border,
+    marginBottom: 12,
+    alignItems: "center",
+  },
+  counterText: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: colors.primary,
+  },
   listTitle: {
     fontSize: 16,
     fontWeight: "bold",

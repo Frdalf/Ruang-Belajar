@@ -34,13 +34,13 @@ Project memakai app/ di root (template blank-typescript), bukan src/app.
 
 | File | Fungsi |
 |---|---|
-| `app/_layout.tsx` | Root layout: `<Stack>` + `<Stack.Screen>` untuk index, admin, & dosen; komentar TODO untuk mahasiswa |
-| `app/index.tsx` | Halaman Home: header, tombol "Panel Dosen" (`router.push` dengan params) & "Panel Admin", komentar TODO tombol Mahasiswa; sementara masih memasang MahasiswaSection |
+| `app/_layout.tsx` | Root layout: `<Stack>` + `<Stack.Screen>` untuk index, admin, mahasiswa, & dosen |
+| `app/index.tsx` | Halaman Home: header, tombol navigasi "Panel Mahasiswa", "Panel Dosen", & "Panel Admin" |
 | `app/admin.tsx` | Halaman Panel Admin: `<AdminSection />`, tombol Kembali (`router.back()`) & Keluar (`router.replace("/")`) |
-| `app/mahasiswa.tsx` | Halaman Mahasiswa (Anggota 2, Modul 2, belum dibuat) |
+| `app/mahasiswa.tsx` | Halaman Mahasiswa: `<MahasiswaSection />`, tombol Kembali dengan pengecekan `router.canGoBack()` (fallback `router.replace("/")`) |
 | `app/dosen.tsx` | Halaman Dosen: `<DosenSection />`, tombol Kembali (`router.back()`) |
 | `components/AdminSection.tsx` | Section admin: kartu statistik per role (loop `for`) & daftar user (`.map()`), badge role (switch + inline style), tombol Kelola User (Alert), toggle daftar user (`useState` + `useEffect`) |
-| `components/MahasiswaSection.tsx` | Section mahasiswa: daftar kelas dan tugas mendatang, memakai custom function, loop `.map()`, dan ternary operator |
+| `components/MahasiswaSection.tsx` | Section mahasiswa: daftar kelas dan tugas mendatang, counter kelas dibuka (`useState`), pencatatan render/efek (`useEffect`), kartu kelas interaktif (`Pressable`), custom function, loop `.map()`, dan ternary operator |
 | `components/DosenSection.tsx` | Section dosen: ringkasan & daftar kelas (loop `for`, `.map()`), toggle ringkasan (`useState`), efek parameter (`useEffect`), dan `router.setParams()` pada kartu kelas |
 | `constants/types.ts` | Kontrak data (type & interface) |
 | `constants/styles.ts` | External style bersama + objek `colors` |
