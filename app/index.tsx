@@ -3,7 +3,7 @@ import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { colors, styles } from "../constants/styles"; // external style
 import MahasiswaSection from "../components/MahasiswaSection";
-import DosenSection from "../components/DosenSection";
+
 
 export default function Index() {
   // useRouter: mengambil object router untuk berpindah halaman
@@ -20,7 +20,18 @@ export default function Index() {
       </View>
 
       {/* TODO Anggota 2 (Dilla): tombol Mahasiswa → router.push("/mahasiswa") */}
-      {/* TODO Anggota 3 (Ismail): tombol Dosen → router.push("/dosen") */}
+      {/* Tombol Panel Dosen: push() dengan parameter awal kelasDipilih */}
+      <View style={{ marginBottom: 16 }}>
+        <Pressable
+          style={styles.button}
+          onPress={() =>
+            router.push({ pathname: "/dosen", params: { kelasDipilih: "-" } })
+          }
+        >
+          <Ionicons name="person" size={18} color={colors.primary} />
+          <Text style={styles.buttonText}>Panel Dosen</Text>
+        </Pressable>
+      </View>
       {/* push(): buka halaman admin di atas Home, Home tetap ada di stack */}
       <View style={{ marginBottom: 16 }}>
         <Pressable style={styles.button} onPress={() => router.push("/admin")}>
@@ -32,8 +43,7 @@ export default function Index() {
       {/* Akan dipindah ke app/mahasiswa.tsx oleh Anggota 2 */}
       <MahasiswaSection />
 
-      {/* Akan dipindah ke app/dosen.tsx oleh Anggota 3 */}
-      <DosenSection />
+
     </ScrollView>
   );
 }
