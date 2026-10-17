@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { colors, styles } from "../constants/styles"; // external style
@@ -92,6 +93,17 @@ const handleKelolaUser = () => {
 };
 
 export default function AdminSection() {
+  // useState: state untuk menampilkan/menyembunyikan daftar user (awal: tampil)
+  const [tampilkanUser, setTampilkanUser] = useState<boolean>(true);
+
+  // useEffect: dijalankan setiap kali nilai tampilkanUser berubah
+  useEffect(() => {
+    console.log("Daftar user ditampilkan:", tampilkanUser);
+  }, [tampilkanUser]);
+
+  // Ternary pada nilai: jika tampilkanUser true pakai semua users, jika false array kosong
+  const daftarUser: User[] = tampilkanUser ? users : [];
+
   return (
     <View style={{ marginBottom: 24 }}>
       <Text style={styles.sectionTitle}>Panel Admin</Text>
@@ -101,8 +113,18 @@ export default function AdminSection() {
       <View>{statistikList.map((stat) => renderStatCard(stat))}</View>
 
       <Text style={adminStyles.listTitle}>Daftar User</Text>
+
+      {/* Tombol toggle: setTampilkanUser mengubah state → komponen di-render ulang */}
+      <View style={{ marginBottom: 12 }}>
+        <Pressable style={styles.button} onPress={() => setTampilkanUser(!tampilkanUser)}>
+          <Text style={styles.buttonText}>
+            {tampilkanUser ? "Sembunyikan Daftar User" : "Tampilkan Daftar User"}
+          </Text>
+        </Pressable>
+      </View>
+
       {/* .map(): ubah setiap user menjadi satu kartu, key={user.id} */}
-      {users.map((user) => renderUserCard(user))}
+      {daftarUser.map((user) => renderUserCard(user))}
 
       <Pressable style={styles.button} onPress={handleKelolaUser}>
         <Ionicons name="people" size={18} color={colors.primary} />
