@@ -1,10 +1,17 @@
-# PROGRES – UMM Class (Modul 1)
+# PROGRES – UMM Class (Modul 1 & 2)
 
 > Agent/anggota: baca README.md dan file ini SEBELUM membuka file lain.
 
-> **ATURAN KETAT (berlaku semua anggota):** hanya gunakan sintaks yang ada contohnya di Modul 1. Jika tidak ada di modul, jangan dipakai walaupun benar secara React Native.
+> **ATURAN KETAT (berlaku semua anggota):** hanya gunakan sintaks yang ada contohnya di Modul 1 atau Modul 2 (lihat README "Batas materi Modul 1 + 2"). Jika tidak ada di modul, jangan dipakai walaupun benar secara React Native.
 
-## Status Rubrik
+## Status Rubrik Modul 2
+| Poin rubrik | Anggota 1 (Admin) | Anggota 2 (Mahasiswa) | Anggota 3 (Dosen) |
+|---|---|---|---|
+| `useState` & `useEffect` | [x] | [ ] | [ ] |
+| `push()`, `back()` + 1 fungsi router lain | [x] (`replace`) | [ ] (`canGoBack`) | [ ] (`setParams`) |
+| `_layout.tsx` & `<Stack.Screen>` | [x] | [ ] | [ ] |
+
+## Status Rubrik Modul 1
 | Poin rubrik | Anggota 1 (Admin) | Anggota 2 (Mahasiswa) | Anggota 3 (Dosen) |
 |---|---|---|---|
 | Custom function & loop | [x] | [x] | [x] |
@@ -12,6 +19,14 @@
 | Inline & external style | [x] | [x] | [x] |
 
 ---
+
+## [2026-10-17] Anggota 1 – Modul 2: Panel Admin + fondasi navigasi
+- Dikerjakan: `app/_layout.tsx` (Stack + Stack.Screen index & admin, TODO mahasiswa/dosen); `app/index.tsx` jadi Home dengan `useRouter` + tombol "Panel Admin" → `router.push("/admin")` (AdminSection dipindah, Mahasiswa/DosenSection diberi komentar "akan dipindah", TODO tombol Dilla/Ismail); `app/admin.tsx` berisi AdminSection + tombol Kembali `router.back()` dan Keluar `router.replace("/")`; AdminSection: `useState<boolean>(true)` + tombol toggle daftar user + `useEffect` console.log. Daftar user disembunyikan dengan ternary pada nilai (`tampilkanUser ? users : []`), bukan ternary JSX, karena Modul 2 hanya mencontohkan ternary nilai. README & PROGRES diperbarui untuk Modul 1 + 2. `tsc --noEmit` lolos.
+- File diubah: app/_layout.tsx, app/index.tsx, app/admin.tsx, components/AdminSection.tsx, README.md, PROGRES.md
+- Poin rubrik yang terpenuhi: useState & useEffect; push(), back(), replace(); _layout.tsx & Stack.Screen
+- Catatan keamanan: tidak ada package baru, tidak ada data baru; tidak ada fetch/AsyncStorage.
+- Saran pesan commit: `docs: perbarui README dan PROGRES untuk Modul 2`
+- Belum selesai / langkah berikutnya: tes alur di HP (Farid), push + PR `fitur/admin-modul2` ke main; lalu Dilla (`app/mahasiswa.tsx`, canGoBack) & Ismail (`app/dosen.tsx`, setParams) mulai
 
 ## [2026-10-03] Anggota 3 – Selesaikan DosenSection
 - Dikerjakan: Membuat `components/DosenSection.tsx` yang menampilkan ringkasan kelas (menghitung total mahasiswa dengan `for` loop di dalam fungsi `hitungTotalMahasiswa`) dan merender daftar kelas menggunakan `.map()` dengan fungsi custom `renderKelasCard()`. Styling memadukan external styles (`styles.card`, `colors`), internal styles (`dosenStyles`), dan inline styles. Memanggil `Alert.alert` saat tombol ditekan. Mengimpor dan memasang `DosenSection` di `app/index.tsx`.
