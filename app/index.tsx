@@ -2,7 +2,6 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { colors, styles } from "../constants/styles"; // external style
-import MahasiswaSection from "../components/MahasiswaSection";
 
 
 export default function Index() {
@@ -19,7 +18,16 @@ export default function Index() {
         <Text style={indexStyles.headerSubtitle}>Ruang kelas online mahasiswa UMM</Text>
       </View>
 
-      {/* TODO Anggota 2 (Dilla): tombol Mahasiswa → router.push("/mahasiswa") */}
+      {/* Tombol Panel Mahasiswa: push() ke halaman mahasiswa */}
+      <View style={{ marginBottom: 16 }}>
+        <Pressable
+          style={styles.button}
+          onPress={() => router.push("/mahasiswa")}
+        >
+          <Ionicons name="people" size={18} color={colors.primary} />
+          <Text style={styles.buttonText}>Panel Mahasiswa</Text>
+        </Pressable>
+      </View>
       {/* Tombol Panel Dosen: push() dengan parameter awal kelasDipilih */}
       <View style={{ marginBottom: 16 }}>
         <Pressable
@@ -39,11 +47,6 @@ export default function Index() {
           <Text style={styles.buttonText}>Panel Admin</Text>
         </Pressable>
       </View>
-
-      {/* Akan dipindah ke app/mahasiswa.tsx oleh Anggota 2 */}
-      <MahasiswaSection />
-
-
     </ScrollView>
   );
 }

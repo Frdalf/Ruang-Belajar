@@ -7,9 +7,9 @@
 ## Status Rubrik Modul 2
 | Poin rubrik | Anggota 1 (Admin) | Anggota 2 (Mahasiswa) | Anggota 3 (Dosen) |
 |---|---|---|---|
-| `useState` & `useEffect` | [x] | [ ] | [x] |
-| `push()`, `back()` + 1 fungsi router lain | [x] (`replace`) | [ ] (`canGoBack`) | [x] (`setParams`) |
-| `_layout.tsx` & `<Stack.Screen>` | [x] | [ ] | [x] |
+| `useState` & `useEffect` | [x] | [x] | [x] |
+| `push()`, `back()` + 1 fungsi router lain | [x] (`replace`) | [x] (`canGoBack`) | [x] (`setParams`) |
+| `_layout.tsx` & `<Stack.Screen>` | [x] | [x] | [x] |
 
 ## Status Rubrik Modul 1
 | Poin rubrik | Anggota 1 (Admin) | Anggota 2 (Mahasiswa) | Anggota 3 (Dosen) |
@@ -19,6 +19,14 @@
 | Inline & external style | [x] | [x] | [x] |
 
 ---
+
+## [2026-10-17] Anggota 2 (Dilla) – Modul 2: Halaman Mahasiswa, hooks, & canGoBack
+- Dikerjakan: Menambahkan `<Stack.Screen name="mahasiswa" options={{ title: "Panel Mahasiswa" }} />` di `app/_layout.tsx`; mengganti TODO di `app/index.tsx` dengan tombol "Panel Mahasiswa" menggunakan `router.push("/mahasiswa")`, serta menghapus import dan pemanggilan `MahasiswaSection` di index; membuat halaman baru `app/mahasiswa.tsx` yang me-render `<MahasiswaSection />` di dalam `ScrollView` serta tombol "Kembali" dengan logika `router.canGoBack()` (fallback `router.replace("/")` bila stack kosong); memperbarui `components/MahasiswaSection.tsx` dengan menambahkan state `useState<number>(0)` untuk menghitung berapa kali kartu kelas ditekan/dibuka (`setJumlahDibuka(jumlahDibuka + 1)` di dalam `renderKelasCard`), menampilkan teks counter "Kelas dibuka: {jumlahDibuka} kali", menambahkan `useEffect` mount dengan dependency `[]` untuk logging halaman dibuka, dan `useEffect` dengan dependency `[jumlahDibuka]` untuk logging perubahan jumlah dibuka, memindahkan `renderKelasCard` ke dalam komponen agar langsung mengakses state tanpa callback tambahan, dan tetap mempertahankan seluruh isi kode Modul 1; memperbarui `README.md` dan `PROGRES.md`.
+- File diubah: app/_layout.tsx, app/index.tsx, app/mahasiswa.tsx, components/MahasiswaSection.tsx, README.md, PROGRES.md
+- Poin rubrik yang terpenuhi: useState & useEffect; push(), back(), canGoBack(); _layout.tsx & Stack.Screen (Semua poin Modul 2 Anggota 2 selesai).
+- Catatan keamanan: tidak ada package baru, tidak ada secret, tidak menggunakan AsyncStorage/fetch/axios.
+- Saran pesan commit: `feat: selesaikan Halaman Mahasiswa dengan hooks dan canGoBack untuk Modul 2`
+- Belum selesai / langkah berikutnya: tes interaksi di aplikasi dengan `npx expo start --go`, lalu buat Pull Request `fitur/mahasiswa-modul2` ke main.
 
 ## [2026-10-17] Anggota 3 (Ismail) – Modul 2: Halaman Dosen, hooks, & setParams
 - Dikerjakan: Menambahkan `<Stack.Screen name="dosen" options={{ title: "Panel Dosen" }} />` di `app/_layout.tsx`; mengganti TODO di `app/index.tsx` dengan tombol "Panel Dosen" menggunakan `router.push({ pathname: "/dosen", params: { kelasDipilih: "-" } })`, serta menghapus pemanggilan dan import DosenSection di index; membuat halaman `app/dosen.tsx` yang me-render `<DosenSection />` dan tombol "Kembali" (`router.back()`); memperbarui `components/DosenSection.tsx` dengan membaca `useLocalSearchParams` (`kelasDipilih`), `useState<boolean>(true)` untuk toggle ringkasan total mahasiswa, `useEffect` untuk mencatat perubahan parameter kelas, dan `router.setParams({ kelasDipilih: kelas.kode })` saat kartu kelas ditekan (fungsi render diletakkan di dalam komponen agar langsung mengakses router); memperbarui `README.md` dan `PROGRES.md`.
