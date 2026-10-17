@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Alert, Pressable } from "react-native";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { colors, styles } from "../constants/styles";
 import { kelasList } from "../constants/data";
@@ -13,39 +15,85 @@ function hitungTotalMahasiswa(daftarKelas: Kelas[]): number {
     return total;
 }
 
-// Custom function untuk me-render satu kartu kelas
-const renderKelasCard = (kelas: Kelas) => (
-    <View key={kelas.id} style={styles.card}>
-        <View style={dosenStyles.cardHeader}>
-            {/* Inline style untuk judul kelas */}
-            <Text style={{ fontSize: 16, fontWeight: "bold", color: colors.primary }}>
-                {kelas.kode}
-            </Text>
-            <View style={dosenStyles.badgeContainer}>
-                <Text style={styles.badgeText}>{kelas.jumlahMahasiswa} Mahasiswa</Text>
-            </View>
-        </View>
-        <Text style={dosenStyles.className}>{kelas.nama}</Text>
-        <Text style={dosenStyles.lecturerName}>Dosen: {kelas.dosen}</Text>
-    </View>
-);
-
 // Callback untuk aksi tombol (dibatasi menggunakan Alert sesuai aturan modul)
 const handleKelolaNilai = () => {
     Alert.alert("Kelola Nilai", "Fitur ini akan tersedia di Modul selanjutnya.");
 };
 
 export default function DosenSection() {
+    // useLocalSearchParams: membaca parameter yang dikirim lewat URL / push / setParams
+    const { kelasDipilih } = useLocalSearchParams<{ kelasDipilih?: string }>();
+
+    // useRouter: mengambil object router untuk memanggil setParams
+    const router = useRouter();
+
+    // useState: toggle untuk menampilkan/menyembunyikan ringkasan total mahasiswa
+    const [tampilkanRingkasan, setTampilkanRingkasan] = useState<boolean>(true);
+
+    // useEffect: mencatat perubahan kelasDipilih ke console
+    useEffect(() => {
+        console.log("Kelas dipilih berubah:", kelasDipilih);
+    }, [kelasDipilih]);
+
     const totalMahasiswa = hitungTotalMahasiswa(kelasList);
+
+    // renderKelasCard diletakkan di dalam komponen agar lebih sederhana
+    // dan dapat langsung memanggil router.setParams tanpa perlu mengirim callback
+    const renderKelasCard = (kelas: Kelas) => (
+        <Pressable
+            key={kelas.id}
+            style={styles.card}
+            onPress={() => {
+                // setParams hanya mengubah parameter halaman yang sedang aktif, tidak berpindah halaman.
+                router.setParams({ kelasDipilih: kelas.kode });
+            }}
+        >
+            <View style={dosenStyles.cardHeader}>
+                {/* Inline style untuk judul kelas */}
+                <Text style={{ fontSize: 16, fontWeight: "bold", color: colors.primary }}>
+                    {kelas.kode}
+                </Text>
+                <View style={dosenStyles.badgeContainer}>
+                    <Text style={styles.badgeText}>{kelas.jumlahMahasiswa} Mahasiswa</Text>
+                </View>
+            </View>
+            <Text style={dosenStyles.className}>{kelas.nama}</Text>
+            <Text style={dosenStyles.lecturerName}>Dosen: {kelas.dosen}</Text>
+        </Pressable>
+    );
 
     return (
         <View style={{ marginBottom: 24 }}>
             <Text style={styles.sectionTitle}>Panel Dosen</Text>
             <Text style={styles.subtitle}>Ringkasan kelas yang Anda ampu</Text>
 
-            <View style={dosenStyles.summaryBox}>
-                <Text style={dosenStyles.summaryText}>Total Mahasiswa Diajar: {totalMahasiswa}</Text>
+            {/* Menampilkan teks parameter kelas yang dipilih */}
+            <View style={dosenStyles.paramBox}>
+                <Text style={dosenStyles.paramText}>
+                    Kelas dipilih: {kelasDipilih ? kelasDipilih : "-"}
+                </Text>
             </View>
+
+            {/* Tombol toggle ringkasan dengan teks ternary */}
+            <View style={{ marginBottom: 12 }}>
+                <Pressable
+                    style={styles.button}
+                    onPress={() => setTampilkanRingkasan(!tampilkanRingkasan)}
+                >
+                    <Text style={styles.buttonText}>
+                        {tampilkanRingkasan ? "Sembunyikan Ringkasan" : "Tampilkan Ringkasan"}
+                    </Text>
+                </Pressable>
+            </View>
+
+            {/* Kotak Total Mahasiswa Diajar dirender dengan ternary */}
+            {tampilkanRingkasan ? (
+                <View style={dosenStyles.summaryBox}>
+                    <Text style={dosenStyles.summaryText}>
+                        Total Mahasiswa Diajar: {totalMahasiswa}
+                    </Text>
+                </View>
+            ) : null}
 
             <Text style={dosenStyles.listTitle}>Daftar Kelas</Text>
 
@@ -72,6 +120,19 @@ export default function DosenSection() {
 
 // Internal style khusus untuk DosenSection
 const dosenStyles = StyleSheet.create({
+    paramBox: {
+        backgroundColor: colors.card,
+        padding: 12,
+        borderRadius: 8,
+        borderWidth: 1,
+        borderColor: colors.border,
+        marginBottom: 12,
+    },
+    paramText: {
+        fontSize: 14,
+        fontWeight: "bold",
+        color: colors.primary,
+    },
     summaryBox: {
         backgroundColor: colors.dosen,
         padding: 12,
