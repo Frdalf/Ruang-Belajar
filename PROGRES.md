@@ -7,9 +7,9 @@
 ## Status Rubrik Modul 3
 | Poin rubrik | Anggota 1 (Admin) | Anggota 2 (Mahasiswa) | Anggota 3 (Dosen) |
 |---|---|---|---|
-| External API → object ber-interface | [x] | [ ] | [ ] |
-| Custom & pre-built async function | [x] | [ ] | [ ] |
-| `.then()`, `resolve()`, `reject()` | [x] | [ ] | [ ] |
+| External API → object ber-interface | [x] | [ ] | [x] |
+| Custom & pre-built async function | [x] | [ ] | [x] |
+| `.then()`, `resolve()`, `reject()` | [x] | [ ] | [x] |
 
 ## Status Rubrik Modul 2
 | Poin rubrik | Anggota 1 (Admin) | Anggota 2 (Mahasiswa) | Anggota 3 (Dosen) |
@@ -26,6 +26,14 @@
 | Inline & external style | [x] | [x] | [x] |
 
 ---
+
+## [2026-11-09] Anggota 3 (Ismail) – Modul 3 Dosen Langkah 4: tes & dokumentasi
+- Dikerjakan: Mencentang tiga poin rubrik Modul 3 Anggota 3 di tabel status; memperbarui baris `components/DosenSection.tsx` dan `services/dosenService.ts` di tabel struktur README; menyiapkan checklist tes manual Expo Go sesuai Definition of done RENCANA. `tsc --noEmit` lolos.
+- File diubah: PROGRES.md, README.md
+- Poin rubrik yang terpenuhi: External API → object ber-interface; Custom & pre-built async function; `.then()`, `resolve()`, `reject()` (semua poin Modul 3 Anggota 3 selesai).
+- Catatan keamanan: hanya dokumentasi; tidak ada package, secret, atau AsyncStorage.
+- Saran pesan commit: `docs: centang rubrik Modul 3 Dosen dan perbarui README`
+- Belum selesai / langkah berikutnya: Ismail menjalankan tes manual di Expo Go, persiapan bahan demo, lalu push + PR `fitur/dosen-modul3` → `main`.
 
 ## [2026-11-09] Anggota 3 (Ismail) – Modul 3 Dosen Langkah 3: section "Pengumuman Kelas" (External API)
 - Dikerjakan: `components/DosenSection.tsx` ditambah state `postApi: ApiPost[]`, `loadingApi`, `errorApi` dan custom async function `muatPostApi` (`async` + `await delay(500)` + `await getPostsApi()`) di `useEffect(..., [])` yang sama, beserta `.catch()` untuk menangkap `reject()`. Section baru di bawah tombol: judul memakai ternary nilai `loadingApi ? "Memuat data dari server..." : "Pengumuman Kelas"`, subjudul "Sumber: DummyJSON", teks `errorApi` (merah, kosong jika tidak error), dan daftar kartu lewat custom function `renderPengumumanCard(item: ApiPost)` (`item.title` tebal + `item.body`) dengan `postApi.map((item) => renderPengumumanCard(item))` + `key={item.id}`. Tanpa ternary komponen. `tsc --noEmit` lolos.
