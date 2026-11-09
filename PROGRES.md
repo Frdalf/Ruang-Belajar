@@ -20,6 +20,14 @@
 
 ---
 
+## [2026-11-09] Anggota 1 (Farid) – Modul 3 Langkah 1: types/api.ts
+- Dikerjakan: Membuat `types/api.ts` berisi `ApiResponse<T>` (generic, sama seperti codelab Modul 3) dan 6 interface response DummyJSON: `ApiUser`/`ApiUsersResponse` (Admin), `ApiTodo`/`ApiTodosResponse` (Mahasiswa), `ApiPost`/`ApiPostsResponse` (Dosen). Nama properti sudah dicek ke `GET /users`, `/todos`, `/posts?limit=5`. `constants/types.ts` tidak diubah. `tsc --noEmit` lolos.
+- File diubah: types/api.ts, PROGRES.md
+- Poin rubrik yang terpenuhi: fondasi "External API → object ber-interface" (interface siap dipakai semua anggota).
+- Catatan keamanan: response `/users` DummyJSON juga berisi field sensitif fiktif (`password`, `ssn`, `bank`). Field itu sengaja tidak dimasukkan ke interface dan tidak boleh ditampilkan di UI.
+- Saran pesan commit: `feat: tambahkan interface response API di types/api.ts`
+- Belum selesai / langkah berikutnya: Langkah 2 `utils/delay.ts`.
+
 ## [2026-10-17] Anggota 2 (Dilla) – Modul 2: Halaman Mahasiswa, hooks, & canGoBack
 - Dikerjakan: Menambahkan `<Stack.Screen name="mahasiswa" options={{ title: "Panel Mahasiswa" }} />` di `app/_layout.tsx`; mengganti TODO di `app/index.tsx` dengan tombol "Panel Mahasiswa" menggunakan `router.push("/mahasiswa")`, serta menghapus import dan pemanggilan `MahasiswaSection` di index; membuat halaman baru `app/mahasiswa.tsx` yang me-render `<MahasiswaSection />` di dalam `ScrollView` serta tombol "Kembali" dengan logika `router.canGoBack()` (fallback `router.replace("/")` bila stack kosong); memperbarui `components/MahasiswaSection.tsx` dengan menambahkan state `useState<number>(0)` untuk menghitung berapa kali kartu kelas ditekan/dibuka (`setJumlahDibuka(jumlahDibuka + 1)` di dalam `renderKelasCard`), menampilkan teks counter "Kelas dibuka: {jumlahDibuka} kali", menambahkan `useEffect` mount dengan dependency `[]` untuk logging halaman dibuka, dan `useEffect` dengan dependency `[jumlahDibuka]` untuk logging perubahan jumlah dibuka, memindahkan `renderKelasCard` ke dalam komponen agar langsung mengakses state tanpa callback tambahan, dan tetap mempertahankan seluruh isi kode Modul 1; memperbarui `README.md` dan `PROGRES.md`.
 - File diubah: app/_layout.tsx, app/index.tsx, app/mahasiswa.tsx, components/MahasiswaSection.tsx, README.md, PROGRES.md
