@@ -20,6 +20,14 @@
 
 ---
 
+## [2026-11-09] Anggota 1 (Farid) – Modul 3 Langkah 2: utils/delay.ts
+- Dikerjakan: Membuat `utils/delay.ts` berisi `delay(ms): Promise<void>`, persis seperti codelab Modul 3. Promise di-`resolve()` setelah `setTimeout` selesai, untuk mensimulasikan server lambat (dipakai dengan `await delay(...)`). `tsc --noEmit` lolos.
+- File diubah: utils/delay.ts, PROGRES.md
+- Poin rubrik yang terpenuhi: fondasi "Custom & pre-built async function" (fungsi Promise yang bisa dipakai ulang semua anggota).
+- Catatan keamanan: tidak ada package, data, atau secret baru.
+- Saran pesan commit: `feat: tambahkan utility delay di utils/delay.ts`
+- Belum selesai / langkah berikutnya: Langkah 3 `services/api.ts`.
+
 ## [2026-11-09] Anggota 1 (Farid) – Modul 3 Langkah 1: types/api.ts
 - Dikerjakan: Membuat `types/api.ts` berisi `ApiResponse<T>` (generic, sama seperti codelab Modul 3) dan 6 interface response DummyJSON: `ApiUser`/`ApiUsersResponse` (Admin), `ApiTodo`/`ApiTodosResponse` (Mahasiswa), `ApiPost`/`ApiPostsResponse` (Dosen). Nama properti sudah dicek ke `GET /users`, `/todos`, `/posts?limit=5`. `constants/types.ts` tidak diubah. `tsc --noEmit` lolos.
 - File diubah: types/api.ts, PROGRES.md
