@@ -1,8 +1,15 @@
-# PROGRES – UMM Class (Modul 1 & 2)
+# PROGRES – UMM Class (Modul 1–3)
 
 > Agent/anggota: baca README.md dan file ini SEBELUM membuka file lain.
 
-> **ATURAN KETAT (berlaku semua anggota):** hanya gunakan sintaks yang ada contohnya di Modul 1 atau Modul 2 (lihat README "Batas materi Modul 1 + 2"). Jika tidak ada di modul, jangan dipakai walaupun benar secara React Native.
+> **ATURAN KETAT (berlaku semua anggota):** hanya gunakan sintaks yang ada contohnya di Modul 1, 2, atau 3 (lihat README "Batas materi Modul 1 – 3"). Jika tidak ada di modul, jangan dipakai walaupun benar secara React Native.
+
+## Status Rubrik Modul 3
+| Poin rubrik | Anggota 1 (Admin) | Anggota 2 (Mahasiswa) | Anggota 3 (Dosen) |
+|---|---|---|---|
+| External API → object ber-interface | [ ] | [ ] | [ ] |
+| Custom & pre-built async function | [ ] | [ ] | [ ] |
+| `.then()`, `resolve()`, `reject()` | [ ] | [ ] | [ ] |
 
 ## Status Rubrik Modul 2
 | Poin rubrik | Anggota 1 (Admin) | Anggota 2 (Mahasiswa) | Anggota 3 (Dosen) |
@@ -19,6 +26,14 @@
 | Inline & external style | [x] | [x] | [x] |
 
 ---
+
+## [2026-11-09] Anggota 1 (Farid) – Modul 3 Langkah 7: PROGRES Modul 1–3
+- Dikerjakan: Mengubah judul `PROGRES.md` menjadi Modul 1–3, memperbarui aturan ketat agar merujuk ke Modul 1, 2, atau 3, dan menambahkan tabel "Status Rubrik Modul 3" di paling atas (External API → object ber-interface; Custom & pre-built async function; `.then()`, `resolve()`, `reject()`), semua `[ ]` untuk ketiga anggota. `tsc --noEmit` lolos.
+- File diubah: PROGRES.md
+- Poin rubrik yang terpenuhi: belum ada (tabel untuk dicentang tiap anggota). Fondasi Modul 3 selesai.
+- Catatan keamanan: hanya dokumentasi.
+- Saran pesan commit: `docs: tambahkan status rubrik Modul 3 di PROGRES`
+- Belum selesai / langkah berikutnya: push + PR `fitur/fondasi-modul3` → `main`; setelah merge, Farid `fitur/admin-modul3`, Dilla `fitur/mahasiswa-modul3`, Ismail `fitur/dosen-modul3`.
 
 ## [2026-11-09] Anggota 1 (Farid) – Modul 3 Langkah 6: README Modul 1–3
 - Dikerjakan: Memperbarui `README.md` untuk Modul 1–3: judul + tujuan Modul 3; tabel struktur folder ditambah `types/api.ts`, `utils/delay.ts`, `services/*`, `Loading.tsx`, `ErrorMessage.tsx`; kepemilikan file (fondasi + `adminService.ts` = Anggota 1, `mahasiswaService.ts` = Anggota 2, `dosenService.ts` = Anggota 3); langkah pertama anggota lain Modul 3; tabel pembagian Modul 3 + pola service acuan; bagian "Boleh dari Modul 3" dan "Pengecualian Modul 3"; "Tetap dilarang" diperbarui (`fetch` GET boleh, AsyncStorage/axios/selain GET tetap dilarang); judul batas materi jadi "Modul 1 – 3"; konvensi branch `-modul3`. Folder `docs/modul3/` tidak dicantumkan karena dihapus atas keputusan tim, jadi pola acuan Modul 3 langsung ditulis di README. `tsc --noEmit` lolos.
