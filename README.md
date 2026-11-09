@@ -52,7 +52,7 @@ Project memakai app/ di root (template blank-typescript), bukan src/app.
 | `app/dosen.tsx` | Halaman Dosen: `<DosenSection />`, tombol Kembali (`router.back()`) |
 | `components/AdminSection.tsx` | Section admin: kartu statistik per role (loop `for`) & daftar user (`.map()`), badge role (switch + inline style), tombol Kelola User (Alert), toggle daftar user (`useState` + `useEffect`); Modul 3: data user dimuat lewat `muatUserLokal()` (`getUsersLokal().then().catch()`) dengan early return `Loading`/`ErrorMessage`, tombol "Simulasi Server Gagal" (demo `reject()`), dan section "User dari Server" dari DummyJSON lewat `muatUserApi` (`async`/`await` + `delay` + `getUsersApi`) |
 | `components/MahasiswaSection.tsx` | Section mahasiswa: daftar kelas dan tugas mendatang, counter kelas dibuka (`useState`), pencatatan render/efek (`useEffect`), kartu kelas interaktif (`Pressable`), custom function, loop `.map()`, dan ternary operator |
-| `components/DosenSection.tsx` | Section dosen: ringkasan & daftar kelas (loop `for`, `.map()`), toggle ringkasan (`useState`), efek parameter (`useEffect`), dan `router.setParams()` pada kartu kelas |
+| `components/DosenSection.tsx` | Section dosen: ringkasan & daftar kelas (loop `for`, `.map()`), toggle ringkasan (`useState`), efek parameter (`useEffect`), dan `router.setParams()` pada kartu kelas; Modul 3: data kelas dimuat lewat `muatKelas()` (`getKelasLokal().then().catch()`) dengan early return `Loading`/`ErrorMessage`, tombol "Simulasi Server Gagal" (demo `reject()`), dan section "Pengumuman Kelas" dari DummyJSON lewat `muatPostApi` (`async`/`await` + `delay` + `getPostsApi`) |
 | `constants/types.ts` | Kontrak data (type & interface) |
 | `constants/styles.ts` | External style bersama + objek `colors` |
 | `constants/data.ts` | Data dummy: `users`, `kelasList`, `tugasList` |
@@ -62,7 +62,7 @@ Project memakai app/ di root (template blank-typescript), bukan src/app.
 | `services/api.ts` | `BASE_URL = "https://dummyjson.com"` (External API, hanya GET) |
 | `services/adminService.ts` | Custom async function `getUsersLokal(gagal)` (`new Promise` + `setTimeout` 1,5 detik, `resolve()` data `users` / `reject()` jika gagal) & pre-built `getUsersApi()` (`fetch` GET `/users?limit=5`, `resolve(response.json())` jika `response.ok`, selain itu `reject()`) → `ApiUsersResponse` |
 | `services/mahasiswaService.ts` | `getTugasLokal(gagal)` & `getTodosApi()` (`fetch` GET `/todos?limit=5`) |
-| `services/dosenService.ts` | `getKelasLokal(gagal)` & `getPostsApi()` (`fetch` GET `/posts?limit=5`) |
+| `services/dosenService.ts` | Custom async function `getKelasLokal(gagal)` (`new Promise` + `setTimeout` 1,5 detik, `resolve()` data `kelasList` / `reject()` jika gagal) & pre-built `getPostsApi()` (`fetch` GET `/posts?limit=5`, `resolve(response.json())` jika `response.ok`, selain itu `reject()`) → `ApiPostsResponse` |
 | `components/Loading.tsx` | Indikator loading (`ActivityIndicator` + "Memuat data...") |
 | `components/ErrorMessage.tsx` | Pesan error (props `pesan`, `onRetry`) + tombol "Coba Lagi" |
 | `PROGRES.md` | Log progres + status rubrik |
