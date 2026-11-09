@@ -7,9 +7,9 @@
 ## Status Rubrik Modul 3
 | Poin rubrik | Anggota 1 (Admin) | Anggota 2 (Mahasiswa) | Anggota 3 (Dosen) |
 |---|---|---|---|
-| External API → object ber-interface | [ ] | [ ] | [ ] |
-| Custom & pre-built async function | [ ] | [ ] | [ ] |
-| `.then()`, `resolve()`, `reject()` | [ ] | [ ] | [ ] |
+| External API → object ber-interface | [x] | [ ] | [ ] |
+| Custom & pre-built async function | [x] | [ ] | [ ] |
+| `.then()`, `resolve()`, `reject()` | [x] | [ ] | [ ] |
 
 ## Status Rubrik Modul 2
 | Poin rubrik | Anggota 1 (Admin) | Anggota 2 (Mahasiswa) | Anggota 3 (Dosen) |
@@ -26,6 +26,14 @@
 | Inline & external style | [x] | [x] | [x] |
 
 ---
+
+## [2026-11-09] Anggota 1 (Farid) – Modul 3 Admin Langkah 4: tes & dokumentasi
+- Dikerjakan: Mencentang tiga poin rubrik Modul 3 Anggota 1 di tabel status; memperbarui baris `components/AdminSection.tsx` dan `services/adminService.ts` di tabel struktur README; menyiapkan checklist tes manual Expo Go sesuai Definition of done RENCANA. `tsc --noEmit` lolos.
+- File diubah: PROGRES.md, README.md
+- Poin rubrik yang terpenuhi: External API → object ber-interface; Custom & pre-built async function; `.then()`, `resolve()`, `reject()` (semua poin Modul 3 Anggota 1 selesai).
+- Catatan keamanan: hanya dokumentasi; tidak ada package, secret, atau AsyncStorage.
+- Saran pesan commit: `docs: centang rubrik Modul 3 Admin dan perbarui README`
+- Belum selesai / langkah berikutnya: Farid menjalankan tes manual di Expo Go, lalu push + PR `fitur/admin-modul3` → `main`.
 
 ## [2026-11-09] Anggota 1 (Farid) – Modul 3 Admin Langkah 3: section "User dari Server" (External API)
 - Dikerjakan: `components/AdminSection.tsx` ditambah state `userApi: ApiUser[]`, `loadingApi`, `errorApi` dan custom async function `muatUserApi` (`async` + `await delay(500)` + `await getUsersApi()`) di `useEffect(..., [])` yang sama, beserta `.catch()` untuk menangkap `reject()`. Section baru di bawah tombol: judul memakai ternary nilai `loadingApi ? "Memuat data dari server..." : "User dari Server"`, subjudul "Sumber: DummyJSON", teks `errorApi` (merah, kosong jika tidak error), dan daftar kartu lewat custom function `renderUserApiCard(item: ApiUser)` (`${item.firstName} ${item.lastName}` + `item.email`) dengan `userApi.map((item) => renderUserApiCard(item))` + `key={item.id}`. Tanpa ternary komponen. `tsc --noEmit` lolos.

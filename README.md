@@ -50,7 +50,7 @@ Project memakai app/ di root (template blank-typescript), bukan src/app.
 | `app/admin.tsx` | Halaman Panel Admin: `<AdminSection />`, tombol Kembali (`router.back()`) & Keluar (`router.replace("/")`) |
 | `app/mahasiswa.tsx` | Halaman Mahasiswa: `<MahasiswaSection />`, tombol Kembali dengan pengecekan `router.canGoBack()` (fallback `router.replace("/")`) |
 | `app/dosen.tsx` | Halaman Dosen: `<DosenSection />`, tombol Kembali (`router.back()`) |
-| `components/AdminSection.tsx` | Section admin: kartu statistik per role (loop `for`) & daftar user (`.map()`), badge role (switch + inline style), tombol Kelola User (Alert), toggle daftar user (`useState` + `useEffect`) |
+| `components/AdminSection.tsx` | Section admin: kartu statistik per role (loop `for`) & daftar user (`.map()`), badge role (switch + inline style), tombol Kelola User (Alert), toggle daftar user (`useState` + `useEffect`); Modul 3: data user dimuat lewat `muatUserLokal()` (`getUsersLokal().then().catch()`) dengan early return `Loading`/`ErrorMessage`, tombol "Simulasi Server Gagal" (demo `reject()`), dan section "User dari Server" dari DummyJSON lewat `muatUserApi` (`async`/`await` + `delay` + `getUsersApi`) |
 | `components/MahasiswaSection.tsx` | Section mahasiswa: daftar kelas dan tugas mendatang, counter kelas dibuka (`useState`), pencatatan render/efek (`useEffect`), kartu kelas interaktif (`Pressable`), custom function, loop `.map()`, dan ternary operator |
 | `components/DosenSection.tsx` | Section dosen: ringkasan & daftar kelas (loop `for`, `.map()`), toggle ringkasan (`useState`), efek parameter (`useEffect`), dan `router.setParams()` pada kartu kelas |
 | `constants/types.ts` | Kontrak data (type & interface) |
@@ -60,7 +60,7 @@ Project memakai app/ di root (template blank-typescript), bukan src/app.
 | `types/api.ts` | Interface response API: `ApiResponse<T>` (generic) + `ApiUser`/`ApiUsersResponse`, `ApiTodo`/`ApiTodosResponse`, `ApiPost`/`ApiPostsResponse` (DummyJSON) |
 | `utils/delay.ts` | `delay(ms): Promise<void>`, Promise yang di-`resolve()` setelah `setTimeout` (simulasi server lambat) |
 | `services/api.ts` | `BASE_URL = "https://dummyjson.com"` (External API, hanya GET) |
-| `services/adminService.ts` | `getUsersLokal(gagal)` (Promise buatan sendiri) & `getUsersApi()` (`fetch` GET `/users?limit=5`) |
+| `services/adminService.ts` | Custom async function `getUsersLokal(gagal)` (`new Promise` + `setTimeout` 1,5 detik, `resolve()` data `users` / `reject()` jika gagal) & pre-built `getUsersApi()` (`fetch` GET `/users?limit=5`, `resolve(response.json())` jika `response.ok`, selain itu `reject()`) → `ApiUsersResponse` |
 | `services/mahasiswaService.ts` | `getTugasLokal(gagal)` & `getTodosApi()` (`fetch` GET `/todos?limit=5`) |
 | `services/dosenService.ts` | `getKelasLokal(gagal)` & `getPostsApi()` (`fetch` GET `/posts?limit=5`) |
 | `components/Loading.tsx` | Indikator loading (`ActivityIndicator` + "Memuat data...") |
