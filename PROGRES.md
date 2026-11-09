@@ -27,6 +27,14 @@
 
 ---
 
+## [2026-11-09] Anggota 1 (Farid) – Modul 3 Admin Langkah 1: services/adminService.ts
+- Dikerjakan: Membuat `services/adminService.ts` persis mengikuti bagian 4.2 RENCANA: `getUsersLokal(gagal): Promise<ApiResponse<User[]>>` (custom async function: `new Promise` + `setTimeout` 1,5 detik, `reject("Server lokal sedang down")` jika `gagal`, selain itu `resolve()` berisi array `users`) dan `getUsersApi(): Promise<ApiUsersResponse>` (pre-built: `fetch` GET `${BASE_URL}/users?limit=5`, `resolve(response.json())` jika `response.ok`, `reject()` jika tidak / tanpa internet). Ditambah komentar beda custom vs pre-built async function. `tsc --noEmit` lolos.
+- File diubah: services/adminService.ts, PROGRES.md
+- Poin rubrik yang terpenuhi: sebagian (service siap): custom & pre-built async function, `resolve()`/`reject()`, `.then()` di dalam `getUsersApi`, External API → `ApiUsersResponse`. Dicentang setelah dipakai di AdminSection.
+- Catatan keamanan: hanya GET ke DummyJSON tanpa API key/token; interface hanya memuat id, nama, email (field sensitif DummyJSON diabaikan); tidak ada package baru.
+- Saran pesan commit: `feat: tambahkan adminService dengan Promise lokal dan fetch DummyJSON`
+- Belum selesai / langkah berikutnya: Langkah 2 AdminSection memuat data lokal lewat Promise.
+
 ## [2026-11-09] Anggota 1 (Farid) – Modul 3: kembalikan dokumen tim
 - Dikerjakan: Menambahkan kembali `docs/modul3/MATERI_MODUL3.md` dan `docs/modul3/RENCANA_MODUL3.md` (isi sama seperti dokumen tim), lalu README diperbarui: catatan agent untuk membaca kedua file itu, baris `docs/modul3/` di tabel struktur folder, dan `docs/modul3/` di kepemilikan fondasi Anggota 1. `tsc --noEmit` lolos.
 - File diubah: docs/modul3/MATERI_MODUL3.md, docs/modul3/RENCANA_MODUL3.md, README.md, PROGRES.md
