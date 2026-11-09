@@ -20,6 +20,14 @@
 
 ---
 
+## [2026-11-09] Anggota 1 (Farid) – Modul 3 Langkah 4: components/Loading.tsx
+- Dikerjakan: Membuat komponen default export `Loading` berisi `ActivityIndicator` (size "large", color `colors.primary`) dan teks "Memuat data..." di dalam `styles.card`. Style memakai external style (`styles`, `colors`) + internal style `loadingStyles` (alignItems, justifyContent, padding, marginTop, fontSize, color). Dipakai lewat early return `if (loading) { return <Loading />; }`. `tsc --noEmit` lolos.
+- File diubah: components/Loading.tsx, PROGRES.md
+- Poin rubrik yang terpenuhi: fondasi tampilan loading untuk data asynchronous.
+- Catatan keamanan: `ActivityIndicator` bawaan `react-native` (pengecualian Modul 3), tidak ada package baru.
+- Saran pesan commit: `feat: tambahkan komponen Loading`
+- Belum selesai / langkah berikutnya: Langkah 5 `components/ErrorMessage.tsx`.
+
 ## [2026-11-09] Anggota 1 (Farid) – Modul 3 Langkah 3: services/api.ts
 - Dikerjakan: Membuat `services/api.ts` berisi `export const BASE_URL = "https://dummyjson.com";` dengan komentar tentang endpoint, fetching, response, dan aturan hanya method GET. Service tiap anggota menyusun endpoint dari `BASE_URL`. `tsc --noEmit` lolos.
 - File diubah: services/api.ts, PROGRES.md
