@@ -4,7 +4,9 @@ import { Ionicons } from "@expo/vector-icons";
 import { colors, styles } from "../constants/styles";
 import { kelasList } from "../constants/data";
 import { Kelas, StatusTugas, Tugas } from "../constants/types";
-import { getTugasLokal } from "../services/mahasiswaService";
+import { getTodosApi, getTugasLokal } from "../services/mahasiswaService";
+import { ApiTodo } from "../types/api";
+import { delay } from "../utils/delay";
 import Loading from "./Loading";
 import ErrorMessage from "./ErrorMessage";
 
@@ -63,6 +65,24 @@ const renderTugasCard = (tugas: Tugas) => (
   </View>
 );
 
+// Custom function yang me-return komponen: satu kartu to-do dari External API
+// item mengikuti interface ApiTodo (hasil response DummyJSON)
+const renderTodoCard = (item: ApiTodo) => {
+  // Ternary nilai: menentukan teks status selesai / belum selesai
+  const statusTeks: string = item.completed ? "Selesai" : "Belum selesai";
+  // Ternary nilai: menentukan warna teks status di inline style (hijau jika selesai, merah jika belum)
+  const statusWarna: string = item.completed ? colors.dosen : colors.admin;
+
+  return (
+    <View key={item.id} style={styles.card}>
+      <Text style={mhsStyles.todoTeks}>{item.todo}</Text>
+      <Text style={{ fontSize: 13, fontWeight: "bold", color: statusWarna, marginTop: 4 }}>
+        Status: {statusTeks}
+      </Text>
+    </View>
+  );
+};
+
 const handleDaftarKelas = () => {
   Alert.alert("Daftar Kelas", "Fitur daftar kelas baru akan tersedia di modul berikutnya.");
 };
@@ -75,6 +95,11 @@ export default function MahasiswaSection() {
   const [daftarTugas, setDaftarTugas] = useState<Tugas[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
+
+  // State data External API DummyJSON (Modul 3)
+  const [todoApi, setTodoApi] = useState<ApiTodo[]>([]);
+  const [loadingApi, setLoadingApi] = useState<boolean>(true);
+  const [errorApi, setErrorApi] = useState<string>("");
 
   // Custom function: memuat data lokal tugas memakai .then() dan .catch()
   function muatTugas(gagal: boolean) {
@@ -97,6 +122,20 @@ export default function MahasiswaSection() {
   useEffect(() => {
     console.log("Halaman mahasiswa dibuka");
     muatTugas(false);
+
+    // CUSTOM ASYNC FUNCTION dengan async/await untuk External API
+    // async -> fungsi ini otomatis mengembalikan Promise
+    const muatTodoApi = async () => {
+      await delay(500);                  // tunggu Promise delay selesai (simulasi server lambat)
+      const hasil = await getTodosApi(); // tunggu fetch selesai, hasil = ApiTodosResponse
+      setTodoApi(hasil.todos);           // simpan array todos ke state todoApi
+      setLoadingApi(false);
+    };
+    // .catch() menangkap reject() dari getTodosApi jika gagal / offline
+    muatTodoApi().catch((pesan) => {
+      setErrorApi(String(pesan));
+      setLoadingApi(false);
+    });
   }, []);
 
   // useEffect dengan dependency [jumlahDibuka] -> jalan setiap kali state jumlahDibuka berubah
@@ -113,6 +152,9 @@ export default function MahasiswaSection() {
   if (error !== "") {
     return <ErrorMessage pesan={error} onRetry={() => muatTugas(false)} />;
   }
+
+  // Ternary pada nilai: teks judul section API berubah selama proses fetching
+  const judulApi: string = loadingApi ? "Memuat data dari server..." : "To-Do Belajar";
 
   // renderKelasCard dipindahkan ke dalam komponen agar paling sederhana:
   // langsung mengakses state jumlahDibuka dan fungsi setJumlahDibuka tanpa perlu passing callback
@@ -174,6 +216,14 @@ export default function MahasiswaSection() {
           <Text style={styles.buttonText}>Simulasi Server Gagal</Text>
         </Pressable>
       </View>
+
+      {/* Section External API: data to-do dari DummyJSON (GET /todos?limit=5) */}
+      <Text style={mhsStyles.listTitle}>{judulApi}</Text>
+      <Text style={styles.subtitle}>Sumber: DummyJSON</Text>
+      {/* errorApi tampil sebagai teks biasa (kosong jika tidak error) */}
+      <Text style={mhsStyles.errorText}>{errorApi}</Text>
+      {/* .map(): ubah setiap ApiTodo menjadi kartu to-do, key={item.id} */}
+      {todoApi.map((item) => renderTodoCard(item))}
     </View>
   );
 }
@@ -246,5 +296,15 @@ const mhsStyles = StyleSheet.create({
     fontWeight: "bold",
     color: colors.primary,
     marginTop: 8,
+  },
+  todoTeks: {
+    fontSize: 15,
+    fontWeight: "bold",
+    color: colors.primary,
+    marginBottom: 4,
+  },
+  errorText: {
+    fontSize: 13,
+    color: colors.admin, // merah
   },
 });
