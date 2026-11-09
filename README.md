@@ -11,7 +11,7 @@ Aplikasi LMS sederhana ala Google Classroom untuk mahasiswa UMM, dibuat untuk
   `async`/`await`, `.then()`) dan API call `GET` ke External API (DummyJSON)
   yang hasilnya disimpan ke object ber-interface.
 
-Stack: React Native + Expo SDK 57 (Expo Router) + TypeScript.
+Stack: React Native + Expo SDK 58 (Expo Router) + TypeScript. Expo Go di HP harus versi SDK 58.
 
 > **Untuk AI agent / anggota baru:** baca README.md dan PROGRES.md dulu sebelum
 > membuka file lain. Kedua file ini sudah merangkum isi project.
@@ -229,7 +229,7 @@ Ternary hanya untuk memilih **nilai**, bukan komponen/`null`
 - Hanya data fiktif (lihat aturan data dummy di atas).
 - Install package hanya lewat `npx expo install <pkg>` dan atas persetujuan tim.
   Setelah install, jalankan `npm audit`; **jangan** `npm audit fix --force`.
-  (29 temuan audit saat ini berasal dari template Expo, bukan dari kode kita.)
+  (5 temuan audit moderate saat ini (glob, minimatch) berasal dari dependency Expo, bukan dari kode kita.)
 - Commit `package-lock.json`. Jangan commit `node_modules/`, `.env*`, atau file kunci (lihat `.gitignore`).
 - Dilarang: `eval()`, `new Function()`, memuat kode dari remote, `dangerouslySetInnerHTML`.
 
