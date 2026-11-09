@@ -2,8 +2,11 @@ import { useEffect, useState } from "react";
 import { Alert, Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { colors, styles } from "../constants/styles";
-import { kelasList, tugasList } from "../constants/data";
-import { Kelas, Tugas, StatusTugas } from "../constants/types";
+import { kelasList } from "../constants/data";
+import { Kelas, StatusTugas, Tugas } from "../constants/types";
+import { getTugasLokal } from "../services/mahasiswaService";
+import Loading from "./Loading";
+import ErrorMessage from "./ErrorMessage";
 
 // Custom function: menentukan warna status tugas menggunakan switch
 function getStatusColor(status: StatusTugas): string {
@@ -25,10 +28,11 @@ function getStatusColor(status: StatusTugas): string {
 }
 
 // Custom function: menghitung jumlah tugas berdasarkan status memakai loop for
-function hitungTugas(status: StatusTugas): number {
+// daftar = data tugas hasil Promise (bukan import tugasList langsung)
+function hitungTugas(daftar: Tugas[], status: StatusTugas): number {
   let jumlah: number = 0;
-  for (let i = 0; i < tugasList.length; i++) {
-    if (tugasList[i].status === status) {
+  for (let i = 0; i < daftar.length; i++) {
+    if (daftar[i].status === status) {
       jumlah = jumlah + 1;
     }
   }
@@ -64,18 +68,51 @@ const handleDaftarKelas = () => {
 };
 
 export default function MahasiswaSection() {
-  // useState: menyimpan jumlah berapa kali kartu kelas ditekan/dibuka
+  // useState: menyimpan jumlah berapa kali kartu kelas ditekan/dibuka (Modul 2)
   const [jumlahDibuka, setJumlahDibuka] = useState<number>(0);
 
-  // useEffect dengan dependency array kosong [] -> hanya jalan sekali saat render pertama
+  // State data lokal tugas mahasiswa (Modul 3)
+  const [daftarTugas, setDaftarTugas] = useState<Tugas[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
+
+  // Custom function: memuat data lokal tugas memakai .then() dan .catch()
+  function muatTugas(gagal: boolean) {
+    setLoading(true);
+    setError("");
+    getTugasLokal(gagal)
+      .then((hasil) => {
+        // .then(): dijalankan jika Promise berhasil (resolve)
+        setDaftarTugas(hasil.data);
+        setLoading(false);
+      })
+      .catch((pesan) => {
+        // .catch(): dijalankan jika Promise gagal (reject)
+        setError(String(pesan));
+        setLoading(false);
+      });
+  }
+
+  // useEffect mount: dijalankan sekali saat komponen pertama kali dimuat
   useEffect(() => {
     console.log("Halaman mahasiswa dibuka");
+    muatTugas(false);
   }, []);
 
   // useEffect dengan dependency [jumlahDibuka] -> jalan setiap kali state jumlahDibuka berubah
   useEffect(() => {
     console.log("Jumlah kelas dibuka:", jumlahDibuka);
   }, [jumlahDibuka]);
+
+  // Early return: selama data lokal sedang dimuat, tampilkan indikator Loading
+  if (loading) {
+    return <Loading />;
+  }
+
+  // Early return: jika data lokal gagal dimuat, tampilkan komponen ErrorMessage
+  if (error !== "") {
+    return <ErrorMessage pesan={error} onRetry={() => muatTugas(false)} />;
+  }
 
   // renderKelasCard dipindahkan ke dalam komponen agar paling sederhana:
   // langsung mengakses state jumlahDibuka dan fungsi setJumlahDibuka tanpa perlu passing callback
@@ -125,10 +162,18 @@ export default function MahasiswaSection() {
 
       <Text style={mhsStyles.listTitle}>Tugas Mendatang</Text>
       <Text style={styles.subtitle}>
-        Anda memiliki {hitungTugas("belum")} tugas yang belum dikerjakan.
+        Anda memiliki {hitungTugas(daftarTugas, "belum")} tugas yang belum dikerjakan.
       </Text>
-      {/* .map(): iterasi daftar tugas menjadi kartu tugas */}
-      {tugasList.map((tugas) => renderTugasCard(tugas))}
+      {/* .map(): iterasi daftar tugas dari state daftarTugas menjadi kartu tugas */}
+      {daftarTugas.map((tugas) => renderTugasCard(tugas))}
+
+      {/* Demo reject(): tombol simulasi server gagal */}
+      <View style={{ marginTop: 12 }}>
+        <Pressable style={styles.button} onPress={() => muatTugas(true)}>
+          <Ionicons name="cloud-offline" size={18} color={colors.primary} />
+          <Text style={styles.buttonText}>Simulasi Server Gagal</Text>
+        </Pressable>
+      </View>
     </View>
   );
 }

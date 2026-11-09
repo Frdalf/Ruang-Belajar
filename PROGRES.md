@@ -27,6 +27,14 @@
 
 ---
 
+## [2026-11-09] Anggota 2 (Dilla) – Modul 3 Mahasiswa Langkah 2: MahasiswaSection memuat data lokal lewat Promise
+- Dikerjakan: `components/MahasiswaSection.tsx` tidak lagi mengimpor `tugasList` langsung. Ditambahkan state `daftarTugas: Tugas[]`, `loading: boolean`, `error: string` dan custom function `muatTugas(gagal)` yang memanggil `getTugasLokal(gagal).then(...).catch(...)`, dipanggil pada `useEffect(..., [])`. Fungsi `hitungTugas` diberi parameter `daftar: Tugas[]` dan menghitung dari state `daftarTugas`; rendering daftar tugas memakai `daftarTugas.map(...)`. Daftar kelas tetap dari `kelasList`. Ditambahkan early return `<Loading />` dan `<ErrorMessage pesan={error} onRetry={() => muatTugas(false)} />`. Ditambahkan tombol "Simulasi Server Gagal" (Ionicons `cloud-offline`) yang memanggil `muatTugas(true)`. Fitur Modul 1 & 2 tetap dipertahankan: renderKelasCard, renderTugasCard, getStatusColor (switch), hitungTugas (loop for), counter jumlahDibuka (useState), useEffect logging mount & counter, serta canGoBack di halaman mahasiswa. `tsc --noEmit` lolos.
+- File diubah: components/MahasiswaSection.tsx, PROGRES.md
+- Poin rubrik yang terpenuhi: custom async function (`getTugasLokal`), `.then()`, `resolve()`, `reject()` (dipakai di komponen MahasiswaSection).
+- Catatan keamanan: tidak ada package baru; data tetap fiktif dari `constants/data.ts`.
+- Saran pesan commit: `feat: muat data tugas Mahasiswa lewat Promise dengan loading dan error`
+- Belum selesai / langkah berikutnya: Langkah 3 section "To-Do Belajar" (async/await + fetch DummyJSON).
+
 ## [2026-11-09] Anggota 2 (Dilla) – Modul 3 Mahasiswa Langkah 1: services/mahasiswaService.ts
 - Dikerjakan: Membuat `services/mahasiswaService.ts` mengikuti bagian 4.2 RENCANA: `getTugasLokal(gagal): Promise<ApiResponse<Tugas[]>>` (custom async function: `new Promise` + `setTimeout` 1,5 detik, `reject("Server lokal sedang down")` jika `gagal`, selain itu `resolve()` berisi array `tugasList`) dan `getTodosApi(): Promise<ApiTodosResponse>` (pre-built: `fetch` GET `${BASE_URL}/todos?limit=5`, `resolve(response.json())` jika `response.ok`, `reject()` jika tidak / tanpa internet). Ditambahkan komentar penjelasan konsep async, Promise, resolve, reject, .then, fetch, endpoint, response, interface, serta perbedaan custom async function vs pre-built async function. `tsc --noEmit` lolos.
 - File diubah: services/mahasiswaService.ts, PROGRES.md
