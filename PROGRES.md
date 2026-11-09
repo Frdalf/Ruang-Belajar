@@ -27,6 +27,14 @@
 
 ---
 
+## [2026-11-09] Anggota 1 (Farid) – Dukungan web (react-native-web)
+- Dikerjakan: Menambahkan dukungan menjalankan aplikasi di browser dengan `npx expo install react-native-web react-dom` (`react-dom` 19.3.0 sudah ada, yang baru hanya `react-native-web` ^0.21.4). Sebelumnya mode web (`w`) gagal dengan error `Unable to resolve "react-native-web/dist/index"`. `npx expo export --platform web` berhasil, `npx expo install --check` bersih, `tsc --noEmit` lolos. README: cara menjalankan di browser.
+- File diubah: package.json, package-lock.json, README.md, PROGRES.md
+- Poin rubrik yang terpenuhi: tidak ada (perawatan project, untuk memudahkan tes).
+- Catatan keamanan: 1 package baru resmi yang dipasang lewat `npx expo install` sesuai aturan README. `npm audit` tetap 5 moderate (glob, minimatch) dari dependency Expo, tidak bertambah; `npm audit fix --force` tidak dijalankan.
+- Saran pesan commit: `chore: tambahkan react-native-web agar bisa dijalankan di browser`
+- Belum selesai / langkah berikutnya: tes `npx expo start --go` + `w` di browser, PR `chore/web-support` → `main`; setelah merge, anggota lain `git pull && npm install`.
+
 ## [2026-11-09] Anggota 3 (Ismail) – Modul 3 Dosen Langkah 4: tes & dokumentasi
 - Dikerjakan: Mencentang tiga poin rubrik Modul 3 Anggota 3 di tabel status; memperbarui baris `components/DosenSection.tsx` dan `services/dosenService.ts` di tabel struktur README; menyiapkan checklist tes manual Expo Go sesuai Definition of done RENCANA. `tsc --noEmit` lolos.
 - File diubah: PROGRES.md, README.md

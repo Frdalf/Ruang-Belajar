@@ -22,6 +22,8 @@ Stack: React Native + Expo SDK 58 (Expo Router) + TypeScript. Expo Go di HP haru
 npm install          # tanpa flag tambahan (jangan --legacy-peer-deps / --force)
 npx expo start --go  # scan QR dengan aplikasi Expo Go
 ```
+Untuk menjalankan di browser: `npx expo start --go`, lalu tekan `w` (butuh `react-native-web`, sudah terpasang).
+Demo tetap memakai Expo Go di HP.
 Cek tipe sebelum commit: `npx tsc --noEmit` harus lolos tanpa error.
 
 ## Langkah pertama anggota lain (Modul 3, setelah PR fitur/fondasi-modul3 di-merge)
