@@ -7,9 +7,9 @@
 ## Status Rubrik Modul 3
 | Poin rubrik | Anggota 1 (Admin) | Anggota 2 (Mahasiswa) | Anggota 3 (Dosen) |
 |---|---|---|---|
-| External API → object ber-interface | [x] | [ ] | [x] |
-| Custom & pre-built async function | [x] | [ ] | [x] |
-| `.then()`, `resolve()`, `reject()` | [x] | [ ] | [x] |
+| External API → object ber-interface | [x] | [x] | [x] |
+| Custom & pre-built async function | [x] | [x] | [x] |
+| `.then()`, `resolve()`, `reject()` | [x] | [x] | [x] |
 
 ## Status Rubrik Modul 2
 | Poin rubrik | Anggota 1 (Admin) | Anggota 2 (Mahasiswa) | Anggota 3 (Dosen) |
@@ -26,6 +26,38 @@
 | Inline & external style | [x] | [x] | [x] |
 
 ---
+
+## [2026-11-09] Anggota 2 (Dilla) – Modul 3 Mahasiswa Langkah 4: tes & dokumentasi
+- Dikerjakan: Mencentang tiga poin rubrik Modul 3 Anggota 2 di tabel status; memperbarui baris `components/MahasiswaSection.tsx` dan `services/mahasiswaService.ts` di tabel struktur README; menyiapkan checklist tes manual Expo Go sesuai Definition of done RENCANA. `tsc --noEmit` lolos.
+- File diubah: PROGRES.md, README.md
+- Poin rubrik yang terpenuhi: External API → object ber-interface; Custom & pre-built async function; `.then()`, `resolve()`, `reject()` (semua poin Modul 3 Anggota 2 selesai).
+- Catatan keamanan: hanya dokumentasi; tidak ada package, secret, atau AsyncStorage.
+- Saran pesan commit: `docs: centang rubrik Modul 3 Mahasiswa dan perbarui README`
+- Belum selesai / langkah berikutnya: Dilla menjalankan tes manual di Expo Go, persiapan bahan demo, lalu push + PR `fitur/mahasiswa-modul3` → `main`.
+
+## [2026-11-09] Anggota 2 (Dilla) – Modul 3 Mahasiswa Langkah 3: section "To-Do Belajar" (External API)
+- Dikerjakan: `components/MahasiswaSection.tsx` ditambah state `todoApi: ApiTodo[]`, `loadingApi`, `errorApi` dan custom async function `muatTodoApi` (`async` + `await delay(500)` + `await getTodosApi()`) di `useEffect(..., [])` yang sama, beserta `.catch()` untuk menangkap `reject()`. Section baru di bawah tombol: judul memakai ternary nilai `loadingApi ? "Memuat data dari server..." : "To-Do Belajar"`, subjudul "Sumber: DummyJSON", teks `errorApi` (merah, kosong jika tidak error), dan daftar kartu lewat custom function `renderTodoCard(item: ApiTodo)` (`item.todo` tebal + status selesai/belum selesai via ternary nilai `item.completed ? "Selesai" : "Belum selesai"` dan warna status dinamis) dengan `todoApi.map((item) => renderTodoCard(item))` + `key={item.id}`. Tanpa ternary komponen. `tsc --noEmit` lolos.
+- File diubah: components/MahasiswaSection.tsx, PROGRES.md
+- Poin rubrik yang terpenuhi: External API → object ber-interface (`ApiTodosResponse`/`ApiTodo` → state `todoApi`); custom (`muatTodoApi`) & pre-built (`fetch`, `response.json`, `delay`) async function.
+- Catatan keamanan: hanya GET ke DummyJSON endpoint /todos tanpa API key/token; tidak ada secret atau package baru.
+- Saran pesan commit: `feat: tampilkan to-do dari DummyJSON dengan async/await di MahasiswaSection`
+- Belum selesai / langkah berikutnya: Langkah 4 tes manual Expo Go, centang rubrik Modul 3, perbarui README.
+
+## [2026-11-09] Anggota 2 (Dilla) – Modul 3 Mahasiswa Langkah 2: MahasiswaSection memuat data lokal lewat Promise
+- Dikerjakan: `components/MahasiswaSection.tsx` tidak lagi mengimpor `tugasList` langsung. Ditambahkan state `daftarTugas: Tugas[]`, `loading: boolean`, `error: string` dan custom function `muatTugas(gagal)` yang memanggil `getTugasLokal(gagal).then(...).catch(...)`, dipanggil pada `useEffect(..., [])`. Fungsi `hitungTugas` diberi parameter `daftar: Tugas[]` dan menghitung dari state `daftarTugas`; rendering daftar tugas memakai `daftarTugas.map(...)`. Daftar kelas tetap dari `kelasList`. Ditambahkan early return `<Loading />` dan `<ErrorMessage pesan={error} onRetry={() => muatTugas(false)} />`. Ditambahkan tombol "Simulasi Server Gagal" (Ionicons `cloud-offline`) yang memanggil `muatTugas(true)`. Fitur Modul 1 & 2 tetap dipertahankan: renderKelasCard, renderTugasCard, getStatusColor (switch), hitungTugas (loop for), counter jumlahDibuka (useState), useEffect logging mount & counter, serta canGoBack di halaman mahasiswa. `tsc --noEmit` lolos.
+- File diubah: components/MahasiswaSection.tsx, PROGRES.md
+- Poin rubrik yang terpenuhi: custom async function (`getTugasLokal`), `.then()`, `resolve()`, `reject()` (dipakai di komponen MahasiswaSection).
+- Catatan keamanan: tidak ada package baru; data tetap fiktif dari `constants/data.ts`.
+- Saran pesan commit: `feat: muat data tugas Mahasiswa lewat Promise dengan loading dan error`
+- Belum selesai / langkah berikutnya: Langkah 3 section "To-Do Belajar" (async/await + fetch DummyJSON).
+
+## [2026-11-09] Anggota 2 (Dilla) – Modul 3 Mahasiswa Langkah 1: services/mahasiswaService.ts
+- Dikerjakan: Membuat `services/mahasiswaService.ts` mengikuti bagian 4.2 RENCANA: `getTugasLokal(gagal): Promise<ApiResponse<Tugas[]>>` (custom async function: `new Promise` + `setTimeout` 1,5 detik, `reject("Server lokal sedang down")` jika `gagal`, selain itu `resolve()` berisi array `tugasList`) dan `getTodosApi(): Promise<ApiTodosResponse>` (pre-built: `fetch` GET `${BASE_URL}/todos?limit=5`, `resolve(response.json())` jika `response.ok`, `reject()` jika tidak / tanpa internet). Ditambahkan komentar penjelasan konsep async, Promise, resolve, reject, .then, fetch, endpoint, response, interface, serta perbedaan custom async function vs pre-built async function. `tsc --noEmit` lolos.
+- File diubah: services/mahasiswaService.ts, PROGRES.md
+- Poin rubrik yang terpenuhi: sebagian (service siap): custom & pre-built async function, `resolve()`/`reject()`, `.then()` di dalam `getTodosApi`, External API → `ApiTodosResponse`. Dicentang setelah dipakai di MahasiswaSection.
+- Catatan keamanan: hanya GET ke DummyJSON endpoint /todos tanpa API key/token; tidak ada secret atau package baru.
+- Saran pesan commit: `feat: tambahkan mahasiswaService dengan Promise lokal dan fetch DummyJSON`
+- Belum selesai / langkah berikutnya: Langkah 2 MahasiswaSection memuat data lokal lewat Promise.
 
 ## [2026-11-09] Anggota 1 (Farid) – Dukungan web (react-native-web)
 - Dikerjakan: Menambahkan dukungan menjalankan aplikasi di browser dengan `npx expo install react-native-web react-dom` (`react-dom` 19.3.0 sudah ada, yang baru hanya `react-native-web` ^0.21.4). Sebelumnya mode web (`w`) gagal dengan error `Unable to resolve "react-native-web/dist/index"`. `npx expo export --platform web` berhasil, `npx expo install --check` bersih, `tsc --noEmit` lolos. README: cara menjalankan di browser.
