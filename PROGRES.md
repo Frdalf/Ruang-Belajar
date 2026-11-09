@@ -27,6 +27,14 @@
 
 ---
 
+## [2026-11-09] Anggota 1 (Farid) – Modul 3: kembalikan dokumen tim
+- Dikerjakan: Menambahkan kembali `docs/modul3/MATERI_MODUL3.md` dan `docs/modul3/RENCANA_MODUL3.md` (isi sama seperti dokumen tim), lalu README diperbarui: catatan agent untuk membaca kedua file itu, baris `docs/modul3/` di tabel struktur folder, dan `docs/modul3/` di kepemilikan fondasi Anggota 1. `tsc --noEmit` lolos.
+- File diubah: docs/modul3/MATERI_MODUL3.md, docs/modul3/RENCANA_MODUL3.md, README.md, PROGRES.md
+- Poin rubrik yang terpenuhi: dokumentasi materi dan pola acuan Modul 3 untuk semua anggota.
+- Catatan keamanan: hanya dokumen Markdown, tidak ada kode, package, atau secret baru.
+- Saran pesan commit: `docs: tambahkan materi dan rencana Modul 3 di docs/modul3`
+- Belum selesai / langkah berikutnya: push + PR `fitur/fondasi-modul3` → `main`.
+
 ## [2026-11-09] Anggota 1 (Farid) – Modul 3 Langkah 7: PROGRES Modul 1–3
 - Dikerjakan: Mengubah judul `PROGRES.md` menjadi Modul 1–3, memperbarui aturan ketat agar merujuk ke Modul 1, 2, atau 3, dan menambahkan tabel "Status Rubrik Modul 3" di paling atas (External API → object ber-interface; Custom & pre-built async function; `.then()`, `resolve()`, `reject()`), semua `[ ]` untuk ketiga anggota. `tsc --noEmit` lolos.
 - File diubah: PROGRES.md

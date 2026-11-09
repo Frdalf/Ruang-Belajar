@@ -15,6 +15,7 @@ Stack: React Native + Expo SDK 57 (Expo Router) + TypeScript.
 
 > **Untuk AI agent / anggota baru:** baca README.md dan PROGRES.md dulu sebelum
 > membuka file lain. Kedua file ini sudah merangkum isi project.
+> Untuk Modul 3, lanjut baca `docs/modul3/MATERI_MODUL3.md` dan `docs/modul3/RENCANA_MODUL3.md`.
 
 ## Cara menjalankan
 ```bash
@@ -55,6 +56,7 @@ Project memakai app/ di root (template blank-typescript), bukan src/app.
 | `constants/types.ts` | Kontrak data (type & interface) |
 | `constants/styles.ts` | External style bersama + objek `colors` |
 | `constants/data.ts` | Data dummy: `users`, `kelasList`, `tugasList` |
+| `docs/modul3/` | `MATERI_MODUL3.md` (transkripsi materi Modul 3) & `RENCANA_MODUL3.md` (keputusan tim, pembagian, pola kode acuan) |
 | `types/api.ts` | Interface response API: `ApiResponse<T>` (generic) + `ApiUser`/`ApiUsersResponse`, `ApiTodo`/`ApiTodosResponse`, `ApiPost`/`ApiPostsResponse` (DummyJSON) |
 | `utils/delay.ts` | `delay(ms): Promise<void>`, Promise yang di-`resolve()` setelah `setTimeout` (simulasi server lambat) |
 | `services/api.ts` | `BASE_URL = "https://dummyjson.com"` (External API, hanya GET) |
@@ -69,7 +71,7 @@ Project memakai app/ di root (template blank-typescript), bukan src/app.
 ## Kepemilikan file
 | Anggota | File |
 |---|---|
-| Anggota 1 (Farid) | `.gitignore`, `README.md`, `PROGRES.md`, `constants/types.ts`, `constants/styles.ts`, `constants/data.ts` (array `users`), `app/_layout.tsx`, `app/index.tsx`, `app/admin.tsx`, `components/AdminSection.tsx`, fondasi Modul 3 (`types/api.ts`, `utils/delay.ts`, `services/api.ts`, `components/Loading.tsx`, `components/ErrorMessage.tsx`), `services/adminService.ts` |
+| Anggota 1 (Farid) | `.gitignore`, `README.md`, `PROGRES.md`, `constants/types.ts`, `constants/styles.ts`, `constants/data.ts` (array `users`), `app/_layout.tsx`, `app/index.tsx`, `app/admin.tsx`, `components/AdminSection.tsx`, fondasi Modul 3 (`docs/modul3/`, `types/api.ts`, `utils/delay.ts`, `services/api.ts`, `components/Loading.tsx`, `components/ErrorMessage.tsx`), `services/adminService.ts` |
 | Anggota 2 (Dilla) | `app/mahasiswa.tsx`, `components/MahasiswaSection.tsx`, `constants/data.ts` (array `kelasList` & `tugasList`), `services/mahasiswaService.ts` |
 | Anggota 3 (Ismail)| `app/dosen.tsx`, `components/DosenSection.tsx` (memakai `kelasList` & `tugasList`, tidak mengisinya), `services/dosenService.ts` |
 
