@@ -7,9 +7,9 @@
 ## Status Rubrik Modul 3
 | Poin rubrik | Anggota 1 (Admin) | Anggota 2 (Mahasiswa) | Anggota 3 (Dosen) |
 |---|---|---|---|
-| External API → object ber-interface | [x] | [ ] | [x] |
-| Custom & pre-built async function | [x] | [ ] | [x] |
-| `.then()`, `resolve()`, `reject()` | [x] | [ ] | [x] |
+| External API → object ber-interface | [x] | [x] | [x] |
+| Custom & pre-built async function | [x] | [x] | [x] |
+| `.then()`, `resolve()`, `reject()` | [x] | [x] | [x] |
 
 ## Status Rubrik Modul 2
 | Poin rubrik | Anggota 1 (Admin) | Anggota 2 (Mahasiswa) | Anggota 3 (Dosen) |
@@ -26,6 +26,14 @@
 | Inline & external style | [x] | [x] | [x] |
 
 ---
+
+## [2026-11-09] Anggota 2 (Dilla) – Modul 3 Mahasiswa Langkah 4: tes & dokumentasi
+- Dikerjakan: Mencentang tiga poin rubrik Modul 3 Anggota 2 di tabel status; memperbarui baris `components/MahasiswaSection.tsx` dan `services/mahasiswaService.ts` di tabel struktur README; menyiapkan checklist tes manual Expo Go sesuai Definition of done RENCANA. `tsc --noEmit` lolos.
+- File diubah: PROGRES.md, README.md
+- Poin rubrik yang terpenuhi: External API → object ber-interface; Custom & pre-built async function; `.then()`, `resolve()`, `reject()` (semua poin Modul 3 Anggota 2 selesai).
+- Catatan keamanan: hanya dokumentasi; tidak ada package, secret, atau AsyncStorage.
+- Saran pesan commit: `docs: centang rubrik Modul 3 Mahasiswa dan perbarui README`
+- Belum selesai / langkah berikutnya: Dilla menjalankan tes manual di Expo Go, persiapan bahan demo, lalu push + PR `fitur/mahasiswa-modul3` → `main`.
 
 ## [2026-11-09] Anggota 2 (Dilla) – Modul 3 Mahasiswa Langkah 3: section "To-Do Belajar" (External API)
 - Dikerjakan: `components/MahasiswaSection.tsx` ditambah state `todoApi: ApiTodo[]`, `loadingApi`, `errorApi` dan custom async function `muatTodoApi` (`async` + `await delay(500)` + `await getTodosApi()`) di `useEffect(..., [])` yang sama, beserta `.catch()` untuk menangkap `reject()`. Section baru di bawah tombol: judul memakai ternary nilai `loadingApi ? "Memuat data dari server..." : "To-Do Belajar"`, subjudul "Sumber: DummyJSON", teks `errorApi` (merah, kosong jika tidak error), dan daftar kartu lewat custom function `renderTodoCard(item: ApiTodo)` (`item.todo` tebal + status selesai/belum selesai via ternary nilai `item.completed ? "Selesai" : "Belum selesai"` dan warna status dinamis) dengan `todoApi.map((item) => renderTodoCard(item))` + `key={item.id}`. Tanpa ternary komponen. `tsc --noEmit` lolos.
