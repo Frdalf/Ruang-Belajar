@@ -27,6 +27,14 @@
 
 ---
 
+## [2026-11-09] Anggota 1 (Farid) – Upgrade Expo SDK 57 → 58
+- Dikerjakan: Upgrade project ke Expo SDK 58 (disetujui tim) karena Expo Go terbaru hanya mendukung SDK 58. `npm install expo@^58`, lalu install ulang bersih (`node_modules` + `package-lock.json` dibuat ulang) tanpa `--force`/`--legacy-peer-deps`, lalu `npx expo install` untuk menyamakan versi: expo ~58.0.23, expo-router ~58.0.30, expo-constants ~58.0.15, expo-linking ~58.0.16, expo-status-bar ~58.0.4, react/react-dom 19.3.0, react-native 0.88.1, react-native-safe-area-context ~5.11.1, react-native-screens ~4.30.1, @types/react ~19.3.0 (tetap di devDependencies). `npx expo install --check` bersih, `tsc --noEmit` lolos. README: versi SDK + jumlah temuan audit.
+- File diubah: package.json, package-lock.json, README.md, PROGRES.md
+- Poin rubrik yang terpenuhi: tidak ada (perawatan project).
+- Catatan keamanan: tidak ada package baru, hanya naik versi. `npm audit`: 5 moderate (glob, minimatch) dari dependency Expo; `npm audit fix --force` TIDAK dijalankan karena akan menurunkan expo ke 53.
+- Saran pesan commit: `chore: upgrade Expo SDK 57 ke 58`
+- Belum selesai / langkah berikutnya: tes semua halaman di Expo Go SDK 58, PR `chore/upgrade-sdk58` → `main`; setelah merge, tiap anggota `git checkout main && git pull && npm install` lalu `git merge main` di branch Modul 3 masing-masing.
+
 ## [2026-11-09] Anggota 1 (Farid) – Modul 3: kembalikan dokumen tim
 - Dikerjakan: Menambahkan kembali `docs/modul3/MATERI_MODUL3.md` dan `docs/modul3/RENCANA_MODUL3.md` (isi sama seperti dokumen tim), lalu README diperbarui: catatan agent untuk membaca kedua file itu, baris `docs/modul3/` di tabel struktur folder, dan `docs/modul3/` di kepemilikan fondasi Anggota 1. `tsc --noEmit` lolos.
 - File diubah: docs/modul3/MATERI_MODUL3.md, docs/modul3/RENCANA_MODUL3.md, README.md, PROGRES.md
