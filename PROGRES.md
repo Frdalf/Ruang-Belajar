@@ -20,6 +20,14 @@
 
 ---
 
+## [2026-11-09] Anggota 1 (Farid) – Modul 3 Langkah 5: components/ErrorMessage.tsx
+- Dikerjakan: Membuat komponen default export `ErrorMessage` dengan interface props `{ pesan: string; onRetry: () => void }`. Isinya ikon Ionicons `alert-circle` (merah, `colors.admin`), teks pesan error, dan `Pressable` "Coba Lagi" (`styles.button`) yang memanggil `onRetry`. Style: external (`styles`, `colors`) + internal `errorStyles` (alignItems, marginBottom, marginTop, fontSize, color, textAlign). Dipakai lewat early return `if (error !== "")`. `tsc --noEmit` lolos.
+- File diubah: components/ErrorMessage.tsx, PROGRES.md
+- Poin rubrik yang terpenuhi: fondasi tampilan hasil `reject()` + tombol muat ulang.
+- Catatan keamanan: ikon dari `@expo/vector-icons` yang sudah terpasang, tidak ada package baru.
+- Saran pesan commit: `feat: tambahkan komponen ErrorMessage`
+- Belum selesai / langkah berikutnya: Langkah 6 `README.md`.
+
 ## [2026-11-09] Anggota 1 (Farid) – Modul 3 Langkah 4: components/Loading.tsx
 - Dikerjakan: Membuat komponen default export `Loading` berisi `ActivityIndicator` (size "large", color `colors.primary`) dan teks "Memuat data..." di dalam `styles.card`. Style memakai external style (`styles`, `colors`) + internal style `loadingStyles` (alignItems, justifyContent, padding, marginTop, fontSize, color). Dipakai lewat early return `if (loading) { return <Loading />; }`. `tsc --noEmit` lolos.
 - File diubah: components/Loading.tsx, PROGRES.md
