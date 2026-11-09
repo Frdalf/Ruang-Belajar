@@ -27,6 +27,14 @@
 
 ---
 
+## [2026-11-09] Anggota 1 (Farid) – Modul 3 Admin Langkah 3: section "User dari Server" (External API)
+- Dikerjakan: `components/AdminSection.tsx` ditambah state `userApi: ApiUser[]`, `loadingApi`, `errorApi` dan custom async function `muatUserApi` (`async` + `await delay(500)` + `await getUsersApi()`) di `useEffect(..., [])` yang sama, beserta `.catch()` untuk menangkap `reject()`. Section baru di bawah tombol: judul memakai ternary nilai `loadingApi ? "Memuat data dari server..." : "User dari Server"`, subjudul "Sumber: DummyJSON", teks `errorApi` (merah, kosong jika tidak error), dan daftar kartu lewat custom function `renderUserApiCard(item: ApiUser)` (`${item.firstName} ${item.lastName}` + `item.email`) dengan `userApi.map((item) => renderUserApiCard(item))` + `key={item.id}`. Tanpa ternary komponen. `tsc --noEmit` lolos.
+- File diubah: components/AdminSection.tsx, PROGRES.md
+- Poin rubrik yang terpenuhi: External API → object ber-interface (`ApiUsersResponse`/`ApiUser` → state `userApi`); custom (`muatUserApi`) & pre-built (`fetch`, `response.json`, `delay`) async function.
+- Catatan keamanan: hanya GET ke DummyJSON tanpa API key/token; yang ditampilkan hanya nama & email (field sensitif DummyJSON tidak masuk interface); tidak ada package baru.
+- Saran pesan commit: `feat: tampilkan user dari DummyJSON dengan async/await di AdminSection`
+- Belum selesai / langkah berikutnya: Langkah 4 tes manual Expo Go, centang rubrik Modul 3, perbarui README.
+
 ## [2026-11-09] Anggota 1 (Farid) – Modul 3 Admin Langkah 2: AdminSection memuat data lokal lewat Promise
 - Dikerjakan: `components/AdminSection.tsx` tidak lagi import `users` langsung. Ditambah state `daftarUser`, `loading`, `error` dan custom function `muatUserLokal(gagal)` yang memanggil `getUsersLokal(gagal).then(...).catch(...)`, dipanggil di `useEffect(..., [])`. `hitungUserPerRole(daftar, role)` diberi parameter `daftar: User[]`; `statistikList` dipindah ke dalam komponen agar dihitung dari `daftarUser`. Toggle tetap ternary nilai (`tampilkanUser ? daftarUser : []`, variabelnya diganti nama jadi `userTampil` karena `daftarUser` sekarang state). Early return `<Loading />` dan `<ErrorMessage onRetry={() => muatUserLokal(false)} />`. Tombol "Simulasi Server Gagal" (Ionicons `cloud-offline`) memanggil `muatUserLokal(true)`. Fitur Modul 1 & 2 (loop for, switch, renderUserCard, toggle useState, useEffect logging, Kelola User) tetap ada. `tsc --noEmit` lolos.
 - File diubah: components/AdminSection.tsx, PROGRES.md

@@ -3,7 +3,9 @@ import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { colors, styles } from "../constants/styles"; // external style
 import { Role, User } from "../constants/types";
-import { getUsersLokal } from "../services/adminService";
+import { getUsersApi, getUsersLokal } from "../services/adminService";
+import { ApiUser } from "../types/api";
+import { delay } from "../utils/delay";
 import Loading from "./Loading";
 import ErrorMessage from "./ErrorMessage";
 
@@ -82,6 +84,15 @@ const renderUserCard = (user: User) => (
   </View>
 );
 
+// Custom function yang me-return komponen: satu kartu user dari External API
+// item mengikuti interface ApiUser (hasil response DummyJSON)
+const renderUserApiCard = (item: ApiUser) => (
+  <View key={item.id} style={styles.card}>
+    <Text style={adminStyles.userName}>{`${item.firstName} ${item.lastName}`}</Text>
+    <Text style={adminStyles.userInfo}>{item.email}</Text>
+  </View>
+);
+
 // Callback untuk tombol "Kelola User"
 const handleKelolaUser = () => {
   Alert.alert("Kelola User", "Fitur kelola user akan tersedia di modul berikutnya.");
@@ -94,6 +105,10 @@ export default function AdminSection() {
   const [daftarUser, setDaftarUser] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
+  // state data External API (diisi setelah fetch DummyJSON selesai)
+  const [userApi, setUserApi] = useState<ApiUser[]>([]);
+  const [loadingApi, setLoadingApi] = useState<boolean>(true);
+  const [errorApi, setErrorApi] = useState<string>("");
 
   // Custom function: memuat data lokal memakai .then()
   function muatUserLokal(gagal: boolean) {
@@ -113,6 +128,20 @@ export default function AdminSection() {
   // useEffect dengan [] : dijalankan sekali saat halaman pertama dibuka
   useEffect(() => {
     muatUserLokal(false);
+
+    // CUSTOM ASYNC FUNCTION dengan async/await (pola apicall.tsx di modul)
+    // async -> fungsi ini otomatis mengembalikan Promise
+    const muatUserApi = async () => {
+      await delay(500);                  // tunggu Promise delay selesai
+      const hasil = await getUsersApi(); // tunggu fetch selesai, hasil = ApiUsersResponse
+      setUserApi(hasil.users);
+      setLoadingApi(false);
+    };
+    // .catch() menangkap reject() dari getUsersApi
+    muatUserApi().catch((pesan) => {
+      setErrorApi(String(pesan));
+      setLoadingApi(false);
+    });
   }, []);
 
   // useEffect: dijalankan setiap kali nilai tampilkanUser berubah
@@ -139,6 +168,8 @@ export default function AdminSection() {
 
   // Ternary pada nilai: jika tampilkanUser true pakai daftarUser, jika false array kosong
   const userTampil: User[] = tampilkanUser ? daftarUser : [];
+  // Ternary pada nilai: judul section API berubah selama fetch berjalan
+  const judulApi: string = loadingApi ? "Memuat data dari server..." : "User dari Server";
 
   return (
     <View style={{ marginBottom: 24 }}>
@@ -174,6 +205,14 @@ export default function AdminSection() {
           <Text style={styles.buttonText}>Simulasi Server Gagal</Text>
         </Pressable>
       </View>
+
+      {/* Section External API: data dari DummyJSON (GET /users?limit=5) */}
+      <Text style={adminStyles.listTitle}>{judulApi}</Text>
+      <Text style={styles.subtitle}>Sumber: DummyJSON</Text>
+      {/* errorApi berisi string kosong jika tidak ada error */}
+      <Text style={adminStyles.errorText}>{errorApi}</Text>
+      {/* .map(): ubah setiap ApiUser menjadi satu kartu, key={item.id} */}
+      {userApi.map((item) => renderUserApiCard(item))}
     </View>
   );
 }
@@ -213,5 +252,9 @@ const adminStyles = StyleSheet.create({
   userInfo: {
     fontSize: 13,
     color: colors.textMuted,
+  },
+  errorText: {
+    fontSize: 13,
+    color: colors.admin, // merah
   },
 });
