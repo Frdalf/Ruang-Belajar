@@ -1,8 +1,15 @@
-# PROGRES – UMM Class (Modul 1 & 2)
+# PROGRES – UMM Class (Modul 1–3)
 
 > Agent/anggota: baca README.md dan file ini SEBELUM membuka file lain.
 
-> **ATURAN KETAT (berlaku semua anggota):** hanya gunakan sintaks yang ada contohnya di Modul 1 atau Modul 2 (lihat README "Batas materi Modul 1 + 2"). Jika tidak ada di modul, jangan dipakai walaupun benar secara React Native.
+> **ATURAN KETAT (berlaku semua anggota):** hanya gunakan sintaks yang ada contohnya di Modul 1, 2, atau 3 (lihat README "Batas materi Modul 1 – 3"). Jika tidak ada di modul, jangan dipakai walaupun benar secara React Native.
+
+## Status Rubrik Modul 3
+| Poin rubrik | Anggota 1 (Admin) | Anggota 2 (Mahasiswa) | Anggota 3 (Dosen) |
+|---|---|---|---|
+| External API → object ber-interface | [ ] | [ ] | [ ] |
+| Custom & pre-built async function | [ ] | [ ] | [ ] |
+| `.then()`, `resolve()`, `reject()` | [ ] | [ ] | [ ] |
 
 ## Status Rubrik Modul 2
 | Poin rubrik | Anggota 1 (Admin) | Anggota 2 (Mahasiswa) | Anggota 3 (Dosen) |
@@ -19,6 +26,70 @@
 | Inline & external style | [x] | [x] | [x] |
 
 ---
+
+## [2026-11-09] Anggota 1 (Farid) – Modul 3: kembalikan dokumen tim
+- Dikerjakan: Menambahkan kembali `docs/modul3/MATERI_MODUL3.md` dan `docs/modul3/RENCANA_MODUL3.md` (isi sama seperti dokumen tim), lalu README diperbarui: catatan agent untuk membaca kedua file itu, baris `docs/modul3/` di tabel struktur folder, dan `docs/modul3/` di kepemilikan fondasi Anggota 1. `tsc --noEmit` lolos.
+- File diubah: docs/modul3/MATERI_MODUL3.md, docs/modul3/RENCANA_MODUL3.md, README.md, PROGRES.md
+- Poin rubrik yang terpenuhi: dokumentasi materi dan pola acuan Modul 3 untuk semua anggota.
+- Catatan keamanan: hanya dokumen Markdown, tidak ada kode, package, atau secret baru.
+- Saran pesan commit: `docs: tambahkan materi dan rencana Modul 3 di docs/modul3`
+- Belum selesai / langkah berikutnya: push + PR `fitur/fondasi-modul3` → `main`.
+
+## [2026-11-09] Anggota 1 (Farid) – Modul 3 Langkah 7: PROGRES Modul 1–3
+- Dikerjakan: Mengubah judul `PROGRES.md` menjadi Modul 1–3, memperbarui aturan ketat agar merujuk ke Modul 1, 2, atau 3, dan menambahkan tabel "Status Rubrik Modul 3" di paling atas (External API → object ber-interface; Custom & pre-built async function; `.then()`, `resolve()`, `reject()`), semua `[ ]` untuk ketiga anggota. `tsc --noEmit` lolos.
+- File diubah: PROGRES.md
+- Poin rubrik yang terpenuhi: belum ada (tabel untuk dicentang tiap anggota). Fondasi Modul 3 selesai.
+- Catatan keamanan: hanya dokumentasi.
+- Saran pesan commit: `docs: tambahkan status rubrik Modul 3 di PROGRES`
+- Belum selesai / langkah berikutnya: push + PR `fitur/fondasi-modul3` → `main`; setelah merge, Farid `fitur/admin-modul3`, Dilla `fitur/mahasiswa-modul3`, Ismail `fitur/dosen-modul3`.
+
+## [2026-11-09] Anggota 1 (Farid) – Modul 3 Langkah 6: README Modul 1–3
+- Dikerjakan: Memperbarui `README.md` untuk Modul 1–3: judul + tujuan Modul 3; tabel struktur folder ditambah `types/api.ts`, `utils/delay.ts`, `services/*`, `Loading.tsx`, `ErrorMessage.tsx`; kepemilikan file (fondasi + `adminService.ts` = Anggota 1, `mahasiswaService.ts` = Anggota 2, `dosenService.ts` = Anggota 3); langkah pertama anggota lain Modul 3; tabel pembagian Modul 3 + pola service acuan; bagian "Boleh dari Modul 3" dan "Pengecualian Modul 3"; "Tetap dilarang" diperbarui (`fetch` GET boleh, AsyncStorage/axios/selain GET tetap dilarang); judul batas materi jadi "Modul 1 – 3"; konvensi branch `-modul3`. Folder `docs/modul3/` tidak dicantumkan karena dihapus atas keputusan tim, jadi pola acuan Modul 3 langsung ditulis di README. `tsc --noEmit` lolos.
+- File diubah: README.md, PROGRES.md
+- Poin rubrik yang terpenuhi: dokumentasi aturan Modul 3 untuk semua anggota.
+- Catatan keamanan: README menegaskan tidak ada API key/secret, hanya GET, dan field sensitif DummyJSON tidak ditampilkan.
+- Saran pesan commit: `docs: perbarui README untuk Modul 3`
+- Belum selesai / langkah berikutnya: Langkah 7 `PROGRES.md` (judul + tabel Status Rubrik Modul 3).
+
+## [2026-11-09] Anggota 1 (Farid) – Modul 3 Langkah 5: components/ErrorMessage.tsx
+- Dikerjakan: Membuat komponen default export `ErrorMessage` dengan interface props `{ pesan: string; onRetry: () => void }`. Isinya ikon Ionicons `alert-circle` (merah, `colors.admin`), teks pesan error, dan `Pressable` "Coba Lagi" (`styles.button`) yang memanggil `onRetry`. Style: external (`styles`, `colors`) + internal `errorStyles` (alignItems, marginBottom, marginTop, fontSize, color, textAlign). Dipakai lewat early return `if (error !== "")`. `tsc --noEmit` lolos.
+- File diubah: components/ErrorMessage.tsx, PROGRES.md
+- Poin rubrik yang terpenuhi: fondasi tampilan hasil `reject()` + tombol muat ulang.
+- Catatan keamanan: ikon dari `@expo/vector-icons` yang sudah terpasang, tidak ada package baru.
+- Saran pesan commit: `feat: tambahkan komponen ErrorMessage`
+- Belum selesai / langkah berikutnya: Langkah 6 `README.md`.
+
+## [2026-11-09] Anggota 1 (Farid) – Modul 3 Langkah 4: components/Loading.tsx
+- Dikerjakan: Membuat komponen default export `Loading` berisi `ActivityIndicator` (size "large", color `colors.primary`) dan teks "Memuat data..." di dalam `styles.card`. Style memakai external style (`styles`, `colors`) + internal style `loadingStyles` (alignItems, justifyContent, padding, marginTop, fontSize, color). Dipakai lewat early return `if (loading) { return <Loading />; }`. `tsc --noEmit` lolos.
+- File diubah: components/Loading.tsx, PROGRES.md
+- Poin rubrik yang terpenuhi: fondasi tampilan loading untuk data asynchronous.
+- Catatan keamanan: `ActivityIndicator` bawaan `react-native` (pengecualian Modul 3), tidak ada package baru.
+- Saran pesan commit: `feat: tambahkan komponen Loading`
+- Belum selesai / langkah berikutnya: Langkah 5 `components/ErrorMessage.tsx`.
+
+## [2026-11-09] Anggota 1 (Farid) – Modul 3 Langkah 3: services/api.ts
+- Dikerjakan: Membuat `services/api.ts` berisi `export const BASE_URL = "https://dummyjson.com";` dengan komentar tentang endpoint, fetching, response, dan aturan hanya method GET. Service tiap anggota menyusun endpoint dari `BASE_URL`. `tsc --noEmit` lolos.
+- File diubah: services/api.ts, PROGRES.md
+- Poin rubrik yang terpenuhi: fondasi "External API → object ber-interface" (alamat API bersama).
+- Catatan keamanan: DummyJSON tidak membutuhkan API key/token; tidak ada secret atau package baru.
+- Saran pesan commit: `feat: tambahkan BASE_URL DummyJSON di services/api.ts`
+- Belum selesai / langkah berikutnya: Langkah 4 `components/Loading.tsx`.
+
+## [2026-11-09] Anggota 1 (Farid) – Modul 3 Langkah 2: utils/delay.ts
+- Dikerjakan: Membuat `utils/delay.ts` berisi `delay(ms): Promise<void>`, persis seperti codelab Modul 3. Promise di-`resolve()` setelah `setTimeout` selesai, untuk mensimulasikan server lambat (dipakai dengan `await delay(...)`). `tsc --noEmit` lolos.
+- File diubah: utils/delay.ts, PROGRES.md
+- Poin rubrik yang terpenuhi: fondasi "Custom & pre-built async function" (fungsi Promise yang bisa dipakai ulang semua anggota).
+- Catatan keamanan: tidak ada package, data, atau secret baru.
+- Saran pesan commit: `feat: tambahkan utility delay di utils/delay.ts`
+- Belum selesai / langkah berikutnya: Langkah 3 `services/api.ts`.
+
+## [2026-11-09] Anggota 1 (Farid) – Modul 3 Langkah 1: types/api.ts
+- Dikerjakan: Membuat `types/api.ts` berisi `ApiResponse<T>` (generic, sama seperti codelab Modul 3) dan 6 interface response DummyJSON: `ApiUser`/`ApiUsersResponse` (Admin), `ApiTodo`/`ApiTodosResponse` (Mahasiswa), `ApiPost`/`ApiPostsResponse` (Dosen). Nama properti sudah dicek ke `GET /users`, `/todos`, `/posts?limit=5`. `constants/types.ts` tidak diubah. `tsc --noEmit` lolos.
+- File diubah: types/api.ts, PROGRES.md
+- Poin rubrik yang terpenuhi: fondasi "External API → object ber-interface" (interface siap dipakai semua anggota).
+- Catatan keamanan: response `/users` DummyJSON juga berisi field sensitif fiktif (`password`, `ssn`, `bank`). Field itu sengaja tidak dimasukkan ke interface dan tidak boleh ditampilkan di UI.
+- Saran pesan commit: `feat: tambahkan interface response API di types/api.ts`
+- Belum selesai / langkah berikutnya: Langkah 2 `utils/delay.ts`.
 
 ## [2026-10-17] Anggota 2 (Dilla) – Modul 2: Halaman Mahasiswa, hooks, & canGoBack
 - Dikerjakan: Menambahkan `<Stack.Screen name="mahasiswa" options={{ title: "Panel Mahasiswa" }} />` di `app/_layout.tsx`; mengganti TODO di `app/index.tsx` dengan tombol "Panel Mahasiswa" menggunakan `router.push("/mahasiswa")`, serta menghapus import dan pemanggilan `MahasiswaSection` di index; membuat halaman baru `app/mahasiswa.tsx` yang me-render `<MahasiswaSection />` di dalam `ScrollView` serta tombol "Kembali" dengan logika `router.canGoBack()` (fallback `router.replace("/")` bila stack kosong); memperbarui `components/MahasiswaSection.tsx` dengan menambahkan state `useState<number>(0)` untuk menghitung berapa kali kartu kelas ditekan/dibuka (`setJumlahDibuka(jumlahDibuka + 1)` di dalam `renderKelasCard`), menampilkan teks counter "Kelas dibuka: {jumlahDibuka} kali", menambahkan `useEffect` mount dengan dependency `[]` untuk logging halaman dibuka, dan `useEffect` dengan dependency `[jumlahDibuka]` untuk logging perubahan jumlah dibuka, memindahkan `renderKelasCard` ke dalam komponen agar langsung mengakses state tanpa callback tambahan, dan tetap mempertahankan seluruh isi kode Modul 1; memperbarui `README.md` dan `PROGRES.md`.
