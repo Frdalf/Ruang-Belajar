@@ -27,6 +27,30 @@
 
 ---
 
+## [2026-11-09] Anggota 3 (Ismail) – Modul 3 Dosen Langkah 3: section "Pengumuman Kelas" (External API)
+- Dikerjakan: `components/DosenSection.tsx` ditambah state `postApi: ApiPost[]`, `loadingApi`, `errorApi` dan custom async function `muatPostApi` (`async` + `await delay(500)` + `await getPostsApi()`) di `useEffect(..., [])` yang sama, beserta `.catch()` untuk menangkap `reject()`. Section baru di bawah tombol: judul memakai ternary nilai `loadingApi ? "Memuat data dari server..." : "Pengumuman Kelas"`, subjudul "Sumber: DummyJSON", teks `errorApi` (merah, kosong jika tidak error), dan daftar kartu lewat custom function `renderPengumumanCard(item: ApiPost)` (`item.title` tebal + `item.body`) dengan `postApi.map((item) => renderPengumumanCard(item))` + `key={item.id}`. Tanpa ternary komponen. `tsc --noEmit` lolos.
+- File diubah: components/DosenSection.tsx, PROGRES.md
+- Poin rubrik yang terpenuhi: External API → object ber-interface (`ApiPostsResponse`/`ApiPost` → state `postApi`); custom (`muatPostApi`) & pre-built (`fetch`, `response.json`, `delay`) async function.
+- Catatan keamanan: hanya GET ke DummyJSON endpoint /posts tanpa API key/token; tidak ada secret atau package baru.
+- Saran pesan commit: `feat: tampilkan pengumuman dari DummyJSON dengan async/await di DosenSection`
+- Belum selesai / langkah berikutnya: Langkah 4 tes manual Expo Go, centang rubrik Modul 3, perbarui README.
+
+## [2026-11-09] Anggota 3 (Ismail) – Modul 3 Dosen Langkah 2: DosenSection memuat data lokal lewat Promise
+- Dikerjakan: `components/DosenSection.tsx` tidak lagi import `kelasList` langsung. Ditambahkan state `daftarKelas`, `loading`, `error` dan custom function `muatKelas(gagal)` yang memanggil `getKelasLokal(gagal).then(...).catch(...)`, dipanggil di `useEffect(..., [])`. `hitungTotalMahasiswa` dan daftar kelas sekarang menggunakan state `daftarKelas`. `useEffect` logging `kelasDipilih` dan `router.setParams()` saat kartu ditekan tetap berfungsi. Ditambahkan early return `<Loading />` dan `<ErrorMessage pesan={error} onRetry={() => muatKelas(false)} />`. Ditambahkan tombol "Simulasi Server Gagal" (Ionicons `cloud-offline`) yang memanggil `muatKelas(true)`. Seluruh fitur Modul 1 & 2 tetap dipertahankan. `tsc --noEmit` lolos.
+- File diubah: components/DosenSection.tsx, PROGRES.md
+- Poin rubrik yang terpenuhi: custom async function (`getKelasLokal`), `.then()`, `resolve()`, `reject()` (dipakai di komponen DosenSection).
+- Catatan keamanan: tidak ada package baru; data tetap fiktif dari `constants/data.ts`.
+- Saran pesan commit: `feat: muat data kelas Dosen lewat Promise dengan loading dan error`
+- Belum selesai / langkah berikutnya: Langkah 3 section "Pengumuman Kelas" (async/await + fetch DummyJSON).
+
+## [2026-11-09] Anggota 3 (Ismail) – Modul 3 Dosen Langkah 1: services/dosenService.ts
+- Dikerjakan: Membuat `services/dosenService.ts` persis mengikuti bagian 4.2 RENCANA: `getKelasLokal(gagal): Promise<ApiResponse<Kelas[]>>` (custom async function: `new Promise` + `setTimeout` 1,5 detik, `reject("Server lokal sedang down")` jika `gagal`, selain itu `resolve()` berisi array `kelasList`) dan `getPostsApi(): Promise<ApiPostsResponse>` (pre-built: `fetch` GET `${BASE_URL}/posts?limit=5`, `resolve(response.json())` jika `response.ok`, `reject()` jika tidak / tanpa internet). Ditambahkan komentar penjelasan perbedaan custom async function vs pre-built async function. `tsc --noEmit` lolos.
+- File diubah: services/dosenService.ts, PROGRES.md
+- Poin rubrik yang terpenuhi: sebagian (service siap): custom & pre-built async function, `resolve()`/`reject()`, `.then()` di dalam `getPostsApi`, External API → `ApiPostsResponse`. Dicentang setelah dipakai di DosenSection.
+- Catatan keamanan: hanya GET ke DummyJSON endpoint /posts tanpa API key/token; tidak ada secret atau package baru.
+- Saran pesan commit: `feat: tambahkan dosenService dengan Promise lokal dan fetch DummyJSON`
+- Belum selesai / langkah berikutnya: Langkah 2 DosenSection memuat data lokal lewat Promise.
+
 ## [2026-11-09] Anggota 1 (Farid) – Upgrade Expo SDK 57 → 58
 - Dikerjakan: Upgrade project ke Expo SDK 58 (disetujui tim) karena Expo Go terbaru hanya mendukung SDK 58. `npm install expo@^58`, lalu install ulang bersih (`node_modules` + `package-lock.json` dibuat ulang) tanpa `--force`/`--legacy-peer-deps`, lalu `npx expo install` untuk menyamakan versi: expo ~58.0.23, expo-router ~58.0.30, expo-constants ~58.0.15, expo-linking ~58.0.16, expo-status-bar ~58.0.4, react/react-dom 19.3.0, react-native 0.88.1, react-native-safe-area-context ~5.11.1, react-native-screens ~4.30.1, @types/react ~19.3.0 (tetap di devDependencies). `npx expo install --check` bersih, `tsc --noEmit` lolos. README: versi SDK + jumlah temuan audit.
 - File diubah: package.json, package-lock.json, README.md, PROGRES.md
