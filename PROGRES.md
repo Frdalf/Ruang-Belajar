@@ -20,6 +20,14 @@
 
 ---
 
+## [2026-11-09] Anggota 1 (Farid) – Modul 3 Langkah 3: services/api.ts
+- Dikerjakan: Membuat `services/api.ts` berisi `export const BASE_URL = "https://dummyjson.com";` dengan komentar tentang endpoint, fetching, response, dan aturan hanya method GET. Service tiap anggota menyusun endpoint dari `BASE_URL`. `tsc --noEmit` lolos.
+- File diubah: services/api.ts, PROGRES.md
+- Poin rubrik yang terpenuhi: fondasi "External API → object ber-interface" (alamat API bersama).
+- Catatan keamanan: DummyJSON tidak membutuhkan API key/token; tidak ada secret atau package baru.
+- Saran pesan commit: `feat: tambahkan BASE_URL DummyJSON di services/api.ts`
+- Belum selesai / langkah berikutnya: Langkah 4 `components/Loading.tsx`.
+
 ## [2026-11-09] Anggota 1 (Farid) – Modul 3 Langkah 2: utils/delay.ts
 - Dikerjakan: Membuat `utils/delay.ts` berisi `delay(ms): Promise<void>`, persis seperti codelab Modul 3. Promise di-`resolve()` setelah `setTimeout` selesai, untuk mensimulasikan server lambat (dipakai dengan `await delay(...)`). `tsc --noEmit` lolos.
 - File diubah: utils/delay.ts, PROGRES.md
