@@ -7,9 +7,9 @@
 ## Status Rubrik Modul 3
 | Poin rubrik | Anggota 1 (Admin) | Anggota 2 (Mahasiswa) | Anggota 3 (Dosen) |
 |---|---|---|---|
-| External API → object ber-interface | [ ] | [ ] | [ ] |
-| Custom & pre-built async function | [ ] | [ ] | [ ] |
-| `.then()`, `resolve()`, `reject()` | [ ] | [ ] | [ ] |
+| External API → object ber-interface | [x] | [ ] | [ ] |
+| Custom & pre-built async function | [x] | [ ] | [ ] |
+| `.then()`, `resolve()`, `reject()` | [x] | [ ] | [ ] |
 
 ## Status Rubrik Modul 2
 | Poin rubrik | Anggota 1 (Admin) | Anggota 2 (Mahasiswa) | Anggota 3 (Dosen) |
@@ -34,6 +34,38 @@
 - Catatan keamanan: tidak ada package baru, hanya naik versi. `npm audit`: 5 moderate (glob, minimatch) dari dependency Expo; `npm audit fix --force` TIDAK dijalankan karena akan menurunkan expo ke 53.
 - Saran pesan commit: `chore: upgrade Expo SDK 57 ke 58`
 - Belum selesai / langkah berikutnya: tes semua halaman di Expo Go SDK 58, PR `chore/upgrade-sdk58` → `main`; setelah merge, tiap anggota `git checkout main && git pull && npm install` lalu `git merge main` di branch Modul 3 masing-masing.
+
+## [2026-11-09] Anggota 1 (Farid) – Modul 3 Admin Langkah 4: tes & dokumentasi
+- Dikerjakan: Mencentang tiga poin rubrik Modul 3 Anggota 1 di tabel status; memperbarui baris `components/AdminSection.tsx` dan `services/adminService.ts` di tabel struktur README; menyiapkan checklist tes manual Expo Go sesuai Definition of done RENCANA. `tsc --noEmit` lolos.
+- File diubah: PROGRES.md, README.md
+- Poin rubrik yang terpenuhi: External API → object ber-interface; Custom & pre-built async function; `.then()`, `resolve()`, `reject()` (semua poin Modul 3 Anggota 1 selesai).
+- Catatan keamanan: hanya dokumentasi; tidak ada package, secret, atau AsyncStorage.
+- Saran pesan commit: `docs: centang rubrik Modul 3 Admin dan perbarui README`
+- Belum selesai / langkah berikutnya: Farid menjalankan tes manual di Expo Go, lalu push + PR `fitur/admin-modul3` → `main`.
+
+## [2026-11-09] Anggota 1 (Farid) – Modul 3 Admin Langkah 3: section "User dari Server" (External API)
+- Dikerjakan: `components/AdminSection.tsx` ditambah state `userApi: ApiUser[]`, `loadingApi`, `errorApi` dan custom async function `muatUserApi` (`async` + `await delay(500)` + `await getUsersApi()`) di `useEffect(..., [])` yang sama, beserta `.catch()` untuk menangkap `reject()`. Section baru di bawah tombol: judul memakai ternary nilai `loadingApi ? "Memuat data dari server..." : "User dari Server"`, subjudul "Sumber: DummyJSON", teks `errorApi` (merah, kosong jika tidak error), dan daftar kartu lewat custom function `renderUserApiCard(item: ApiUser)` (`${item.firstName} ${item.lastName}` + `item.email`) dengan `userApi.map((item) => renderUserApiCard(item))` + `key={item.id}`. Tanpa ternary komponen. `tsc --noEmit` lolos.
+- File diubah: components/AdminSection.tsx, PROGRES.md
+- Poin rubrik yang terpenuhi: External API → object ber-interface (`ApiUsersResponse`/`ApiUser` → state `userApi`); custom (`muatUserApi`) & pre-built (`fetch`, `response.json`, `delay`) async function.
+- Catatan keamanan: hanya GET ke DummyJSON tanpa API key/token; yang ditampilkan hanya nama & email (field sensitif DummyJSON tidak masuk interface); tidak ada package baru.
+- Saran pesan commit: `feat: tampilkan user dari DummyJSON dengan async/await di AdminSection`
+- Belum selesai / langkah berikutnya: Langkah 4 tes manual Expo Go, centang rubrik Modul 3, perbarui README.
+
+## [2026-11-09] Anggota 1 (Farid) – Modul 3 Admin Langkah 2: AdminSection memuat data lokal lewat Promise
+- Dikerjakan: `components/AdminSection.tsx` tidak lagi import `users` langsung. Ditambah state `daftarUser`, `loading`, `error` dan custom function `muatUserLokal(gagal)` yang memanggil `getUsersLokal(gagal).then(...).catch(...)`, dipanggil di `useEffect(..., [])`. `hitungUserPerRole(daftar, role)` diberi parameter `daftar: User[]`; `statistikList` dipindah ke dalam komponen agar dihitung dari `daftarUser`. Toggle tetap ternary nilai (`tampilkanUser ? daftarUser : []`, variabelnya diganti nama jadi `userTampil` karena `daftarUser` sekarang state). Early return `<Loading />` dan `<ErrorMessage onRetry={() => muatUserLokal(false)} />`. Tombol "Simulasi Server Gagal" (Ionicons `cloud-offline`) memanggil `muatUserLokal(true)`. Fitur Modul 1 & 2 (loop for, switch, renderUserCard, toggle useState, useEffect logging, Kelola User) tetap ada. `tsc --noEmit` lolos.
+- File diubah: components/AdminSection.tsx, PROGRES.md
+- Poin rubrik yang terpenuhi: custom async function (`getUsersLokal`), `.then()`, `resolve()`, `reject()` (dipakai di komponen).
+- Catatan keamanan: tidak ada package baru; data tetap fiktif dari `constants/data.ts`.
+- Saran pesan commit: `feat: muat data user Admin lewat Promise dengan loading dan error`
+- Belum selesai / langkah berikutnya: Langkah 3 section "User dari Server" (async/await + fetch DummyJSON).
+
+## [2026-11-09] Anggota 1 (Farid) – Modul 3 Admin Langkah 1: services/adminService.ts
+- Dikerjakan: Membuat `services/adminService.ts` persis mengikuti bagian 4.2 RENCANA: `getUsersLokal(gagal): Promise<ApiResponse<User[]>>` (custom async function: `new Promise` + `setTimeout` 1,5 detik, `reject("Server lokal sedang down")` jika `gagal`, selain itu `resolve()` berisi array `users`) dan `getUsersApi(): Promise<ApiUsersResponse>` (pre-built: `fetch` GET `${BASE_URL}/users?limit=5`, `resolve(response.json())` jika `response.ok`, `reject()` jika tidak / tanpa internet). Ditambah komentar beda custom vs pre-built async function. `tsc --noEmit` lolos.
+- File diubah: services/adminService.ts, PROGRES.md
+- Poin rubrik yang terpenuhi: sebagian (service siap): custom & pre-built async function, `resolve()`/`reject()`, `.then()` di dalam `getUsersApi`, External API → `ApiUsersResponse`. Dicentang setelah dipakai di AdminSection.
+- Catatan keamanan: hanya GET ke DummyJSON tanpa API key/token; interface hanya memuat id, nama, email (field sensitif DummyJSON diabaikan); tidak ada package baru.
+- Saran pesan commit: `feat: tambahkan adminService dengan Promise lokal dan fetch DummyJSON`
+- Belum selesai / langkah berikutnya: Langkah 2 AdminSection memuat data lokal lewat Promise.
 
 ## [2026-11-09] Anggota 1 (Farid) – Modul 3: kembalikan dokumen tim
 - Dikerjakan: Menambahkan kembali `docs/modul3/MATERI_MODUL3.md` dan `docs/modul3/RENCANA_MODUL3.md` (isi sama seperti dokumen tim), lalu README diperbarui: catatan agent untuk membaca kedua file itu, baris `docs/modul3/` di tabel struktur folder, dan `docs/modul3/` di kepemilikan fondasi Anggota 1. `tsc --noEmit` lolos.

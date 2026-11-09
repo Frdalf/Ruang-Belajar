@@ -2,8 +2,12 @@ import { useEffect, useState } from "react";
 import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { colors, styles } from "../constants/styles"; // external style
-import { users } from "../constants/data";
 import { Role, User } from "../constants/types";
+import { getUsersApi, getUsersLokal } from "../services/adminService";
+import { ApiUser } from "../types/api";
+import { delay } from "../utils/delay";
+import Loading from "./Loading";
+import ErrorMessage from "./ErrorMessage";
 
 // Tipe untuk satu kartu statistik
 interface Statistik {
@@ -14,11 +18,12 @@ interface Statistik {
 }
 
 // Custom function: menghitung jumlah user dengan role tertentu memakai loop for
-function hitungUserPerRole(role: Role): number {
+// daftar = data user hasil Promise (bukan import users langsung lagi)
+function hitungUserPerRole(daftar: User[], role: Role): number {
   let jumlah: number = 0;
   // Loop for: cek setiap user satu per satu, tambah 1 jika role-nya cocok
-  for (let i = 0; i < users.length; i++) {
-    if (users[i].role === role) {
+  for (let i = 0; i < daftar.length; i++) {
+    if (daftar[i].role === role) {
       jumlah = jumlah + 1;
     }
   }
@@ -44,14 +49,6 @@ function getRoleColor(role: Role): string {
   }
   return warna;
 }
-
-// Array of objects: data untuk kartu statistik
-const statistikList: Statistik[] = [
-  { id: "total", label: "Total User", jumlah: users.length, warna: colors.primary },
-  { id: "mahasiswa", label: "Mahasiswa", jumlah: hitungUserPerRole("mahasiswa"), warna: colors.mahasiswa },
-  { id: "dosen", label: "Dosen", jumlah: hitungUserPerRole("dosen"), warna: colors.dosen },
-  { id: "admin", label: "Admin", jumlah: hitungUserPerRole("admin"), warna: colors.admin },
-];
 
 // Custom function yang me-return komponen: satu kartu statistik
 const renderStatCard = (stat: Statistik) => (
@@ -87,6 +84,15 @@ const renderUserCard = (user: User) => (
   </View>
 );
 
+// Custom function yang me-return komponen: satu kartu user dari External API
+// item mengikuti interface ApiUser (hasil response DummyJSON)
+const renderUserApiCard = (item: ApiUser) => (
+  <View key={item.id} style={styles.card}>
+    <Text style={adminStyles.userName}>{`${item.firstName} ${item.lastName}`}</Text>
+    <Text style={adminStyles.userInfo}>{item.email}</Text>
+  </View>
+);
+
 // Callback untuk tombol "Kelola User"
 const handleKelolaUser = () => {
   Alert.alert("Kelola User", "Fitur kelola user akan tersedia di modul berikutnya.");
@@ -95,14 +101,75 @@ const handleKelolaUser = () => {
 export default function AdminSection() {
   // useState: state untuk menampilkan/menyembunyikan daftar user (awal: tampil)
   const [tampilkanUser, setTampilkanUser] = useState<boolean>(true);
+  // state data lokal (diisi setelah Promise getUsersLokal selesai)
+  const [daftarUser, setDaftarUser] = useState<User[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
+  // state data External API (diisi setelah fetch DummyJSON selesai)
+  const [userApi, setUserApi] = useState<ApiUser[]>([]);
+  const [loadingApi, setLoadingApi] = useState<boolean>(true);
+  const [errorApi, setErrorApi] = useState<string>("");
+
+  // Custom function: memuat data lokal memakai .then()
+  function muatUserLokal(gagal: boolean) {
+    setLoading(true);
+    setError("");
+    getUsersLokal(gagal)
+      .then((hasil) => {          // dijalankan jika resolve()
+        setDaftarUser(hasil.data);
+        setLoading(false);
+      })
+      .catch((pesan) => {         // dijalankan jika reject()
+        setError(String(pesan));
+        setLoading(false);
+      });
+  }
+
+  // useEffect dengan [] : dijalankan sekali saat halaman pertama dibuka
+  useEffect(() => {
+    muatUserLokal(false);
+
+    // CUSTOM ASYNC FUNCTION dengan async/await (pola apicall.tsx di modul)
+    // async -> fungsi ini otomatis mengembalikan Promise
+    const muatUserApi = async () => {
+      await delay(500);                  // tunggu Promise delay selesai
+      const hasil = await getUsersApi(); // tunggu fetch selesai, hasil = ApiUsersResponse
+      setUserApi(hasil.users);
+      setLoadingApi(false);
+    };
+    // .catch() menangkap reject() dari getUsersApi
+    muatUserApi().catch((pesan) => {
+      setErrorApi(String(pesan));
+      setLoadingApi(false);
+    });
+  }, []);
 
   // useEffect: dijalankan setiap kali nilai tampilkanUser berubah
   useEffect(() => {
     console.log("Daftar user ditampilkan:", tampilkanUser);
   }, [tampilkanUser]);
 
-  // Ternary pada nilai: jika tampilkanUser true pakai semua users, jika false array kosong
-  const daftarUser: User[] = tampilkanUser ? users : [];
+  // Early return: selama Promise belum selesai, tampilkan Loading
+  if (loading) {
+    return <Loading />;
+  }
+  // Early return: jika Promise di-reject, tampilkan pesan error + tombol Coba Lagi
+  if (error !== "") {
+    return <ErrorMessage pesan={error} onRetry={() => muatUserLokal(false)} />;
+  }
+
+  // Array of objects: data kartu statistik, dihitung dari daftarUser
+  const statistikList: Statistik[] = [
+    { id: "total", label: "Total User", jumlah: daftarUser.length, warna: colors.primary },
+    { id: "mahasiswa", label: "Mahasiswa", jumlah: hitungUserPerRole(daftarUser, "mahasiswa"), warna: colors.mahasiswa },
+    { id: "dosen", label: "Dosen", jumlah: hitungUserPerRole(daftarUser, "dosen"), warna: colors.dosen },
+    { id: "admin", label: "Admin", jumlah: hitungUserPerRole(daftarUser, "admin"), warna: colors.admin },
+  ];
+
+  // Ternary pada nilai: jika tampilkanUser true pakai daftarUser, jika false array kosong
+  const userTampil: User[] = tampilkanUser ? daftarUser : [];
+  // Ternary pada nilai: judul section API berubah selama fetch berjalan
+  const judulApi: string = loadingApi ? "Memuat data dari server..." : "User dari Server";
 
   return (
     <View style={{ marginBottom: 24 }}>
@@ -124,12 +191,28 @@ export default function AdminSection() {
       </View>
 
       {/* .map(): ubah setiap user menjadi satu kartu, key={user.id} */}
-      {daftarUser.map((user) => renderUserCard(user))}
+      {userTampil.map((user) => renderUserCard(user))}
 
       <Pressable style={styles.button} onPress={handleKelolaUser}>
         <Ionicons name="people" size={18} color={colors.primary} />
         <Text style={styles.buttonText}>Kelola User</Text>
       </Pressable>
+
+      {/* Demo reject(): muat ulang data dengan gagal = true */}
+      <View style={{ marginTop: 12 }}>
+        <Pressable style={styles.button} onPress={() => muatUserLokal(true)}>
+          <Ionicons name="cloud-offline" size={18} color={colors.primary} />
+          <Text style={styles.buttonText}>Simulasi Server Gagal</Text>
+        </Pressable>
+      </View>
+
+      {/* Section External API: data dari DummyJSON (GET /users?limit=5) */}
+      <Text style={adminStyles.listTitle}>{judulApi}</Text>
+      <Text style={styles.subtitle}>Sumber: DummyJSON</Text>
+      {/* errorApi berisi string kosong jika tidak ada error */}
+      <Text style={adminStyles.errorText}>{errorApi}</Text>
+      {/* .map(): ubah setiap ApiUser menjadi satu kartu, key={item.id} */}
+      {userApi.map((item) => renderUserApiCard(item))}
     </View>
   );
 }
@@ -169,5 +252,9 @@ const adminStyles = StyleSheet.create({
   userInfo: {
     fontSize: 13,
     color: colors.textMuted,
+  },
+  errorText: {
+    fontSize: 13,
+    color: colors.admin, // merah
   },
 });
