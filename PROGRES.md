@@ -27,6 +27,14 @@
 
 ---
 
+## [2026-11-09] Anggota 2 (Dilla) – Modul 3 Mahasiswa Langkah 1: services/mahasiswaService.ts
+- Dikerjakan: Membuat `services/mahasiswaService.ts` mengikuti bagian 4.2 RENCANA: `getTugasLokal(gagal): Promise<ApiResponse<Tugas[]>>` (custom async function: `new Promise` + `setTimeout` 1,5 detik, `reject("Server lokal sedang down")` jika `gagal`, selain itu `resolve()` berisi array `tugasList`) dan `getTodosApi(): Promise<ApiTodosResponse>` (pre-built: `fetch` GET `${BASE_URL}/todos?limit=5`, `resolve(response.json())` jika `response.ok`, `reject()` jika tidak / tanpa internet). Ditambahkan komentar penjelasan konsep async, Promise, resolve, reject, .then, fetch, endpoint, response, interface, serta perbedaan custom async function vs pre-built async function. `tsc --noEmit` lolos.
+- File diubah: services/mahasiswaService.ts, PROGRES.md
+- Poin rubrik yang terpenuhi: sebagian (service siap): custom & pre-built async function, `resolve()`/`reject()`, `.then()` di dalam `getTodosApi`, External API → `ApiTodosResponse`. Dicentang setelah dipakai di MahasiswaSection.
+- Catatan keamanan: hanya GET ke DummyJSON endpoint /todos tanpa API key/token; tidak ada secret atau package baru.
+- Saran pesan commit: `feat: tambahkan mahasiswaService dengan Promise lokal dan fetch DummyJSON`
+- Belum selesai / langkah berikutnya: Langkah 2 MahasiswaSection memuat data lokal lewat Promise.
+
 ## [2026-11-09] Anggota 1 (Farid) – Dukungan web (react-native-web)
 - Dikerjakan: Menambahkan dukungan menjalankan aplikasi di browser dengan `npx expo install react-native-web react-dom` (`react-dom` 19.3.0 sudah ada, yang baru hanya `react-native-web` ^0.21.4). Sebelumnya mode web (`w`) gagal dengan error `Unable to resolve "react-native-web/dist/index"`. `npx expo export --platform web` berhasil, `npx expo install --check` bersih, `tsc --noEmit` lolos. README: cara menjalankan di browser.
 - File diubah: package.json, package-lock.json, README.md, PROGRES.md
