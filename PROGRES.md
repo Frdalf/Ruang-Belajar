@@ -27,6 +27,14 @@
 
 ---
 
+## [2026-11-09] Anggota 1 (Farid) – Modul 3 Admin Langkah 2: AdminSection memuat data lokal lewat Promise
+- Dikerjakan: `components/AdminSection.tsx` tidak lagi import `users` langsung. Ditambah state `daftarUser`, `loading`, `error` dan custom function `muatUserLokal(gagal)` yang memanggil `getUsersLokal(gagal).then(...).catch(...)`, dipanggil di `useEffect(..., [])`. `hitungUserPerRole(daftar, role)` diberi parameter `daftar: User[]`; `statistikList` dipindah ke dalam komponen agar dihitung dari `daftarUser`. Toggle tetap ternary nilai (`tampilkanUser ? daftarUser : []`, variabelnya diganti nama jadi `userTampil` karena `daftarUser` sekarang state). Early return `<Loading />` dan `<ErrorMessage onRetry={() => muatUserLokal(false)} />`. Tombol "Simulasi Server Gagal" (Ionicons `cloud-offline`) memanggil `muatUserLokal(true)`. Fitur Modul 1 & 2 (loop for, switch, renderUserCard, toggle useState, useEffect logging, Kelola User) tetap ada. `tsc --noEmit` lolos.
+- File diubah: components/AdminSection.tsx, PROGRES.md
+- Poin rubrik yang terpenuhi: custom async function (`getUsersLokal`), `.then()`, `resolve()`, `reject()` (dipakai di komponen).
+- Catatan keamanan: tidak ada package baru; data tetap fiktif dari `constants/data.ts`.
+- Saran pesan commit: `feat: muat data user Admin lewat Promise dengan loading dan error`
+- Belum selesai / langkah berikutnya: Langkah 3 section "User dari Server" (async/await + fetch DummyJSON).
+
 ## [2026-11-09] Anggota 1 (Farid) – Modul 3 Admin Langkah 1: services/adminService.ts
 - Dikerjakan: Membuat `services/adminService.ts` persis mengikuti bagian 4.2 RENCANA: `getUsersLokal(gagal): Promise<ApiResponse<User[]>>` (custom async function: `new Promise` + `setTimeout` 1,5 detik, `reject("Server lokal sedang down")` jika `gagal`, selain itu `resolve()` berisi array `users`) dan `getUsersApi(): Promise<ApiUsersResponse>` (pre-built: `fetch` GET `${BASE_URL}/users?limit=5`, `resolve(response.json())` jika `response.ok`, `reject()` jika tidak / tanpa internet). Ditambah komentar beda custom vs pre-built async function. `tsc --noEmit` lolos.
 - File diubah: services/adminService.ts, PROGRES.md
