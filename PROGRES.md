@@ -20,6 +20,14 @@
 
 ---
 
+## [2026-11-09] Anggota 1 (Farid) – Modul 3 Langkah 6: README Modul 1–3
+- Dikerjakan: Memperbarui `README.md` untuk Modul 1–3: judul + tujuan Modul 3; tabel struktur folder ditambah `types/api.ts`, `utils/delay.ts`, `services/*`, `Loading.tsx`, `ErrorMessage.tsx`; kepemilikan file (fondasi + `adminService.ts` = Anggota 1, `mahasiswaService.ts` = Anggota 2, `dosenService.ts` = Anggota 3); langkah pertama anggota lain Modul 3; tabel pembagian Modul 3 + pola service acuan; bagian "Boleh dari Modul 3" dan "Pengecualian Modul 3"; "Tetap dilarang" diperbarui (`fetch` GET boleh, AsyncStorage/axios/selain GET tetap dilarang); judul batas materi jadi "Modul 1 – 3"; konvensi branch `-modul3`. Folder `docs/modul3/` tidak dicantumkan karena dihapus atas keputusan tim, jadi pola acuan Modul 3 langsung ditulis di README. `tsc --noEmit` lolos.
+- File diubah: README.md, PROGRES.md
+- Poin rubrik yang terpenuhi: dokumentasi aturan Modul 3 untuk semua anggota.
+- Catatan keamanan: README menegaskan tidak ada API key/secret, hanya GET, dan field sensitif DummyJSON tidak ditampilkan.
+- Saran pesan commit: `docs: perbarui README untuk Modul 3`
+- Belum selesai / langkah berikutnya: Langkah 7 `PROGRES.md` (judul + tabel Status Rubrik Modul 3).
+
 ## [2026-11-09] Anggota 1 (Farid) – Modul 3 Langkah 5: components/ErrorMessage.tsx
 - Dikerjakan: Membuat komponen default export `ErrorMessage` dengan interface props `{ pesan: string; onRetry: () => void }`. Isinya ikon Ionicons `alert-circle` (merah, `colors.admin`), teks pesan error, dan `Pressable` "Coba Lagi" (`styles.button`) yang memanggil `onRetry`. Style: external (`styles`, `colors`) + internal `errorStyles` (alignItems, marginBottom, marginTop, fontSize, color, textAlign). Dipakai lewat early return `if (error !== "")`. `tsc --noEmit` lolos.
 - File diubah: components/ErrorMessage.tsx, PROGRES.md
