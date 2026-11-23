@@ -20,7 +20,10 @@ function RootLayoutNav() {
     if (!session && !inAuthGroup) {
       // Belum login tapi membuka halaman pribadi → ke login
       router.replace("/login");
-    } else if (session && (inAuthGroup || diHome)) {
+    } else if (session && role === null && !diHome) {
+      // Sudah login tapi akun tidak punya role → ke Home (berisi pesan + tombol Keluar)
+      router.replace("/");
+    } else if (session && role !== null && (inAuthGroup || diHome)) {
       // Sudah login tapi masih di login / Home → ke panel sesuai role
       router.replace("/" + role);
     }
