@@ -7,10 +7,10 @@
 ## Status Rubrik Modul 4
 | Poin rubrik | Anggota 1 (Admin) | Anggota 2 (Mahasiswa) | Anggota 3 (Dosen) |
 |---|---|---|---|
-| Secure Token Storage | [x] | [ ] | [ ] |
-| Supabase Auth Flow (Sign Up/In/Out + Loading) | [x] | [ ] | [ ] |
-| AuthContext & Real-time Session | [x] | [ ] | [ ] |
-| Route Protection Guards | [x] | [ ] | [ ] |
+| Secure Token Storage | [x] | [ ] | [x] |
+| Supabase Auth Flow (Sign Up/In/Out + Loading) | [x] | [ ] | [x] |
+| AuthContext & Real-time Session | [x] | [ ] | [x] |
+| Route Protection Guards | [x] | [ ] | [x] |
 
 ## Status Rubrik Modul 3
 | Poin rubrik | Anggota 1 (Admin) | Anggota 2 (Mahasiswa) | Anggota 3 (Dosen) |
@@ -34,6 +34,14 @@
 | Inline & external style | [x] | [x] | [x] |
 
 ---
+
+## [2026-11-23] Anggota 3 (Ismail) – Modul 4: Panel Dosen
+- Dikerjakan: Branch `fitur/dosen-modul4` dari `main` terbaru. Membuat `components/DosenAkun.tsx`: (1) kartu profil dari `useAuth()` (nama, email, role); (2) **Kode Presensi** key `dosen_kode_presensi`: Simpan/Tampilkan/Hapus dengan cabang `Platform.OS === "web"` → localStorage, native → `setItemAsync`/`getItemAsync`/`deleteItemAsync`, `try/catch`, pesan status, validasi input tidak kosong (`.trim()`), `autoCapitalize="none"`; (3) **ganti password** `supabase.auth.updateUser({ password })` dengan validasi minimal 6 karakter, verifikasi konfirmasi password, `loadingPassword`, `ActivityIndicator`, `disabled`, cek `{ error }` → Alert; password tidak disimpan di state global/SecureStore/log; (4) **Sign Out** dengan loading sendiri, memanggil `signOut()` dari `useAuth()` tanpa router. `app/dosen.tsx`: `<DosenAkun />` dirender di atas `<DosenSection />`; guard role (`useEffect` + `router.replace("/" + role)` jika bukan dosen, teks "Akses ditolak: halaman khusus dosen") dan tombol Kembali (`canGoBack()` → `router.back()`). Fitur Modul 1–3 Dosen tetap berfungsi. `tsc --noEmit` lolos.
+- File diubah: components/DosenAkun.tsx, app/dosen.tsx, README.md, PROGRES.md
+- Poin rubrik yang terpenuhi: Secure Token Storage (Kode Presensi `dosen_kode_presensi`); Supabase Auth Flow (Sign Out + ganti password dengan loading); AuthContext & Real-time Session (kartu profil `useAuth()`); Route Protection Guards (guard role di `app/dosen.tsx`). Semua poin Modul 4 Anggota 3 selesai.
+- Catatan keamanan: tidak ada package baru; kode presensi tersimpan di SecureStore perangkat (web: localStorage); password tidak disimpan di storage/log; tidak ada secret di kode.
+- Saran pesan commit: `feat: implementasi DosenAkun dengan kode presensi, ganti password, Sign Out, dan guard role`
+- Belum selesai / langkah berikutnya: Ismail tes manual Expo Go + web, push + PR `fitur/dosen-modul4` → `main`.
 
 ## [2026-11-23] Anggota 1 (Farid) – Modul 4 Fase C: Panel Admin
 - Dikerjakan: Branch `fitur/admin-modul4` dari `main` terbaru (setelah merge PR #21). Membuat `components/AdminAkun.tsx`: (1) kartu profil dari `useAuth()` (nama, email, role, jabatan dari `user_metadata.jabatan`, fallback "-"); (2) **PIN Admin** key `admin_pin`: Simpan/Tampilkan/Hapus dengan cabang `Platform.OS === "web"` → localStorage, native → `setItemAsync`/`getItemAsync`/`deleteItemAsync`, `try/catch`, pesan status, validasi 4–6 digit angka, `keyboardType="numeric"`, `secureTextEntry`, `maxLength={6}`; (3) **update jabatan** `supabase.auth.updateUser({ data: { jabatan } })` dengan `loading`, `ActivityIndicator`, `disabled`, cek `{ error }` → Alert; kartu profil berubah otomatis lewat event `USER_UPDATED` di `onAuthStateChange`; (4) **Sign Out** dengan loading sendiri, tanpa router (dipindah dari `app/admin.tsx`). `app/admin.tsx`: `<AdminAkun />` dirender di atas `<AdminSection />`; guard role (`replace`) dan tombol Kembali (`canGoBack` → `back()`) tetap. `tsc --noEmit` lolos, `npx expo export --platform web` berhasil.
