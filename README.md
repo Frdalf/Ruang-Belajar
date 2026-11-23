@@ -1,7 +1,7 @@
 # UMM Class
 
 Aplikasi LMS sederhana ala Google Classroom untuk mahasiswa UMM, dibuat untuk
-**Praktikum Pemrograman Mobile – Modul 1 sampai Modul 3** (Lab Informatika UMM).
+**Praktikum Pemrograman Mobile – Modul 1 sampai Modul 4** (Lab Informatika UMM).
 - Tujuan Modul 1: UI statis dengan komponen dasar React Native, styling
   (internal/external/inline), dan TypeScript dasar (type, interface, function, loop,
   array of objects).
@@ -10,12 +10,15 @@ Aplikasi LMS sederhana ala Google Classroom untuk mahasiswa UMM, dibuat untuk
 - Tujuan Modul 3: pemrograman asynchronous (Promise, `resolve()`/`reject()`,
   `async`/`await`, `.then()`) dan API call `GET` ke External API (DummyJSON)
   yang hasilnya disimpan ke object ber-interface.
+- Tujuan Modul 4: autentikasi Supabase (sign up/in/out), sesi tersimpan aman di
+  `expo-secure-store`, `AuthContext` global dengan sesi real-time, dan route guard.
 
 Stack: React Native + Expo SDK 58 (Expo Router) + TypeScript. Expo Go di HP harus versi SDK 58.
 
 > **Untuk AI agent / anggota baru:** baca README.md dan PROGRES.md dulu sebelum
 > membuka file lain. Kedua file ini sudah merangkum isi project.
 > Untuk Modul 3, lanjut baca `docs/modul3/MATERI_MODUL3.md` dan `docs/modul3/RENCANA_MODUL3.md`.
+> Untuk Modul 4, lanjut baca `docs/modul4/MATERI_MODUL4.md` dan `docs/modul4/RENCANA_MODUL4.md`.
 
 ## Cara menjalankan
 ```bash
@@ -25,6 +28,27 @@ npx expo start --go  # scan QR dengan aplikasi Expo Go
 Untuk menjalankan di browser: `npx expo start --go`, lalu tekan `w` (butuh `react-native-web`, sudah terpasang).
 Demo tetap memakai Expo Go di HP.
 Cek tipe sebelum commit: `npx tsc --noEmit` harus lolos tanpa error.
+
+## Isi `.env` (Modul 4, wajib sebelum menjalankan)
+Aplikasi butuh credential Supabase. File `.env` **tidak** ada di GitHub (di-ignore).
+```bash
+cp .env.example .env
+```
+Lalu isi nilainya (didapat dari Farid secara pribadi, bukan lewat GitHub):
+```
+EXPO_PUBLIC_SUPABASE_URL=https://xxxxxxxx.supabase.co     # domain saja, tanpa /rest/v1
+EXPO_PUBLIC_SUPABASE_ANON_KEY=sb_publishable_...          # publishable/anon key
+```
+- Setelah mengubah `.env`, jalankan `npx expo start -c` (hapus cache).
+- **Jangan** pernah memakai `service_role`/secret key (`sb_secret_...`) dan jangan commit `.env`.
+
+## Langkah pertama anggota lain (Modul 4, setelah PR fitur/fondasi-modul4 di-merge)
+```bash
+git checkout main && git pull && npm install
+cp .env.example .env                     # isi nilainya dari Farid
+git checkout -b fitur/mahasiswa-modul4   # Dilla
+git checkout -b fitur/dosen-modul4       # Ismail
+```
 
 ## Langkah pertama anggota lain (Modul 3, setelah PR fitur/fondasi-modul3 di-merge)
 ```bash
@@ -47,9 +71,9 @@ Project memakai app/ di root (template blank-typescript), bukan src/app.
 
 | File | Fungsi |
 |---|---|
-| `app/_layout.tsx` | Root layout: `<Stack>` + `<Stack.Screen>` untuk index, admin, mahasiswa, & dosen |
-| `app/index.tsx` | Halaman Home: header, tombol navigasi "Panel Mahasiswa", "Panel Dosen", & "Panel Admin" |
-| `app/admin.tsx` | Halaman Panel Admin: `<AdminSection />`, tombol Kembali (`router.back()`) & Keluar (`router.replace("/")`) |
+| `app/_layout.tsx` | Root layout: `AuthProvider` + `RootLayoutNav` (guard `useSegments()`: loading → `ActivityIndicator`, belum login → `/login`, sudah login → panel role) + `<Stack.Screen>` untuk (auth)/login, index, admin, mahasiswa, & dosen |
+| `app/index.tsx` | Halaman Home: header + "Mengarahkan ke panel..." (Modul 4: tombol panel dihapus, guard yang mengarahkan sesuai role) |
+| `app/admin.tsx` | Halaman Panel Admin: guard role (`router.replace("/" + role)` jika bukan admin), `<AdminSection />`, tombol Kembali (`canGoBack()` → `router.back()`) & Sign Out (`signOut()` + loading) |
 | `app/mahasiswa.tsx` | Halaman Mahasiswa: `<MahasiswaSection />`, tombol Kembali dengan pengecekan `router.canGoBack()` (fallback `router.replace("/")`) |
 | `app/dosen.tsx` | Halaman Dosen: `<DosenSection />`, tombol Kembali (`router.back()`) |
 | `components/AdminSection.tsx` | Section admin: kartu statistik per role (loop `for`) & daftar user (`.map()`), badge role (switch + inline style), tombol Kelola User (Alert), toggle daftar user (`useState` + `useEffect`); Modul 3: data user dimuat lewat `muatUserLokal()` (`getUsersLokal().then().catch()`) dengan early return `Loading`/`ErrorMessage`, tombol "Simulasi Server Gagal" (demo `reject()`), dan section "User dari Server" dari DummyJSON lewat `muatUserApi` (`async`/`await` + `delay` + `getUsersApi`) |
@@ -58,6 +82,12 @@ Project memakai app/ di root (template blank-typescript), bukan src/app.
 | `constants/types.ts` | Kontrak data (type & interface) |
 | `constants/styles.ts` | External style bersama + objek `colors` |
 | `constants/data.ts` | Data dummy: `users`, `kelasList`, `tugasList` |
+| `docs/modul4/` | `MATERI_MODUL4.md` (transkripsi materi Modul 4) & `RENCANA_MODUL4.md` (keputusan tim, pembagian, pola kode acuan) |
+| `.env.example` | Contoh nama variabel Supabase (nilai kosong). Salin menjadi `.env` lalu isi |
+| `lib/supabase.ts` | Client Supabase singleton + adapter penyimpanan sesi ke SecureStore (web: localStorage) |
+| `context/AuthContext.tsx` | `AuthProvider` + `useAuth()`: `user`, `session`, `isLoading`, `role`, `nama`, `signOut` |
+| `app/(auth)/login.tsx` | Halaman Login/Register + pilih role |
+| `components/AdminAkun.tsx`, `MahasiswaAkun.tsx`, `DosenAkun.tsx` | *(Modul 4, per anggota)* Kartu profil, fitur SecureStore, aksi `updateUser`, Sign Out |
 | `docs/modul3/` | `MATERI_MODUL3.md` (transkripsi materi Modul 3) & `RENCANA_MODUL3.md` (keputusan tim, pembagian, pola kode acuan) |
 | `types/api.ts` | Interface response API: `ApiResponse<T>` (generic) + `ApiUser`/`ApiUsersResponse`, `ApiTodo`/`ApiTodosResponse`, `ApiPost`/`ApiPostsResponse` (DummyJSON) |
 | `utils/delay.ts` | `delay(ms): Promise<void>`, Promise yang di-`resolve()` setelah `setTimeout` (simulasi server lambat) |
@@ -73,11 +103,11 @@ Project memakai app/ di root (template blank-typescript), bukan src/app.
 ## Kepemilikan file
 | Anggota | File |
 |---|---|
-| Anggota 1 (Farid) | `.gitignore`, `README.md`, `PROGRES.md`, `constants/types.ts`, `constants/styles.ts`, `constants/data.ts` (array `users`), `app/_layout.tsx`, `app/index.tsx`, `app/admin.tsx`, `components/AdminSection.tsx`, fondasi Modul 3 (`docs/modul3/`, `types/api.ts`, `utils/delay.ts`, `services/api.ts`, `components/Loading.tsx`, `components/ErrorMessage.tsx`), `services/adminService.ts` |
-| Anggota 2 (Dilla) | `app/mahasiswa.tsx`, `components/MahasiswaSection.tsx`, `constants/data.ts` (array `kelasList` & `tugasList`), `services/mahasiswaService.ts` |
-| Anggota 3 (Ismail)| `app/dosen.tsx`, `components/DosenSection.tsx` (memakai `kelasList` & `tugasList`, tidak mengisinya), `services/dosenService.ts` |
+| Anggota 1 (Farid) | `.gitignore`, `README.md`, `PROGRES.md`, `constants/types.ts`, `constants/styles.ts`, `constants/data.ts` (array `users`), `app/_layout.tsx`, `app/index.tsx`, `app/admin.tsx`, `components/AdminSection.tsx`, fondasi Modul 3 (`docs/modul3/`, `types/api.ts`, `utils/delay.ts`, `services/api.ts`, `components/Loading.tsx`, `components/ErrorMessage.tsx`), `services/adminService.ts`, fondasi Modul 4 (`docs/modul4/`, `.env.example`, `lib/supabase.ts`, `context/AuthContext.tsx`, `app/(auth)/login.tsx`), `components/AdminAkun.tsx` |
+| Anggota 2 (Dilla) | `app/mahasiswa.tsx`, `components/MahasiswaSection.tsx`, `constants/data.ts` (array `kelasList` & `tugasList`), `services/mahasiswaService.ts`, `components/MahasiswaAkun.tsx` |
+| Anggota 3 (Ismail)| `app/dosen.tsx`, `components/DosenSection.tsx` (memakai `kelasList` & `tugasList`, tidak mengisinya), `services/dosenService.ts`, `components/DosenAkun.tsx` |
 
-File fondasi Modul 3 dipakai (di-import) semua anggota, tetapi hanya diubah Anggota 1.
+File fondasi Modul 3 & Modul 4 dipakai (di-import) semua anggota, tetapi hanya diubah Anggota 1.
 
 Jangan mengubah file milik anggota lain. **Pengecualian:** Dilla dan Ismail **boleh**
 mengubah `app/_layout.tsx` dan `app/index.tsx` HANYA pada komentar TODO milik
@@ -142,6 +172,19 @@ Di komponen: `getUsersLokal(gagal).then(...).catch(...)` untuk data lokal, dan
 `async` arrow function + `await delay(500)` + `await getUsersApi()` di `useEffect` untuk API.
 Tambahkan tombol "Simulasi Server Gagal" yang memanggil versi `gagal = true` untuk demo `reject()`.
 Field sensitif fiktif dari DummyJSON (`password`, `ssn`, `bank`) tidak dimasukkan ke interface dan tidak ditampilkan.
+
+## Pembagian Modul 4 (Database & Autentikasi)
+Detail lengkap + pola kode acuan: `docs/modul4/RENCANA_MODUL4.md`. Hanya **auth** yang memakai
+Supabase (tanpa tabel/SQL baru); data Modul 1–3 tetap. Role dipilih saat register dan
+disimpan di `user_metadata`. Setelah login, Home otomatis mengarahkan ke panel sesuai role.
+
+| | Anggota 1 – Farid (Admin) | Anggota 2 – Dilla (Mahasiswa) | Anggota 3 – Ismail (Dosen) |
+|---|---|---|---|
+| Branch | `fitur/fondasi-modul4`, lalu `fitur/admin-modul4` | `fitur/mahasiswa-modul4` | `fitur/dosen-modul4` |
+| Komponen baru | `components/AdminAkun.tsx` | `components/MahasiswaAkun.tsx` | `components/DosenAkun.tsx` |
+| Secure Token Storage | PIN Admin (`admin_pin`) | Token Ujian (`token_ujian`) | Kode Presensi (`kode_presensi`) |
+| Aksi `updateUser` | jabatan (`data`) | nama (`data`) | password |
+| Guard role | `app/admin.tsx` | `app/mahasiswa.tsx` | `app/dosen.tsx` |
 
 ## Kontrak data (`constants/types.ts`)
 Jangan diubah tanpa mengabari tim.
@@ -226,8 +269,22 @@ Ternary hanya untuk memilih **nilai**, bukan komponen/`null`
 - `useEffect(() => { ... }, [deps]);` (bukan `useEffect(){ ... }`)
 - `router.setParams(...)` (bukan `route.setParams`)
 
+## Batas materi Modul 4 (tambahan)
+**Boleh (ada contohnya di `docs/modul4/MATERI_MODUL4.md`):**
+- `expo-secure-store` (`setItemAsync`, `getItemAsync`, `deleteItemAsync`) dan `@supabase/supabase-js`
+  (`createClient`, `auth.signUp` + `options.data`, `signInWithPassword`, `signOut`, `getSession`,
+  `onAuthStateChange`, `updateUser`)
+- `createContext`/`useContext` + Provider, custom hook `useAuth()`, `useSegments()`, `router.replace()` untuk guard
+- `ActivityIndicator`, `Alert.alert()`, `Platform.OS`, route group `(auth)`
+- `try/catch/finally` + cek `{ error }` dari Supabase (pola codelab). `err: any` hanya di `catch`.
+- `process.env.EXPO_PUBLIC_...`; `localStorage` hanya di cabang `Platform.OS === "web"`
+
+**Tetap dilarang:** AsyncStorage, Redux, Zustand, React Query, package selain `expo-secure-store`
+& `@supabase/supabase-js`, tabel/SQL baru (`supabase.from`), `service_role`/secret key,
+hardcode URL/key, commit `.env`, ternary komponen, dan semua larangan lama di atas.
+
 ## Aturan keamanan
-- Tidak ada secret: API key, token, password, `.env`. Project ini tidak membutuhkannya.
+- Tidak ada secret di repo. Sejak Modul 4, credential Supabase (URL + publishable/anon key) hanya ada di `.env` lokal (di-ignore); repo hanya memuat `.env.example` dengan nilai kosong. Dilarang memakai `service_role`/secret key.
 - Hanya data fiktif (lihat aturan data dummy di atas).
 - Install package hanya lewat `npx expo install <pkg>` dan atas persetujuan tim.
   Setelah install, jalankan `npm audit`; **jangan** `npm audit fix --force`.
@@ -236,7 +293,7 @@ Ternary hanya untuk memilih **nilai**, bukan komponen/`null`
 - Dilarang: `eval()`, `new Function()`, memuat kode dari remote, `dangerouslySetInnerHTML`.
 
 ## Konvensi Git
-- Branch per fitur: `fitur/admin`, `fitur/mahasiswa`, `fitur/dosen` (Modul 2: akhiran `-modul2`, Modul 3: `-modul3`), lalu Pull Request ke `main`.
+- Branch per fitur: `fitur/admin`, `fitur/mahasiswa`, `fitur/dosen` (Modul 2: akhiran `-modul2`, Modul 3: `-modul3`, Modul 4: `-modul4`), lalu Pull Request ke `main`.
 - Commit dilakukan sendiri oleh tiap anggota (kontribusi dinilai dari commit).
 - Satu langkah = satu commit. Format pesan:
   `feat:` fitur/file baru · `fix:` perbaikan · `docs:` dokumentasi · `style:` styling · `chore:` setup/konfigurasi

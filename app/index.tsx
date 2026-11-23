@@ -1,12 +1,44 @@
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
-import { useRouter } from "expo-router";
+import { useState } from "react";
+import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { colors, styles } from "../constants/styles"; // external style
+import { useAuth } from "../context/AuthContext";
 
-
+// Home tidak lagi punya tombol panel (Modul 4).
+// Guard di _layout.tsx otomatis memindahkan user ke panel sesuai role-nya.
 export default function Index() {
-  // useRouter: mengambil object router untuk berpindah halaman
-  const router = useRouter();
+  const { session, role, signOut } = useAuth();
+  const [loadingKeluar, setLoadingKeluar] = useState<boolean>(false);
+
+  // Keluar: guard di _layout.tsx yang memindahkan ke halaman login
+  const keluar = async () => {
+    setLoadingKeluar(true);
+    await signOut();
+    setLoadingKeluar(false);
+  };
+
+  // Kasus khusus: sudah login tetapi akun tidak punya role (akun lama sebelum Modul 4)
+  if (session && role === null) {
+    return (
+      <ScrollView style={styles.container}>
+        <View style={indexStyles.header}>
+          <Ionicons name="school" size={40} color={colors.accent} />
+          <Text style={indexStyles.headerTitle}>UMM Class</Text>
+          <Text style={indexStyles.headerSubtitle}>Ruang kelas online mahasiswa UMM</Text>
+        </View>
+
+        <View style={styles.card}>
+          <Text style={{ color: colors.text, marginBottom: 12 }}>
+            Akun ini belum punya role. Silakan daftar ulang dengan akun baru.
+          </Text>
+          <Pressable style={styles.button} onPress={keluar} disabled={loadingKeluar}>
+            <ActivityIndicator animating={loadingKeluar} color={colors.primary} />
+            <Text style={styles.buttonText}>Keluar</Text>
+          </Pressable>
+        </View>
+      </ScrollView>
+    );
+  }
 
   return (
     // ScrollView sebagai root agar seluruh halaman bisa digulir
@@ -18,35 +50,8 @@ export default function Index() {
         <Text style={indexStyles.headerSubtitle}>Ruang kelas online mahasiswa UMM</Text>
       </View>
 
-      {/* Tombol Panel Mahasiswa: push() ke halaman mahasiswa */}
-      <View style={{ marginBottom: 16 }}>
-        <Pressable
-          style={styles.button}
-          onPress={() => router.push("/mahasiswa")}
-        >
-          <Ionicons name="people" size={18} color={colors.primary} />
-          <Text style={styles.buttonText}>Panel Mahasiswa</Text>
-        </Pressable>
-      </View>
-      {/* Tombol Panel Dosen: push() dengan parameter awal kelasDipilih */}
-      <View style={{ marginBottom: 16 }}>
-        <Pressable
-          style={styles.button}
-          onPress={() =>
-            router.push({ pathname: "/dosen", params: { kelasDipilih: "-" } })
-          }
-        >
-          <Ionicons name="person" size={18} color={colors.primary} />
-          <Text style={styles.buttonText}>Panel Dosen</Text>
-        </Pressable>
-      </View>
-      {/* push(): buka halaman admin di atas Home, Home tetap ada di stack */}
-      <View style={{ marginBottom: 16 }}>
-        <Pressable style={styles.button} onPress={() => router.push("/admin")}>
-          <Ionicons name="shield-checkmark" size={18} color={colors.primary} />
-          <Text style={styles.buttonText}>Panel Admin</Text>
-        </Pressable>
-      </View>
+      <ActivityIndicator size="large" color={colors.primary} />
+      <Text style={{ textAlign: "center", color: colors.textMuted, marginTop: 8 }}>Mengarahkan ke panel...</Text>
     </ScrollView>
   );
 }
