@@ -7,10 +7,10 @@
 ## Status Rubrik Modul 4
 | Poin rubrik | Anggota 1 (Admin) | Anggota 2 (Mahasiswa) | Anggota 3 (Dosen) |
 |---|---|---|---|
-| Secure Token Storage | [x] | [ ] | [x] |
-| Supabase Auth Flow (Sign Up/In/Out + Loading) | [x] | [ ] | [x] |
-| AuthContext & Real-time Session | [x] | [ ] | [x] |
-| Route Protection Guards | [x] | [ ] | [x] |
+| Secure Token Storage | [x] | [x] | [x] |
+| Supabase Auth Flow (Sign Up/In/Out + Loading) | [x] | [x] | [x] |
+| AuthContext & Real-time Session | [x] | [x] | [x] |
+| Route Protection Guards | [x] | [x] | [x] |
 
 ## Status Rubrik Modul 3
 | Poin rubrik | Anggota 1 (Admin) | Anggota 2 (Mahasiswa) | Anggota 3 (Dosen) |
@@ -34,6 +34,14 @@
 | Inline & external style | [x] | [x] | [x] |
 
 ---
+
+## [2026-11-23] Anggota 2 (Dilla) – Modul 4: Panel Mahasiswa
+- Dikerjakan: Branch `fitur/mahasiswa-modul4` dari `main` terbaru. Membuat `components/MahasiswaAkun.tsx`: (1) kartu profil dari `useAuth()` (nama, email, role); (2) **Token Ujian** key `token_ujian`: Simpan/Tampilkan/Hapus dengan cabang `Platform.OS === "web"` → localStorage, native → `setItemAsync`/`getItemAsync`/`deleteItemAsync`, `try/catch`, pesan status, validasi input tidak kosong (`.trim()`), `autoCapitalize="none"`; (3) **ubah nama** `supabase.auth.updateUser({ data: { nama: namaBersih } })` dengan validasi input tidak kosong (`.trim()`), `loadingNama`, `ActivityIndicator`, `disabled`, cek `{ error }` → Alert; kartu profil berubah otomatis lewat event `USER_UPDATED` di `onAuthStateChange`; (4) **Sign Out** dengan loading sendiri, memanggil `signOut()` dari `useAuth()` tanpa router. `app/mahasiswa.tsx`: `<MahasiswaAkun />` dirender di atas `<MahasiswaSection />`; guard role (`useEffect` + `router.replace("/" + role)` jika bukan mahasiswa, teks "Akses ditolak: halaman khusus mahasiswa") dan tombol Kembali (`canGoBack()` → `router.back()`, fallback Alert jika stack kosong untuk mencegah infinite redirect atau `GO_BACK was not handled`). Fitur Modul 1–3 Mahasiswa tetap berfungsi. `tsc --noEmit` lolos.
+- File diubah: components/MahasiswaAkun.tsx, app/mahasiswa.tsx, README.md, PROGRES.md
+- Poin rubrik yang terpenuhi: Secure Token Storage (Token Ujian `token_ujian`); Supabase Auth Flow (Sign Out + ubah nama dengan loading); AuthContext & Real-time Session (kartu profil `useAuth()` real-time); Route Protection Guards (guard role di `app/mahasiswa.tsx`). Semua poin Modul 4 Anggota 2 selesai.
+- Catatan keamanan: tidak ada package baru; token ujian tersimpan di SecureStore perangkat (web: localStorage); tidak ada AsyncStorage; tidak ada secret di kode; `.env` tidak dibaca/diubah/di-commit.
+- Saran pesan commit: `feat: implementasi MahasiswaAkun dengan token ujian, ubah nama, Sign Out, dan guard role`
+- Belum selesai / langkah berikutnya: Dilla tes manual Expo Go + web, push + PR `fitur/mahasiswa-modul4` → `main`.
 
 ## [2026-11-23] Anggota 3 (Ismail) – Modul 4: Panel Dosen
 - Dikerjakan: Branch `fitur/dosen-modul4` dari `main` terbaru. Membuat `components/DosenAkun.tsx`: (1) kartu profil dari `useAuth()` (nama, email, role); (2) **Kode Presensi** key `dosen_kode_presensi`: Simpan/Tampilkan/Hapus dengan cabang `Platform.OS === "web"` → localStorage, native → `setItemAsync`/`getItemAsync`/`deleteItemAsync`, `try/catch`, pesan status, validasi input tidak kosong (`.trim()`), `autoCapitalize="none"`; (3) **ganti password** `supabase.auth.updateUser({ password })` dengan validasi minimal 6 karakter, verifikasi konfirmasi password, `loadingPassword`, `ActivityIndicator`, `disabled`, cek `{ error }` → Alert; password tidak disimpan di state global/SecureStore/log; (4) **Sign Out** dengan loading sendiri, memanggil `signOut()` dari `useAuth()` tanpa router. `app/dosen.tsx`: `<DosenAkun />` dirender di atas `<DosenSection />`; guard role (`useEffect` + `router.replace("/" + role)` jika bukan dosen, teks "Akses ditolak: halaman khusus dosen") dan tombol Kembali (`canGoBack()` → `router.back()`). Fitur Modul 1–3 Dosen tetap berfungsi. `tsc --noEmit` lolos.
