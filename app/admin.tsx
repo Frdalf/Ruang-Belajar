@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react";
-import { ActivityIndicator, Alert, Pressable, ScrollView, Text, View } from "react-native";
+import { useEffect } from "react";
+import { Alert, Pressable, ScrollView, Text, View } from "react-native";
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { colors, styles } from "../constants/styles"; // external style
 import AdminSection from "../components/AdminSection";
+import AdminAkun from "../components/AdminAkun";
 import { useAuth } from "../context/AuthContext";
 
 export default function Admin() {
   // useRouter: mengambil object router untuk berpindah halaman
   const router = useRouter();
-  const { role, signOut } = useAuth();
-  const [loadingKeluar, setLoadingKeluar] = useState<boolean>(false);
+  const { role } = useAuth();
 
   // GUARD ROLE (Modul 4): hanya admin yang boleh di halaman ini.
   // replace(): halaman admin DIGANTI dengan panel role yang benar, jadi tombol back
@@ -32,14 +32,6 @@ export default function Admin() {
     }
   };
 
-  // Sign Out: TIDAK memanggil router. Setelah sesi hilang, onAuthStateChange
-  // mengosongkan session, lalu guard di _layout.tsx memindahkan ke halaman login.
-  const keluar = async () => {
-    setLoadingKeluar(true);
-    await signOut();
-    setLoadingKeluar(false);
-  };
-
   // Selama berpindah ke panel lain, tampilkan pesan akses ditolak (early return)
   if (role !== "admin") {
     return (
@@ -49,24 +41,18 @@ export default function Admin() {
     );
   }
 
-  const teksKeluar = loadingKeluar ? "Keluar..." : "Sign Out";
-
   return (
     <ScrollView style={styles.container}>
+      {/* Modul 4: profil, PIN Admin, update jabatan, Sign Out */}
+      <AdminAkun />
+
+      {/* Modul 1–3 */}
       <AdminSection />
 
-      <View style={{ marginBottom: 12 }}>
+      <View style={{ marginBottom: 32 }}>
         <Pressable style={styles.button} onPress={kembali}>
           <Ionicons name="arrow-back" size={18} color={colors.primary} />
           <Text style={styles.buttonText}>Kembali</Text>
-        </Pressable>
-      </View>
-
-      {/* Sign Out: disabled saat loading agar tidak terjadi request ganda */}
-      <View style={{ marginBottom: 32 }}>
-        <Pressable style={styles.button} onPress={keluar} disabled={loadingKeluar}>
-          <ActivityIndicator animating={loadingKeluar} color={colors.primary} />
-          <Text style={styles.buttonText}>{teksKeluar}</Text>
         </Pressable>
       </View>
     </ScrollView>

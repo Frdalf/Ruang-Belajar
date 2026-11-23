@@ -73,7 +73,7 @@ Project memakai app/ di root (template blank-typescript), bukan src/app.
 |---|---|
 | `app/_layout.tsx` | Root layout: `AuthProvider` + `RootLayoutNav` (guard `useSegments()`: loading → `ActivityIndicator`, belum login → `/login`, sudah login → panel role) + `<Stack.Screen>` untuk (auth)/login, index, admin, mahasiswa, & dosen |
 | `app/index.tsx` | Halaman Home: header + "Mengarahkan ke panel..." (Modul 4: tombol panel dihapus, guard yang mengarahkan sesuai role) |
-| `app/admin.tsx` | Halaman Panel Admin: guard role (`router.replace("/" + role)` jika bukan admin), `<AdminSection />`, tombol Kembali (`canGoBack()` → `router.back()`) & Sign Out (`signOut()` + loading) |
+| `app/admin.tsx` | Halaman Panel Admin: guard role (`router.replace("/" + role)` jika bukan admin), `<AdminAkun />` (di atas) + `<AdminSection />`, tombol Kembali (`canGoBack()` → `router.back()`) |
 | `app/mahasiswa.tsx` | Halaman Mahasiswa: `<MahasiswaSection />`, tombol Kembali dengan pengecekan `router.canGoBack()` (fallback `router.replace("/")`) |
 | `app/dosen.tsx` | Halaman Dosen: `<DosenSection />`, tombol Kembali (`router.back()`) |
 | `components/AdminSection.tsx` | Section admin: kartu statistik per role (loop `for`) & daftar user (`.map()`), badge role (switch + inline style), tombol Kelola User (Alert), toggle daftar user (`useState` + `useEffect`); Modul 3: data user dimuat lewat `muatUserLokal()` (`getUsersLokal().then().catch()`) dengan early return `Loading`/`ErrorMessage`, tombol "Simulasi Server Gagal" (demo `reject()`), dan section "User dari Server" dari DummyJSON lewat `muatUserApi` (`async`/`await` + `delay` + `getUsersApi`) |
@@ -87,7 +87,8 @@ Project memakai app/ di root (template blank-typescript), bukan src/app.
 | `lib/supabase.ts` | Client Supabase singleton + adapter penyimpanan sesi ke SecureStore (web: localStorage) |
 | `context/AuthContext.tsx` | `AuthProvider` + `useAuth()`: `user`, `session`, `isLoading`, `role`, `nama`, `signOut` |
 | `app/(auth)/login.tsx` | Halaman Login/Register + pilih role |
-| `components/AdminAkun.tsx`, `MahasiswaAkun.tsx`, `DosenAkun.tsx` | *(Modul 4, per anggota)* Kartu profil, fitur SecureStore, aksi `updateUser`, Sign Out |
+| `components/AdminAkun.tsx` | Modul 4 Admin: kartu profil (`useAuth()`, + jabatan), PIN Admin `admin_pin` (SecureStore, Simpan/Tampilkan/Hapus), update jabatan (`updateUser` data + loading), Sign Out (loading) |
+| `components/MahasiswaAkun.tsx`, `DosenAkun.tsx` | *(Modul 4, per anggota)* Kartu profil, fitur SecureStore, aksi `updateUser`, Sign Out |
 | `docs/modul3/` | `MATERI_MODUL3.md` (transkripsi materi Modul 3) & `RENCANA_MODUL3.md` (keputusan tim, pembagian, pola kode acuan) |
 | `types/api.ts` | Interface response API: `ApiResponse<T>` (generic) + `ApiUser`/`ApiUsersResponse`, `ApiTodo`/`ApiTodosResponse`, `ApiPost`/`ApiPostsResponse` (DummyJSON) |
 | `utils/delay.ts` | `delay(ms): Promise<void>`, Promise yang di-`resolve()` setelah `setTimeout` (simulasi server lambat) |
