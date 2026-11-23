@@ -1,8 +1,16 @@
-# PROGRES – UMM Class (Modul 1–3)
+# PROGRES – UMM Class (Modul 1–4)
 
 > Agent/anggota: baca README.md dan file ini SEBELUM membuka file lain.
 
-> **ATURAN KETAT (berlaku semua anggota):** hanya gunakan sintaks yang ada contohnya di Modul 1, 2, atau 3 (lihat README "Batas materi Modul 1 – 3"). Jika tidak ada di modul, jangan dipakai walaupun benar secara React Native.
+> **ATURAN KETAT (berlaku semua anggota):** hanya gunakan sintaks yang ada contohnya di Modul 1, 2, atau 3 (lihat README "Batas materi Modul 1 – 3" dan "Batas materi Modul 4"). Jika tidak ada di modul, jangan dipakai walaupun benar secara React Native.
+
+## Status Rubrik Modul 4
+| Poin rubrik | Anggota 1 (Admin) | Anggota 2 (Mahasiswa) | Anggota 3 (Dosen) |
+|---|---|---|---|
+| Secure Token Storage | [ ] | [ ] | [ ] |
+| Supabase Auth Flow (Sign Up/In/Out + Loading) | [ ] | [ ] | [ ] |
+| AuthContext & Real-time Session | [ ] | [ ] | [ ] |
+| Route Protection Guards | [ ] | [ ] | [ ] |
 
 ## Status Rubrik Modul 3
 | Poin rubrik | Anggota 1 (Admin) | Anggota 2 (Mahasiswa) | Anggota 3 (Dosen) |
@@ -26,6 +34,27 @@
 | Inline & external style | [x] | [x] | [x] |
 
 ---
+
+## [2026-11-23] Anggota 1 (Farid) – Modul 4 Fase B: fondasi kode auth
+- Dikerjakan: `npx expo install expo-secure-store @supabase/supabase-js` (expo-secure-store ~58.0.3, @supabase/supabase-js ^2.119.2; config plugin expo-secure-store otomatis ditambahkan ke app.json). `lib/supabase.ts`: adapter SecureStore versi aman SSR (native → SecureStore; web + window → localStorage; web tanpa window → null/no-op) + client singleton dari `.env`. `context/AuthContext.tsx`: `user`, `session`, `isLoading`, `signOut`, `getSession` + `onAuthStateChange` + unsubscribe, ditambah `role` (user_metadata.role) dan `nama` (user_metadata.nama, fallback bagian depan email). `app/(auth)/login.tsx`: login/register, field `nama`, 3 tombol role (default mahasiswa), `signUp` mengirim `options.data: { nama, role }`, validasi `.trim()` + password ≥ 6, `ActivityIndicator` + `disabled={loading}`, tanpa `router.replace` setelah login. `app/_layout.tsx`: `AuthProvider` + `RootLayoutNav` dengan guard `useSegments()` (loading → ActivityIndicator; belum login → `/login`; sudah login di (auth) atau Home → `"/" + role`). `app/index.tsx`: tombol 3 panel dihapus, diganti "Mengarahkan ke panel...". `Role` sudah ada di `constants/types.ts`, tidak diubah. `tsc --noEmit` lolos, `npx expo export --platform web` berhasil.
+- File diubah: package.json, package-lock.json, app.json, lib/supabase.ts, context/AuthContext.tsx, app/(auth)/login.tsx, app/_layout.tsx, app/index.tsx, README.md, PROGRES.md
+- Poin rubrik yang terpenuhi: bagian fondasi dari keempat poin (adapter SecureStore, alur Sign Up/In + loading, AuthContext real-time, guard root). Dicentang per anggota setelah panel masing-masing selesai.
+- **Catatan untuk pemilik bagian (dampak Home redirect, file anggota lain TIDAK diubah):**
+  - Setelah login, panel dibuka dengan `router.replace`, jadi tidak ada halaman sebelumnya di stack.
+  - Ismail (`app/dosen.tsx`): tombol Kembali `router.back()` tidak punya tujuan (muncul peringatan `GO_BACK was not handled` di mode dev, aplikasi tidak crash). Saran: pola `canGoBack()` seperti mahasiswa, atau ubah fungsinya, tetap memakai `back()` di suatu tempat untuk rubrik Modul 2. Param `kelasDipilih` aman: `DosenSection` sudah menampilkan `"-"` jika kosong; `setParams` tetap jalan.
+  - Dilla (`app/mahasiswa.tsx`): aman, fallback `router.replace("/")` akan diarahkan guard kembali ke `/mahasiswa`.
+  - Farid (`app/admin.tsx`): `back()` dan `replace("/")` jadi tidak berpindah ke mana-mana; diperbaiki di Fase C.
+- Catatan keamanan: 2 package resmi lewat `npx expo install` sesuai keputusan tim; credential dibaca dari `.env` (tidak di-commit), tidak ada service_role/secret key, tidak ada hardcode URL/key. `npm audit fix` tidak dijalankan.
+- Saran pesan commit: `feat: tambahkan fondasi auth Supabase (SecureStore, AuthContext, login, guard)`
+- Belum selesai / langkah berikutnya: Farid tes Expo Go + web, push + PR `fitur/fondasi-modul4` → `main`; lalu Fase C `fitur/admin-modul4`.
+
+## [2026-11-23] Anggota 1 (Farid) – Modul 4 Fase A: dokumen tim
+- Dikerjakan: Branch `fitur/fondasi-modul4`. Memindahkan `MATERI_MODUL4.md` (isi tidak diubah) ke `docs/modul4/`. Membuat `docs/modul4/RENCANA_MODUL4.md` (keputusan tim, tabel rubrik × anggota, branch, urutan kerja, batas materi Modul 4, pola kode acuan `lib/supabase.ts`/`useAuth`/guard root/SecureStore/`updateUser`/Sign Out/guard role, spesifikasi panel, Definition of done + checklist tes manual per anggota). README: tujuan Modul 4, cara isi `.env`, langkah pertama Modul 4, file baru & pemiliknya, pembagian Modul 4, batas materi Modul 4. PROGRES: tabel "Status Rubrik Modul 4". `.gitignore`: tambah `!.env.example`; membuat `.env.example` (2 variabel, nilai kosong).
+- File diubah: docs/modul4/MATERI_MODUL4.md (baru, dipindah), docs/modul4/RENCANA_MODUL4.md, README.md, PROGRES.md, .gitignore, .env.example
+- Poin rubrik yang terpenuhi: – (dokumentasi)
+- Catatan keamanan: `.env` tidak dibaca/diubah/di-commit; `.env.example` hanya berisi nama variabel. Belum ada package baru.
+- Saran pesan commit: `docs: tambahkan materi, rencana, dan dokumen tim Modul 4`
+- Belum selesai / langkah berikutnya: Fase B fondasi kode (install 2 package, `lib/supabase.ts`, `AuthContext`, login, guard root, Home redirect).
 
 ## [2026-11-09] Anggota 2 (Dilla) – Modul 3 Mahasiswa Langkah 4: tes & dokumentasi
 - Dikerjakan: Mencentang tiga poin rubrik Modul 3 Anggota 2 di tabel status; memperbarui baris `components/MahasiswaSection.tsx` dan `services/mahasiswaService.ts` di tabel struktur README; menyiapkan checklist tes manual Expo Go sesuai Definition of done RENCANA. `tsc --noEmit` lolos.

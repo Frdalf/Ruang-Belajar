@@ -1,13 +1,10 @@
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
-import { useRouter } from "expo-router";
+import { ActivityIndicator, ScrollView, StyleSheet, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { colors, styles } from "../constants/styles"; // external style
 
-
+// Home tidak lagi punya tombol panel (Modul 4).
+// Guard di _layout.tsx otomatis memindahkan user ke panel sesuai role-nya.
 export default function Index() {
-  // useRouter: mengambil object router untuk berpindah halaman
-  const router = useRouter();
-
   return (
     // ScrollView sebagai root agar seluruh halaman bisa digulir
     <ScrollView style={styles.container}>
@@ -18,35 +15,8 @@ export default function Index() {
         <Text style={indexStyles.headerSubtitle}>Ruang kelas online mahasiswa UMM</Text>
       </View>
 
-      {/* Tombol Panel Mahasiswa: push() ke halaman mahasiswa */}
-      <View style={{ marginBottom: 16 }}>
-        <Pressable
-          style={styles.button}
-          onPress={() => router.push("/mahasiswa")}
-        >
-          <Ionicons name="people" size={18} color={colors.primary} />
-          <Text style={styles.buttonText}>Panel Mahasiswa</Text>
-        </Pressable>
-      </View>
-      {/* Tombol Panel Dosen: push() dengan parameter awal kelasDipilih */}
-      <View style={{ marginBottom: 16 }}>
-        <Pressable
-          style={styles.button}
-          onPress={() =>
-            router.push({ pathname: "/dosen", params: { kelasDipilih: "-" } })
-          }
-        >
-          <Ionicons name="person" size={18} color={colors.primary} />
-          <Text style={styles.buttonText}>Panel Dosen</Text>
-        </Pressable>
-      </View>
-      {/* push(): buka halaman admin di atas Home, Home tetap ada di stack */}
-      <View style={{ marginBottom: 16 }}>
-        <Pressable style={styles.button} onPress={() => router.push("/admin")}>
-          <Ionicons name="shield-checkmark" size={18} color={colors.primary} />
-          <Text style={styles.buttonText}>Panel Admin</Text>
-        </Pressable>
-      </View>
+      <ActivityIndicator size="large" color={colors.primary} />
+      <Text style={{ textAlign: "center", color: colors.textMuted, marginTop: 8 }}>Mengarahkan ke panel...</Text>
     </ScrollView>
   );
 }
