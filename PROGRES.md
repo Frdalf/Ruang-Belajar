@@ -7,10 +7,10 @@
 ## Status Rubrik Modul 4
 | Poin rubrik | Anggota 1 (Admin) | Anggota 2 (Mahasiswa) | Anggota 3 (Dosen) |
 |---|---|---|---|
-| Secure Token Storage | [ ] | [ ] | [ ] |
-| Supabase Auth Flow (Sign Up/In/Out + Loading) | [ ] | [ ] | [ ] |
-| AuthContext & Real-time Session | [ ] | [ ] | [ ] |
-| Route Protection Guards | [ ] | [ ] | [ ] |
+| Secure Token Storage | [x] | [ ] | [ ] |
+| Supabase Auth Flow (Sign Up/In/Out + Loading) | [x] | [ ] | [ ] |
+| AuthContext & Real-time Session | [x] | [ ] | [ ] |
+| Route Protection Guards | [x] | [ ] | [ ] |
 
 ## Status Rubrik Modul 3
 | Poin rubrik | Anggota 1 (Admin) | Anggota 2 (Mahasiswa) | Anggota 3 (Dosen) |
@@ -34,6 +34,14 @@
 | Inline & external style | [x] | [x] | [x] |
 
 ---
+
+## [2026-11-23] Anggota 1 (Farid) – Modul 4 Fase C: Panel Admin
+- Dikerjakan: Branch `fitur/admin-modul4` dari `main` terbaru (setelah merge PR #21). Membuat `components/AdminAkun.tsx`: (1) kartu profil dari `useAuth()` (nama, email, role, jabatan dari `user_metadata.jabatan`, fallback "-"); (2) **PIN Admin** key `admin_pin`: Simpan/Tampilkan/Hapus dengan cabang `Platform.OS === "web"` → localStorage, native → `setItemAsync`/`getItemAsync`/`deleteItemAsync`, `try/catch`, pesan status, validasi 4–6 digit angka, `keyboardType="numeric"`, `secureTextEntry`, `maxLength={6}`; (3) **update jabatan** `supabase.auth.updateUser({ data: { jabatan } })` dengan `loading`, `ActivityIndicator`, `disabled`, cek `{ error }` → Alert; kartu profil berubah otomatis lewat event `USER_UPDATED` di `onAuthStateChange`; (4) **Sign Out** dengan loading sendiri, tanpa router (dipindah dari `app/admin.tsx`). `app/admin.tsx`: `<AdminAkun />` dirender di atas `<AdminSection />`; guard role (`replace`) dan tombol Kembali (`canGoBack` → `back()`) tetap. `tsc --noEmit` lolos, `npx expo export --platform web` berhasil.
+- File diubah: components/AdminAkun.tsx, app/admin.tsx, README.md, PROGRES.md
+- Poin rubrik yang terpenuhi: Secure Token Storage; Supabase Auth Flow (Sign Up/In di login, Sign Out + update jabatan dengan loading); AuthContext & Real-time Session (kartu profil `useAuth()`); Route Protection Guards (guard root + guard role admin). Semua poin Modul 4 Anggota 1 selesai.
+- Catatan keamanan: tidak ada package baru; PIN hanya di SecureStore perangkat (web: localStorage, tidak terenkripsi, hanya untuk tes); tidak ada secret di kode.
+- Saran pesan commit: `feat: tambahkan AdminAkun dengan PIN Admin, update jabatan, dan Sign Out`
+- Belum selesai / langkah berikutnya: Farid tes manual Expo Go + web, push + PR `fitur/admin-modul4` → `main`.
 
 ## [2026-11-23] Anggota 1 (Farid) – Modul 4 Fase B: fondasi kode auth
 - Dikerjakan: `npx expo install expo-secure-store @supabase/supabase-js` (expo-secure-store ~58.0.3, @supabase/supabase-js ^2.119.2; config plugin expo-secure-store otomatis ditambahkan ke app.json). `lib/supabase.ts`: adapter SecureStore versi aman SSR (native → SecureStore; web + window → localStorage; web tanpa window → null/no-op) + client singleton dari `.env`. `context/AuthContext.tsx`: `user`, `session`, `isLoading`, `signOut`, `getSession` + `onAuthStateChange` + unsubscribe, ditambah `role` (user_metadata.role) dan `nama` (user_metadata.nama, fallback bagian depan email). `app/(auth)/login.tsx`: login/register, field `nama`, 3 tombol role (default mahasiswa), `signUp` mengirim `options.data: { nama, role }`, validasi `.trim()` + password ≥ 6, `ActivityIndicator` + `disabled={loading}`, tanpa `router.replace` setelah login. `app/_layout.tsx`: `AuthProvider` + `RootLayoutNav` dengan guard `useSegments()` (loading → ActivityIndicator; belum login → `/login`; sudah login di (auth) atau Home → `"/" + role`). `app/index.tsx`: tombol 3 panel dihapus, diganti "Mengarahkan ke panel...". Kasus akun tanpa role (`role === null`): guard tidak mengarahkan ke `"/" + role` (mencegah `/null`), melainkan ke Home; Home menampilkan "Akun ini belum punya role. Silakan daftar ulang dengan akun baru." + tombol "Keluar" (`signOut()` + loading). `Role` sudah ada di `constants/types.ts`, tidak diubah. `tsc --noEmit` lolos, `npx expo export --platform web` berhasil.
