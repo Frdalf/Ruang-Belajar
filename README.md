@@ -73,7 +73,7 @@ Project memakai app/ di root (template blank-typescript), bukan src/app.
 |---|---|
 | `app/_layout.tsx` | Root layout: `AuthProvider` + `RootLayoutNav` (guard `useSegments()`: loading → `ActivityIndicator`, belum login → `/login`, sudah login → panel role) + `<Stack.Screen>` untuk (auth)/login, index, admin, mahasiswa, & dosen |
 | `app/index.tsx` | Halaman Home: header + "Mengarahkan ke panel..." (Modul 4: tombol panel dihapus, guard yang mengarahkan sesuai role) |
-| `app/admin.tsx` | Halaman Panel Admin: `<AdminSection />`, tombol Kembali (`router.back()`) & Keluar (`router.replace("/")`) |
+| `app/admin.tsx` | Halaman Panel Admin: guard role (`router.replace("/" + role)` jika bukan admin), `<AdminSection />`, tombol Kembali (`canGoBack()` → `router.back()`) & Sign Out (`signOut()` + loading) |
 | `app/mahasiswa.tsx` | Halaman Mahasiswa: `<MahasiswaSection />`, tombol Kembali dengan pengecekan `router.canGoBack()` (fallback `router.replace("/")`) |
 | `app/dosen.tsx` | Halaman Dosen: `<DosenSection />`, tombol Kembali (`router.back()`) |
 | `components/AdminSection.tsx` | Section admin: kartu statistik per role (loop `for`) & daftar user (`.map()`), badge role (switch + inline style), tombol Kelola User (Alert), toggle daftar user (`useState` + `useEffect`); Modul 3: data user dimuat lewat `muatUserLokal()` (`getUsersLokal().then().catch()`) dengan early return `Loading`/`ErrorMessage`, tombol "Simulasi Server Gagal" (demo `reject()`), dan section "User dari Server" dari DummyJSON lewat `muatUserApi` (`async`/`await` + `delay` + `getUsersApi`) |
